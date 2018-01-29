@@ -1,5 +1,5 @@
 MilestoneID,             Dependencies, EstimatedEffort, Lead,  Completed, Description
-DefineInitialMilestones,None,1,Ed, "29/01/18"          , Come up with initial milestones for getting started
+DefineInitialMilestones,None,1,Ed,          , Come up with initial milestones for getting started
 InitialPlanningMeeting,None,1,Ed and Kai,,Meet to establish basic goals and common understanding
 DefineBasicPrograms,None,3,,,Come up with very basic programs to run through the entire compiler
 WriteBasicPrograms,DefineBasicPrograms,1,,,Write up source files for basic programs
