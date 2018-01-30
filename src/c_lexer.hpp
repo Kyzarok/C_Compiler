@@ -6,12 +6,18 @@
 
 enum TokenType{
     None		= 0, // This indicates there are no more tokens
-    Int			= 1, // token code 
-    Char		= 2,
-    Var			= 3,
-    Operator	= 4,
-    Keyword		= 5, // ie stuff like for, if etc. May later be split into additonal cases
-    Identifier	 // ie variable names
+    Int			= 1, // token code. Techically a constant 
+    Char		= 2, //Also constant
+	Float		= 3, //Also constant
+    Enumerator	= 4, //A type of constant. No clue what it is though
+    Operator	= 5,
+    Keyword		= 6, // ie stuff like for, if etc. May later be split into additonal cases
+    Identifier	= 7, // ie variable names
+	Punctuator	= 8,
+	StringLiteral //implicityl 9
+	
+	
+	
     
     // THIS IS A WIP list, will need to edit
     
