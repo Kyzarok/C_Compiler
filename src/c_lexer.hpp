@@ -8,13 +8,13 @@ enum TokenType{
     None		= 0, // This indicates there are no more tokens
     Int			= 1, // token code. Techically a constant 
     Char		= 2, //Also constant
-	Float		= 3, //Also constant
+	 Float		= 3, //Also constant
     Enumerator	= 4, //A type of constant. No clue what it is though
-    Operator	= 5,
+    Operator = 5, // I am aware of 46 different operator types. How do we plan to handle this? 
     Keyword		= 6, // ie stuff like for, if etc. May later be split into additonal cases
     Identifier	= 7, // ie variable names
-	Punctuator	= 8,
-	StringLiteral //implicityl 9
+	 Punctuator	= 8,
+	 StringLiteral 
 	
 	
 	

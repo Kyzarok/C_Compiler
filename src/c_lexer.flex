@@ -16,20 +16,31 @@ extern "C" int fileno(FILE *stream);
 /* End the embedded code section. */
 %}
 
-TChar 			[a-zA-Z]
-TDigit			[0-9]
+T_Char 			[a-zA-Z]
+T_Digit			[0-9]
 
-TLeft			[(]
-TRight			[)]
-TLeftSquare		[[]
-TRightSquare	[]]
-TLeftCurly		[{]
-TRightCurly		[}]
+T_Left			[(]
+T_Right			[)]
+T_LeftSquare	[[]
+T_RightSquare	[]]
+T_LeftCurly		[{]
+T_RightCurly	[}]
+
+T_Plus			[+]
+T_Minus			[-]
+T_Star			[*]
+T_Equals			[=]
+T_ForwardSlash	[/]
+T_BackSlash		[\]
+T_LessThan		[<]
+T_GreatThan		[>]
+
 
 
 %%
 
-{TChar}+{ fprintf(stderr, "Word : %s\n", yytext); }
+{TDigit}+	{ fprintf(stderr, "Integer : %s\n", yytext); }
+{TChar}+		{ fprintf(stderr, "Word : %s\n", yytext); }
 
 %%
 
