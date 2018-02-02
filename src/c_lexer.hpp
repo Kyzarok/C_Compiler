@@ -4,7 +4,9 @@
 
 #include <string>
 
-enum TokenType{
+
+//This can be auto generated from bison. I think this entire file isn't needed anymore
+/*enum TokenType{
     None		= 0, // This indicates there are no more tokens
     Int			= 1, // token code. Techically a constant 
     Char		= 2, //Also constant
@@ -22,7 +24,8 @@ enum TokenType{
     // THIS IS A WIP list, will need to edit
     
     
-};
+};*/
+
 
 union TokenValue{
     double numberValue;
