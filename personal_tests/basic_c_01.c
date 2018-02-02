@@ -1,5 +1,5 @@
 //Basic program one, testing return, and functions?
 
-int main(){
+int f(){
 	return 5;
 }

@@ -1,6 +1,6 @@
 //Basic Program 3, testing addition operator
 
-int main(){
+int f(){
 	x=5;
 	x=x+3;
 	y=2;
