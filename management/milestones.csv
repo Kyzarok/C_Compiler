@@ -1,7 +1,8 @@
 MilestoneID,             Dependencies, EstimatedEffort, Lead,  Completed, Description
-DefineInitialMilestones,None,1,Ed,29/01/18, Come up with initial milestones for getting started
-InitialPlanningMeeting,None,1,Ed and Kai,01/02/18,Meet to establish basic goals and common understanding
-DefineBasicPrograms,None,3,,,Come up with very basic programs to run through the entire compiler and write them
-ResearchTokens,None,4,,,Research all tokens required for C
+DefineInitialMilestones,None,1,Ed,29/01/2018, Come up with initial milestones for getting started
+InitialPlanningMeeting,None,1,Ed and Kai,01/02/2018,Meet to establish basic goals and common understanding
+DefineBasicPrograms,None,3,,10/02/2018,Come up with very basic programs to run through the entire compiler and write them
+ResearchTokens,None,4,Ed,10/02/2018,Research all tokens required for C
 ImplementLexerForBasicPrograms,WriteBasicPrograms,5,,,Implement Lexer to support tokens found in basic programs
 ImplementCompleteCLexer,"ResearchTokens, ImplementLexerForBasicPrograms",5,,,Implement Lexer to support all C tokens
+WriteRequiredTests,None,4,Ed,,Write tests and test drivers for required tests
