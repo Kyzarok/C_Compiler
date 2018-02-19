@@ -10,13 +10,24 @@
     None		= 0, // This indicates there are no more tokens
     Int			= 1, // token code. Techically a constant 
     Char		= 2, //Also constant
-	 Float		= 3, //Also constant
-    Enumerator	= 4, //A type of constant. No clue what it is though
-    Operator = 5, // I am aware of 46 different operator types. How do we plan to handle this? 
-    Keyword		= 6, // ie stuff like for, if etc. May later be split into additonal cases
-    Identifier	= 7, // ie variable names
-	 Punctuator	= 8,
-	 StringLiteral 
+    Float		= 3, //Also constant
+    Enumerator	= 4, //A type of constant. No clue what it is though, low priority, look up later
+    //Operator 	= , // I am aware of 46 different operator types. How do we plan to handle this? Split between arithmetic and logical?
+	OperatorArithmetic	= 5, //stuff like +, - 
+	OperatorLogical		= 6, //stuff like !=, ||
+	OperatorBitwise		= 7, //stuff like |, &
+    Keyword		= 8, // ie stuff like for, if etc. May later be split into additonal cases
+    Identifier	= 9, // ie variable names
+    Punctuator	= 10, // looking at a list of punctuators: 	
+		<> 	Header name
+		[] 	Array delimiter
+		{} 	Initializer list, function body, or compound statement delimiter
+		()	Function parameter list delimiter; also used in expression grouping
+		*	Pointer declaration
+		,	Argument list separator
+		
+															
+    StringLiteral
 	
 	
 	

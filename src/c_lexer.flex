@@ -29,7 +29,7 @@ T_RightCurly	[}]
 T_Plus			[+]
 T_Minus			[-]
 T_Star			[*]
-T_Equals			[=]
+T_Equals		[=]
 T_ForwardSlash	[/]
 T_BackSlash		[\]
 T_LessThan		[<]
@@ -40,7 +40,9 @@ T_GreatThan		[>]
 %%
 
 {TDigit}+	{ fprintf(stderr, "Integer : %s\n", yytext); }
-{TChar}+		{ fprintf(stderr, "Word : %s\n", yytext); }
+{TChar}+		{ fprintf(stderr, "Word : %s\n", yytext); } /*
+{T_Plus}	{ylval.op_type = yytext; return binary_op */
+
 
 %%
 
