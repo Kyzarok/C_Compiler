@@ -19,17 +19,20 @@
     Keyword		= 8, // ie stuff like for, if etc. May later be split into additonal cases
     Identifier	= 9, // ie variable names
     Punctuator	= 10, // looking at a list of punctuators: 	
-		<> 	Header name
-		[] 	Array delimiter
-		{} 	Initializer list, function body, or compound statement delimiter
-		()	Function parameter list delimiter; also used in expression grouping
-		*	Pointer declaration
-		,	Argument list separator
-		
-															
-    StringLiteral
-	
-	
+		<> 		Header name			#include <limits.h>
+		[] 		Array delimiter		char a[7]
+		{} 		Initializer list, function body, or compound statement delimiter		char x[4] = {'H', 'i', '!', '\0'};
+		()		Function parameter list delimiter; also used in expression grouping		int f(x, y)
+		*		Pointer declaration		int *x
+		,		Argument list separator		char x[4] = {'H', 'i', '!', '\0'};
+		:		Statement label		labela: if (x == 0) x += 1;
+		=		Declaration initializer		char x[4] = { "Hi!" };
+		;		Statement end		x += 1
+		... 	Variable- length argument list		int f ( int y, ... )
+		#		Preprocessor directive		#include "limits.h"
+		' '		Character constant		char x ='x';
+		" " 	String literal or header name		char x[] = "Hi!";
+    StringLiteral	 = , unsure if subset or punctuator, will probably just make special case for them	
 	
     
     // THIS IS A WIP list, will need to edit
