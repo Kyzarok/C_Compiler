@@ -24,17 +24,40 @@ code requires{
 
 %token T_TIMES T_DIVIDE T_PLUS T_MINUS //basic four operators
 %token T_EQUALS
-%tokem
+%token	T_INT T_CHAR T_STRINGLIT
 %token T_LBRACKET T_RBRACKET T_LSQUARE T_RSQUARE T_LCURLY T_RCURLY
-%token T_KEYW_IF T_KEYW_ELSE
+%token T_KEYW_IF T_KEYW_ELSE T_
 %token T_NUMBER T_VARIABLE
 
-%type <expr> EXPR TERM FACTOR
-%type <number> T_NUMBER
-%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
+//%type <expr> EXPR TERM FACTOR
+//%type <number> T_NUMBER
+//%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
+
+%type <program_node> PROGRAM
 
 %start ROOT
 
 %%
 
-ROOT : EXPR { g_root = $1; }
+ROOT : PROGRAM { g_root = $1; }
+
+PROGRAM	:FNC_DEC
+	|GLB_VAR
+	|FNC_DEC PROGRAM
+	|GLB_VAR PROGRAM
+
+FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS")"FNC_BODY
+
+RETTYPE	: TYPE
+
+FNC_NAME : IDENTIFIER
+
+FNC_ARGS : /* stuff */
+
+FNC_BODY : COMPOUND_STATEMENT
+
+GLB_VAR	: TYPE 
+
+%%
+const /*Need to change type of this*/Expression *g_root; // Definition of variable (to match declaration earlier)
+
