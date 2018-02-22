@@ -1,7 +1,7 @@
 #ifndef ast_statements_hpp
 #define ast_statements_hpp
 
-#include "ast.hpp"
+#include "ast_node.hpp"
 #include "ast_expressions.hpp"
 
 class Statement : public Node {};

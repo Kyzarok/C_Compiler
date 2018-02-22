@@ -1,7 +1,7 @@
 #ifndef ast_expressions_hpp
 #define ast_expressions_hpp
 
-#include "ast.hpp"
+#include "ast_node.hpp"
 
 class Expression : public Node {}; // generic class for all expressions. May add functions to this later so important to separate
 

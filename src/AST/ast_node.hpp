@@ -1,5 +1,5 @@
-#ifndef ast_root_hpp
-#define ast_root_hpp
+#ifndef ast_node_hpp
+#define ast_node_hpp
 
 
 class Node //template function, contains only virtual functions to overwrite.
