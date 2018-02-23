@@ -1,4 +1,4 @@
-code requires{
+%code requires{
   #include "ast.hpp"
   #include <string>
   #include <cassert>
