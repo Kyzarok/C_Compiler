@@ -56,7 +56,7 @@ FNC_ARGS_LIST : /* stuff */
 
 FNC_BODY : COMPOUND_STATEMENT
 
-GLB_VAR	: TYPE 
+GLB_VAR	: TYPE IDENTIFIER
 
 %%
 const /*Need to change type of this*/Expression *g_root; // Definition of variable (to match declaration earlier)
