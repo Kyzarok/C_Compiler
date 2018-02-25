@@ -1,4 +1,4 @@
-inf f (int x)
+int f (int x);
 
 int main(){
 
