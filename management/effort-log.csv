@@ -1,4 +1,7 @@
 Date,Effort,Developers,Milestones
-29/01/2018,2,"Ed, Kai",DefineInitialMilestones
-01/02/2018,3,"Ed, Kai",InitialPlanningMeeting
-10/02/2018,4,Ed,DefineBasicPrograms
+2018/29/01,1.5,"Ed, Kai","DefineInitialMilestones, ImplementLexerForBasicPrograms"
+2018/02/01,2.5,"Ed, Kai","InitialPlanningMeeting, WriteParserFileForBasicPrograms"
+2018/02/10,1,Ed,DefineBasicPrograms
+2018/02/19,3.5,"Ed,Kai","ResearchTokens, ImplementLexerForBasicPrograms, WriteASTForBasicPrograms,WriteParserFileForBasicPrograms"
+2018/02/21,0.5,Ed,WriteASTForBasicPrograms
+2018/02/25,,"Ed, Kai",WriteRequiredTests
