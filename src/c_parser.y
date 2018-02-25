@@ -23,7 +23,7 @@
 //Need to put all token types here
 
 %token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
-//%token K_IF K_ELSE //more keyowords
+//%token K_IF K_ELSE //more keyowords, not needed for minimal parser / lexer
 %token O_PLUS O_EQUALS //Operators. Minimal ones for parser / lexer
 
 %token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
@@ -40,19 +40,26 @@
 
 ROOT : PROGRAM { g_root = $1; }
 
+ /*	Most of the AST is unimplemented. However, by recognizing in advance what
+	nodes of the tree we will encounter, it prevents the issue of advancing too
+	far and having an unstable foundation
+ */
 PROGRAM	: FNC_DEC
-	/* comment out things that we don't need right now
+	/* 	comment out things that we don't need right now
+		as they're unneeded for basic parser
 	|GLB_VAR
 	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
 	*/
-FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"FNC_BODY
+FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"FNC_BODY // two types of function declaration in basic parser/lexer
+		| RETTYPE FNC_NAME "(" ")"FNC_BODY // one with type, name, arguments and body, and one without the arguments
+		//more complex fnc_dec might have a declaration in one place, and a definition in an other. This is a longer term goal to support
 
-RETTYPE	: TYPE_SPEC
+RETTYPE	: TYPE_SPEC //possiby just merge?
 
-TYPE_SPEC	: T_INT
+TYPE_SPEC	: T_INT // only type supported by 5 basic programs
 
-FNC_NAME : IDENTIFIER
+FNC_NAME : IDENTIFIER 
 
 FNC_ARGS_LIST : /* stuff */
 
@@ -61,5 +68,12 @@ FNC_BODY : COMPOUND_STATEMENT
 GLB_VAR	: TYPE IDENTIFIER
 
 %%
-const /*Need to change type of this*/Expression *g_root; // Definition of variable (to match declaration earlier)
+const Node *g_root; // The top of the program is a node. Might be better type?
+
+const Node *parseAST() //This function returns the tree
+{
+  g_root=0;
+  yyparse();
+  return g_root;
+}
 
