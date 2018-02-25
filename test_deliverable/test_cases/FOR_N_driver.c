@@ -3,5 +3,5 @@
 int f();
 
 int main(){
-	return f()!=5; // function under test, f, should return 3. So if it does, return 1, else 0
+	return f()!=5; // function under test, f, should return 3. So if it does, return 0, else 1
 }
