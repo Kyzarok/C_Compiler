@@ -22,12 +22,11 @@
 
 //Need to put all token types here
 
-%token T_TIMES T_DIVIDE T_PLUS T_MINUS //basic four operators
-%token T_EQUALS
-%token	T_INT T_CHAR T_STRINGLIT
-%token T_LBRACKET T_RBRACKET T_LSQUARE T_RSQUARE T_LCURLY T_RCURLY
-%token T_KEYW_IF T_KEYW_ELSE T_
-%token T_NUMBER T_VARIABLE
+%token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
+//%token K_IF K_ELSE //more keyowords
+%token O_PLUS O_EQUALS //Operators. Minimal ones for parser / lexer
+
+%token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
 
 //%type <expr> EXPR TERM FACTOR
 //%type <number> T_NUMBER
@@ -41,14 +40,17 @@
 
 ROOT : PROGRAM { g_root = $1; }
 
-PROGRAM	:FNC_DEC
+PROGRAM	: FNC_DEC
+	/* comment out things that we don't need right now
 	|GLB_VAR
 	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
-
+	*/
 FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"FNC_BODY
 
-RETTYPE	: TYPE
+RETTYPE	: TYPE_SPEC
+
+TYPE_SPEC	: T_INT
 
 FNC_NAME : IDENTIFIER
 

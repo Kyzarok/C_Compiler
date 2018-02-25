@@ -19,30 +19,23 @@ extern "C" int fileno(FILE *stream);
 T_Char 			[a-zA-Z]
 T_Digit			[0-9]
 
-T_Left			[(]
-T_Right			[)]
-T_LeftSquare	[[]
-T_RightSquare	[]]
-T_LeftCurly		[{]
-T_RightCurly	[}]
-
-T_Plus			[+]
-T_Minus			[-]
-T_Star			[*]
-T_Equals		[=]
-T_ForwardSlash	[/]
-T_BackSlash		[\]
-T_LessThan		[<]
-T_GreatThan		[>]
-
-
 
 %%
 
-{TDigit}+	{ fprintf(stderr, "Integer : %s\n", yytext); }
-{TChar}+		{ fprintf(stderr, "Word : %s\n", yytext); } /*
-{T_Plus}	{ylval.op_type = yytext; return binary_op */
+ /*keywords*/
 
+"int"	{return(K_INT);}
+"return" {return(K_RETURN);}
+
+ //operators
+
+"+"	{return(O_PLUS);}
+"=" {return(O_EQUALS);}
+
+ /*types*/
+
+{TDigit}+	 { yylval.number=strtod(yytext, 0); return T_INT; } 
+{T_Char}({T_Char}|{T_Digit})*	{ yylval.string=new std::string(yytext); return T_VARIABLE; } //variable
 
 %%
 
