@@ -29,7 +29,7 @@
 %token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
 
 
-%type <program_node> PROGRAM 
+%type <Node> PROGRAM FNC_DEC T_INT T_VARIABLE K_INT K_RETURN O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
 
 %start ROOT
 
@@ -47,39 +47,28 @@ PROGRAM	: FNC_DEC
 	|GLB_VAR
 	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
+
 	*/
-FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"COMPUND_STATEMENT // two types of function declaration in basic parser/lexer
-	| RETTYPE FNC_NAME "(" ")"COMPUND_STATEMENT // one with type, name, arguments and body, and one without the arguments
-		//more complex fnc_dec might have a declaration in one place, and a definition in an other. This is a longer term goal to support
+FNC_DEC : TYPE_SPEC FNC_ID "(" ")" COMPOUND_STATEMENT
 
-RETTYPE	: TYPE_SPEC //possiby just merge?
+TYPE_SPEC : K_INT
 
-TYPE_SPEC : T_INT // only type required for 5 basic programs
-
-FNC_NAME : IDENTIFIER 
-
-FNC_ARGS_LIST : /* stuff */
-
-COMPUND_STATEMENT : "{""}"
-	 |"{"STATEMENT_LIST"}"
-
-STATEMENT_LIST : STATEMENT STATEMENT_LIST
-
-STATMENT : EXPRESSION_STATEMENT
-	//COMPUND_STATEMENT
-	RETURN_STATEMENT
-
-RETURN_STATEMENT : K_RETURN ";"
-		 | K_RETURN EXPRESSION ";"
-
-EXPRESSION_STATEMENT : ";"
-		| EXPRESSION ";"
-
-EXPRESSION : ASSIGNMENT_EXPRESSION
-	//EXPRESSION, ASSIGNMENT_EXPRESSION // this is for doing stuff like "int x, y;" i think
+CONSTANT : T_INT
 	
 
-GLB_VAR	: TYPE IDENTIFIER
+FNC_ID : T_VARIABLE
+
+COMPOUND_STATEMENT : "{"STATEMENT_LIST"}"
+		
+
+STATEMENT_LIST : STATEMENT
+		| STATEMENT STATEMENT_LIST
+
+STATEMENT : RETURN_STATEMENT
+
+RETURN_STATEMENT : K_RETURN EXPRESSION ";"
+
+EXPRESSION : CONSTANT
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?
