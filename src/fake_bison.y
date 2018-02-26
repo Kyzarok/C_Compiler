@@ -1,0 +1,68 @@
+ROOT : PROGRAM { g_root = $1; }
+
+PROGRAM : FNC_DECL
+	//|other shit
+
+FNC_DECL : TYPE_SPEC FNC_ID "(" ")" COMPOUND_STATEMENT
+
+TYPE_SPEC : K_INT
+
+TYPE_VAR : T_INT
+	| 
+
+FNC_ID : T_VARIABLE
+
+COMPOUND_STATEMENT : "{" STATEMENT_LIST "}"
+		//and some other stuff
+
+STATEMENT_LIST : STATEMENT
+		| STATMENT STATEMENT_LIST
+
+STATEMENT : RETURN_STATEMENT
+
+RETURN_STATEMENT : K_RETURN EXPRESSION ";"
+
+EXPRESSION : TYPE_VAR
+
+
+
+NC_DEC	:  TYPE_SPEC FNC_NAME "(" ")"COMPOUND_STATEMENT // two types of function declaration in basic parser/lexer
+	//| TYPE_SPEC FNC_NAME "("FNC_ARGS_LIST")"COMPOUND_STATEMENT // one with type, name, arguments and body, and one without the arguments
+	//more complex fnc_dec might have a declaration in one place, and a definition in an other. This is a longer term goal to support
+
+TYPE_SPEC : T_INT // only type required for 5 basic programs
+
+FNC_NAME : IDENTIFIER 
+
+IDENTIFIER : T_VARIABLE
+
+//FNC_ARGS_LIST : /* stuff */
+
+COMPOUND_STATEMENT : "{" DECLARATION_LIST STATEMENT_LIST "}"
+		| "{" STATEMENT_LIST "}"
+
+DECLARATION_LIST : DECLARATION
+		 | DECLARATION_LIST DECLARATION
+
+DECLARATION	: DECL_SPEC DECL_CO
+	 
+STATEMENT_LIST : STATEMENT STATEMENT_LIST
+
+STATEMENT : EXPRESSION_STATEMENT
+	//COMPUND_STATEMENT
+	RETURN_STATEMENT
+
+RETURN_STATEMENT : K_RETURN ";"
+		 | K_RETURN EXPRESSION ";"
+
+EXPRESSION_STATEMENT : EXPRESSION ";"
+
+EXPRESSION : ASSIGNMENT_EXPRESSION
+	//EXPRESSION, ASSIGNMENT_EXPRESSION // this is for doing stuff like "int x, y;" i think. Not needed
+ASSIGNMENT_EXPRESSION : IDENTIFIER	
+
+//GLB_VAR	: TYPE IDENTIFIER
+
+
+
+

@@ -7,7 +7,7 @@ ImplementLexerForBasicPrograms,DefineBasicPrograms,2,,75b56b7a8e5628e869bb815f22
 ImplementCompleteCLexer,"ResearchTokens, ImplementLexerForBasicPrograms",3,,,Implement Lexer to support all C tokens,
 WriteRequiredTests,None,2,Ed,b69d21ccc9efdde4edafe85dba1cbb09b122b203,Write tests and test drivers for required tests,8&9 partially complete
 WriteASTForBasicPrograms,DefineBasicPrograms,4,,,,
-WriteParserFileForBasicPrograms,DefineBasicPrograms,4,,,,
+WriteParserFileForBasicPrograms,DefineBasicPrograms,4,,fb58c7d8aa66c8a9196b6f294dd3800ae84c7c84,,
 WriteCompleteAST,WriteASTForBasicPrograms,3,,,,
 WriteCompleteParser,WriteParserFileForBasicPrograms,3,,,,
 MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,,,,
