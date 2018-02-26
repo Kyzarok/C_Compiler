@@ -28,11 +28,8 @@
 
 %token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
 
-//%type <expr> EXPR TERM FACTOR
-//%type <number> T_NUMBER
-//%type <string> T_VARIABLE T_LOG T_EXP T_SQRT FUNCTION_NAME
 
-%type <program_node> PROGRAM
+%type <program_node> PROGRAM 
 
 %start ROOT
 
@@ -40,7 +37,7 @@
 
 ROOT : PROGRAM { g_root = $1; }
 
- /*	Most of the AST is unimplemented. However, by recognizing in advance what
+ /*	Most of the AST is not implemented. However, by recognizing in advance what
 	nodes of the tree we will encounter, it prevents the issue of advancing too
 	far and having an unstable foundation
  */
@@ -51,19 +48,36 @@ PROGRAM	: FNC_DEC
 	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
 	*/
-FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"FNC_BODY // two types of function declaration in basic parser/lexer
-		| RETTYPE FNC_NAME "(" ")"FNC_BODY // one with type, name, arguments and body, and one without the arguments
+FNC_DEC	: RETTYPE FNC_NAME "("FNC_ARGS_LIST")"COMPUND_STATEMENT // two types of function declaration in basic parser/lexer
+	| RETTYPE FNC_NAME "(" ")"COMPUND_STATEMENT // one with type, name, arguments and body, and one without the arguments
 		//more complex fnc_dec might have a declaration in one place, and a definition in an other. This is a longer term goal to support
 
 RETTYPE	: TYPE_SPEC //possiby just merge?
 
-TYPE_SPEC	: T_INT // only type supported by 5 basic programs
+TYPE_SPEC : T_INT // only type required for 5 basic programs
 
 FNC_NAME : IDENTIFIER 
 
 FNC_ARGS_LIST : /* stuff */
 
-FNC_BODY : COMPOUND_STATEMENT
+COMPUND_STATEMENT : "{""}"
+	 |"{"STATEMENT_LIST"}"
+
+STATEMENT_LIST : STATEMENT STATEMENT_LIST
+
+STATMENT : EXPRESSION_STATEMENT
+	//COMPUND_STATEMENT
+	RETURN_STATEMENT
+
+RETURN_STATEMENT : K_RETURN ";"
+		 | K_RETURN EXPRESSION ";"
+
+EXPRESSION_STATEMENT : ";"
+		| EXPRESSION ";"
+
+EXPRESSION : ASSIGNMENT_EXPRESSION
+	//EXPRESSION, ASSIGNMENT_EXPRESSION // this is for doing stuff like "int x, y;" i think
+	
 
 GLB_VAR	: TYPE IDENTIFIER
 
