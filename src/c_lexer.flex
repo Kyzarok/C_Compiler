@@ -32,52 +32,54 @@ T_Digit			[0-9]
 "else"		{return(K_ELSE);}
 "for"		{return(K_FOR);}
 "while"		{return(K_WHILE);}
-/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/ 
+	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/ 
 
 
  /*Arithmetic operator*/
 
 "+"	{return(O_PLUS);}
-"=" {return(O_EQUALS);}
-"-" {return(O_MINUS);}
-"*"	{return(O_TIMES);}
-"/" {return(O_DIV);}
+"=" 	{return(O_EQUALS);}
+"-" 	{return(O_MINUS);}
+"*"	{return(O_TIMES);}	//replace with operator asterix or summat
+"/" 	{return(O_DIV);}
 
-/*Logical operator*/
+ /*Logical operator*/
 
-"==" {return(L_IS_EQUAL);}
-"!=" {return(L_IS_NOT_EQUAL);}
-"&&" {return(L_AND);}
-"||" {return(L_OR);}
-"!" {return(L_NOT);}
+"==" 	{return(L_IS_EQUAL);}
+"!=" 	{return(L_IS_NOT_EQUAL);}
+"&&" 	{return(L_AND);}
+"||" 	{return(L_OR);}
+"!" 	{return(L_NOT);}
 
-/*Bitwise operator*/
+ /*Bitwise operator*/
 
-"&" {return(B_AND);}
-"|" {return(B_OR);}
-"~" {return(B_NOT);}
-"^" {return(B_XOR);}
-"<<" {reutrn(B_LSHIFT);}
-">>" {return(B_RSHIFT);}
+"&" 	{return(B_AND);}
+"|" 	{return(B_OR);}
+"~" 	{return(B_NOT);}
+"^" 	{return(B_XOR);}
+"<<" 	{return(B_LSHIFT);}
+">>" 	{return(B_RSHIFT);}
 
-/*Punctuators*/
+ /*Punctuators*/
 
-"<" {return(T_LHEADER);}
-">" {return(T_RHEADER);}
-"[" {return(T_LARRAY_DELIMITER);}
-"]" {return(T_RARRAY_DELIMITER);}
-"{" {return(T_LCURL_BRACKET);}
-"}" {return(T_RCURL_BRACKET);}
-"(" {return(T_LBRACKET);}
-")" {return(T_RBRACKET);}
-/*SSOOOO slight issue, the symbol for pointer needs * but matches with times as well so we need some level of abstraction to sort it*/
-"," {return(T_LIST_SEPARATOR);}
-":" {return(T_STATEMENT_LABEL);}
-";" {return(T_STATEMENT_END);}
-"..." {return(T_VARIABLE_LENGHT_ARGUMENT_LIST);}
-"#" {return(T_INCLUDE);}
-"'" {return(T_CHAR_CONST);}
-""" {return(T_NAME_LIMITER);}
+"<" 	{return(P_LHEADER);}
+">" 	{return(P_RHEADER);}
+"[" 	{return(P_LSQBRAC);}
+"]" 	{return(P_RSQBRAC);}
+"{" 	{return(P_LCURLBRAC);}
+"}" 	{return(P_RCURLBRAC);}
+"(" 	{return(P_LBRACKET);}
+")" 	{return(P_RBRACKET);}
+	/* SSOOOO slight issue, the symbol for pointer needs * but matches with times as well so we need some level of abstraction to sort it*/
+"," 	{return(P_LIST_SEPARATOR);}
+":" 	{return(P_STATEMENT_LABEL);}
+";" 	{return(P_STATEMENT_END);}
+"..." 	{return(P_VARIABLE_LENGHT_ARGUMENT_LIST);}
+"#" 	{return(P_INCLUDE);}
+"'" 	{return(P_CHAR_CONST);}
+
+"/*"[.]*"*/" {} // strip comments
+"//"[^\n]* {} //strip comments
 
  /*types*/
 
