@@ -75,8 +75,8 @@ T_Digit			[0-9]
 ":" 	{return(P_STATEMENT_LABEL);}
 ";" 	{return(P_STATEMENT_END);}
 "..." 	{return(P_VARIABLE_LENGTH_ARGUMENT_LIST);}
-"#" 	{return(P_INCLUDE);}
-"'" 	{return(P_CHAR_CONST);} //not sure this is right?
+"#" 	{return(P_INCLUDE);} // not sure this is correct handling?
+"'" 	{return(P_CHAR_CONST);} //not sure this is right either?
 
 "/*"[.]*"*/" {} // strip comments
 "//"[^\n]* {} //strip comments
