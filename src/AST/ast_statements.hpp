@@ -14,7 +14,7 @@ const Expression *getExpression() const; // I belive this covers the statement x
 //TODO add functionality to this class
 };
 
-//TODO add more statments, eg Return statement, if statement
+//TODO add more statements, eg Return statement, if statement
 
 //TODO make Compound Statement and Statement List work
 
