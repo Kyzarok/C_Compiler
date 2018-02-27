@@ -23,7 +23,7 @@
 //Need to put all token types here
 
 %token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
-//%token K_IF K_ELSE //more keyowords, not needed for minimal parser / lexer
+//%token K_IF K_ELSE K_CHAR K_FLOAT //more keyowords, not needed for minimal parser / lexer
 %token O_PLUS O_EQUALS //Operators. Minimal ones for parser / lexer
 
 %token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
@@ -57,12 +57,12 @@ FNC_DEC : TYPE_SPEC FNC_ID "(" ")" COMPOUND_STATEMENT
 TYPE_SPEC : K_INT
 
 CONSTANT : T_INT
-	
+	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/ 
 
 FNC_ID : T_VARIABLE
 
 COMPOUND_STATEMENT : "{"STATEMENT_LIST"}"
-		
+		//and some other stuff
 
 STATEMENT_LIST : STATEMENT
 		| STATEMENT STATEMENT_LIST
@@ -82,4 +82,4 @@ const Node *parseAST() //This function returns the tree
   yyparse();
   return g_root;
 }
-
+/*need to create more abstraction to separate operators, identifiers, keywords etc....*/
