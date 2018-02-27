@@ -35,12 +35,12 @@ T_Digit			[0-9]
 	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/ 
 
 
- /*Arithmetic operator*/
+ /*Arithmetic operator (and some point stuff we'll probably never implement)*/
 
 "+"	{return(O_PLUS);}
 "=" 	{return(O_EQUALS);}
 "-" 	{return(O_MINUS);}
-"*"	{return(O_TIMES);}	//replace with operator asterix or summat
+"*"	{return(O_ASTR;}	//called as such to avoid issue of * being used for pointers, dereferencing, and multiplication
 "/" 	{return(O_DIV);}
 
  /*Logical operator*/
@@ -70,13 +70,13 @@ T_Digit			[0-9]
 "}" 	{return(P_RCURLBRAC);}
 "(" 	{return(P_LBRACKET);}
 ")" 	{return(P_RBRACKET);}
-	/* SSOOOO slight issue, the symbol for pointer needs * but matches with times as well so we need some level of abstraction to sort it*/
+	/* SSOOOO slight issue, the symbol for pointer needs * but matches with times as well so we need some level of abstraction to sort it. Solved by renaming O_TIMES to O_ASTR, handles all 3 cases*/
 "," 	{return(P_LIST_SEPARATOR);}
 ":" 	{return(P_STATEMENT_LABEL);}
 ";" 	{return(P_STATEMENT_END);}
-"..." 	{return(P_VARIABLE_LENGHT_ARGUMENT_LIST);}
+"..." 	{return(P_VARIABLE_LENGTH_ARGUMENT_LIST);}
 "#" 	{return(P_INCLUDE);}
-"'" 	{return(P_CHAR_CONST);}
+"'" 	{return(P_CHAR_CONST);} //not sure this is right?
 
 "/*"[.]*"*/" {} // strip comments
 "//"[^\n]* {} //strip comments

@@ -23,10 +23,13 @@
 //Need to put all token types here
 
 %token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
-//%token K_IF K_ELSE K_CHAR K_FLOAT //more keyowords, not needed for minimal parser / lexer
-%token O_PLUS O_EQUALS //Operators. Minimal ones for parser / lexer
-
-%token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer
+%token K_IF K_ELSE K_CHAR K_FLOAT K_FOR K_WHILE //more keyowords, not needed for minimal parser / lexer
+%token O_PLUS O_EQUALS O_MINUS O_ASTR O_DIV //Arithmetic Operators (and pointer I guess). Minimal ones for parser / lexer
+%token L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT //Logical operators
+%token B_AND B_OR B_NOT B_XOR B_LSHIFT B_RIGHTSHIFT //Bitwise operators
+%token P_LHEADER P_RHEADER P_LSQBRAC P_RSQBRAC L_CURLBRAC R_CURLBRAC P_LBRACKET P_RBRACKET // punctuators
+%token P_LIST_SEPARATOR P_STATEMENT_LABEL P_STATEMENT_END P_VARIABLE_LENGTH_ARGUMENT_LIST P_INCLUDE P_CHAR_CONST //more punctuators, not sure if needed?
+%token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer 
 
 
 %type <Node> PROGRAM FNC_DEC T_INT T_VARIABLE K_INT K_RETURN O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
@@ -61,7 +64,7 @@ CONSTANT : T_INT
 
 FNC_ID : T_VARIABLE
 
-COMPOUND_STATEMENT :  STATEMENT_LIST 
+COMPOUND_STATEMENT : STATEMENT_LIST
 		//and some other stuff
 
 STATEMENT_LIST : STATEMENT
