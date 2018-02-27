@@ -13,11 +13,15 @@
 	std::string *string;
 }
 
-%token	K_INT K_CHAR K_FLOAT K_RETURN
-%token	K_IF K_ELSE
+%token	K_INT K_CHAR K_FLOAT K_RETURN 
+//%token	K_IF K_ELSE
 %token	O_PLUS O_EQUALS
 %token	T_INT T_VARIABLE
-%type <Node> PROGRAM FNC_DEC T_INT T_VARIABLE K_INT K_CHAR K_FLOAT K_RETURN K_IF K_ELSE O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
+
+
+
+
+%type <Node> PROGRAM FNC_DEC T_INT T_VARIABLE K_INT K_CHAR K_FLOAT K_RETURN O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
 %start ROOT
 %%
 
@@ -25,6 +29,7 @@ ROOT : PROGRAM { g_root = $1; }
 
 PROGRAM : FNC_DECL	{ $$ = $1; }
 	//|other shit
+	//
 
 FNC_DECL : TYPE_SPEC FNC_ID "(" ")" COMPOUND_STATEMENT
 
@@ -57,6 +62,8 @@ const Node *parseAST() //This function returns the tree
   return g_root;
 }
 
+
+/*need to create more abstraction to separate operators, identifiers, keywords etc....*/
 /*END OF WHAT K DID 26/2/18*/
 
 
