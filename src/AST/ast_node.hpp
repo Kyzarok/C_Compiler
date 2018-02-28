@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <vector>
 
 class Node //template function, contains only virtual functions to overwrite.
 
