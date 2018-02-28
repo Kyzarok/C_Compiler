@@ -55,7 +55,7 @@ PROGRAM	: FNC_DEC
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : TYPE_SPEC FNC_ID "(" ")" "{"COMPOUND_STATEMENT"}"
+FNC_DEC : TYPE_SPEC FNC_ID "(" ")" "{"COMPOUND_STATEMENT"}" // I think maybe just have Statement_list here?
 
 TYPE_SPEC : K_INT
 
