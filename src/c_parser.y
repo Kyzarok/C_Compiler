@@ -29,12 +29,12 @@
 %token B_AND B_OR B_NOT B_XOR B_LSHIFT B_RIGHTSHIFT //Bitwise operators
 %token P_LHEADER P_RHEADER P_LSQBRAC P_RSQBRAC L_CURLBRAC R_CURLBRAC P_LBRACKET P_RBRACKET // punctuators
 %token P_LIST_SEPARATOR P_STATEMENT_LABEL P_STATEMENT_END P_VARIABLE_LENGTH_ARGUMENT_LIST P_INCLUDE P_CHAR_CONST //more punctuators, not sure if needed?
-%token T_INT T_VARIABLE //Types. Minimal ones for parser / lexer 
+%token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <Node> PROGRAM FNC_DEC T_INT T_VARIABLE K_INT K_RETURN O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
+%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN O_PLUS O_EQUALS TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT
 
-/*	
+/*
 */
 
 %start ROOT
@@ -60,9 +60,9 @@ FNC_DEC : TYPE_SPEC FNC_ID "(" ")" "{"COMPOUND_STATEMENT"}" // I think maybe jus
 TYPE_SPEC : K_INT
 
 CONSTANT : T_INT
-	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/ 
+	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
-FNC_ID : T_VARIABLE
+FNC_ID : T_IDENTIFIER
 
 COMPOUND_STATEMENT : STATEMENT_LIST
 		//and some other stuff

@@ -2,7 +2,7 @@
 
 %{
 /*
-Section of c code to be embedded at top of generated code. 
+Section of c code to be embedded at top of generated code.
 Put includes, definitions, etc up here
 */
 
@@ -32,7 +32,7 @@ T_Digit			[0-9]
 "else"		{return(K_ELSE);}
 "for"		{return(K_FOR);}
 "while"		{return(K_WHILE);}
-	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/ 
+	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/
 
 
  /*Arithmetic operator (and some point stuff we'll probably never implement)*/
@@ -83,8 +83,8 @@ T_Digit			[0-9]
 
  /*types*/
 
-{T_Digit}+ { yylval.number=strtod(yytext, 0); return T_INT; } 
-{T_Char}({T_Char}|{T_Digit})* { yylval.string=new std::string(yytext); return T_VARIABLE; } //variable
+{T_Digit}+ { yylval.number=strtod(yytext, 0); return T_INT; }
+{T_Char}({T_Char}|{T_Digit})* { yylval.string=new std::string(yytext); return T_IDENTIFIER; } //variable
 
 %%
 
@@ -94,4 +94,3 @@ void yyerror (char const *s)
   fprintf (stderr, "Flex Error: %s\n", s); /* s is the text that wasn't matched */
   exit(1);
 }
-
