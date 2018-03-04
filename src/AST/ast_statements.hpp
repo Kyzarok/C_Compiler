@@ -11,6 +11,11 @@ class Statement : public Node {
 
 class ExpressionStatement : public Statement {
 
+	protected:
+		ExpressionPtr expr;
+		
+		ExpressionStatement(ExpressionPtr _expr) : expr(_expr){} // constructor
+	
 
 //TODO add functionality to this class
 };
@@ -20,9 +25,9 @@ class ReturnStatement :public Statement { // added 28/02/18. I think this is the
 	protected:
 		ExpressionPtr ret;
 		
-		ReturnStatement(ExpressionPtr _ret) : ret(-ret){}
+		ReturnStatement(ExpressionPtr _ret) : ret(_ret){}
 	public:
-		ExpressionPtr getReturnExpression() const; 
+		ExpressionPtr *getReturnExpression() const; 
 		//print, evaluate, translate, compile, etc
 }
 //TODO make Compound Statement and Statement List work
