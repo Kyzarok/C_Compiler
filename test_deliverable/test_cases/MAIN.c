@@ -1,6 +1,6 @@
 //test no.9
 
-inf f();
+int f();
 
 int main(){
 
