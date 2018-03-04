@@ -16,7 +16,7 @@ class BinaryExpression : public Expression { // ie for stuff like x+3
 public:
 	const Expression *getLeft() const;
 	const Expression *getRight() const;
-	OperatorCode getOperator() const; // will need to somewhere define a type of Operator code
+	std::string getOperator() const;
 
 };
 
@@ -27,23 +27,23 @@ public:
 //TODO Add other types of expression
 
 class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION
-	/*rough code, will need hashing out
+
 	
 	protected:
-		ExpressionPtr Left; // has a left expressions
-		ExpressionPtr Right; // to be assigned to right expression
+		ExpressionPtr target; // has a left expressions
+		ExpressionPtr value; // to be assigned to right expression
 		
 	public:
-		AssignmentExpression(ExpressionPtr _left, ExpressionPtr _right)
-			: left(_left)
-			, right(_right)
+		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) // constructor
+			: target(_target)
+			, value(_value)
 		{}
 		
 		
-		const Expression *getLeft() const;
-		const Expression *getRight() const;
+		const Expression *gettarget() const;
+		const Expression *getvalue() const;
 	
-	*/
+
 	
-}
+};
 #endif ast_expressions_hpp
