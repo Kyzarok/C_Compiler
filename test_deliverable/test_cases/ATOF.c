@@ -6,4 +6,4 @@ int f(){
 	char demo[4] ="100";
 	double value = atof(demo);
 	return value;
-} 
+}
