@@ -20,6 +20,27 @@ public:
 
 };
 
+class Identifier : public Expression { // ie for stuff like x+3
+
+public:
+	const Expression *getLeft() const;
+	const Expression *getRight() const;
+	std::string getOperator() const;
+
+};
+
+class EqualsOperator : public Expression { // ie for stuff like x+3
+
+public:
+	const Expression *getLeft() const;
+	const Expression *getRight() const;
+	std::string getOperator() const;
+s
+};
+
+//Separate Expression into
+
+
 //TODO Add AST nodes for operators, AST nodes for literals and variables
 
 

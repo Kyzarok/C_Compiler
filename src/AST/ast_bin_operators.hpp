@@ -17,7 +17,7 @@ other classes such as addOperator.
 I _think_ it is needed though?
 */
 
-class Operator
+class Operators
     : public Node
 {
 protected:
