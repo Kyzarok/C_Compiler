@@ -4,6 +4,6 @@ Week,    DateRange,          PlannedEffort,ActualEffort,  OtherDeadlines
 6, 12th Feb - 18th Feb,Implement C Lexer,None," Databases Deliverable. Networks Coursework. Parser Deliverable, Picocon"
 7, 19th Feb - 25th Feb,"WriteRequiredTests, WriteASTForBasicProgram, ImplementLexerForBasicPrograms","WriteRequiredTests, ImplementLexerForBasicPrograms",
 8, 26th Feb -  4th Mar,"WriteASTForBasicProgram, WriteParserFileForBasicPrograms, MinimalPythonCompiler",WriteParserFileForBasicPrograms,"Databases Deliverable,  Code Gen Deliverable, Formative Deadline"
-9,  5th Mar - 11th Mar,                  ,              ,
+9,  5th Mar - 11th Mar,"WriteASTForBasicProgram, MinimalPython Compiler",              ,
 10, 12th Mar - 18th Mar,                  ,              ,Maths Coursework
 11, 19th Mar - 27th Mar,                  ,              ,
