@@ -65,5 +65,18 @@ public:
 	}
 };
 	
+class CharLiteral : public Node {
+private:
+	char character;
+public:
+	CharLiteral(char _character) : character(_character) {}
+	const char getChar() const { return character; }
+	virtual void print(std::ostream &dst) const override {
+		dst << character;
+	}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		return character;
+	}
+};
 
 #endif
