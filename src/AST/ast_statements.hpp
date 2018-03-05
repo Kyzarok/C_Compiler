@@ -2,8 +2,6 @@
 #define ast_statements_hpp
 
 #include "ast_expressions.hpp"
-#include "ast_node.hpp"
-
 
 class Statement : public Node {
 	

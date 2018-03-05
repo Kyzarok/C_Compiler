@@ -7,6 +7,31 @@ class Expression : public Node {
 
 };
 
+
+
+//TODO Add other types of expression
+
+class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION
+
+	
+	protected:
+		ExpressionPtr target; // has a left expressions
+		ExpressionPtr value; // to be assigned to right expression
+		
+	public:
+		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) // constructor
+			: target(_target)
+			, value(_value)
+		{}
+		
+		
+		const Expression *gettarget() const;
+		const Expression *getvalue() const;
+	
+
+	
+};
+
 class Operator : public Expression {
 protected:
 	NodePtr left;
@@ -282,27 +307,4 @@ public:
 	}
 };
 
-
-//TODO Add other types of expression
-
-class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION
-
-	
-	protected:
-		ExpressionPtr target; // has a left expressions
-		ExpressionPtr value; // to be assigned to right expression
-		
-	public:
-		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) // constructor
-			: target(_target)
-			, value(_value)
-		{}
-		
-		
-		const Expression *gettarget() const;
-		const Expression *getvalue() const;
-	
-
-	
-};
 #endif ast_expressions_hpp
