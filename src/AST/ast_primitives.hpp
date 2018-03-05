@@ -23,7 +23,7 @@
 //They do
 //Got code from DT's primitives example, I think that we should just use Number instead of LitInteger unless there's some special reason we're using it that I'm not aware of
 
-class Variable : public Expression {
+class Variable : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 private:
     std::string id;
 public:
@@ -37,7 +37,7 @@ public:
     }    
 };
 
-class Number : public Expression {
+class Number : public Node {
 private:
     double value;
 public:
@@ -51,5 +51,19 @@ public:
     }
 };
 
+class StringLiteral : public Node {
+private:
+	std::string str;
+public:
+	StringLiteral(std::string _str) : str(_str) {}
+	const std::string getStr() const { return str; }
+	virtual void print(std::ostream &dst) const override {
+		dst << str;
+	}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		return str;
+	}
+};
+	
 
 #endif
