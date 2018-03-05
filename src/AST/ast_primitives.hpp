@@ -82,4 +82,18 @@ public:
 	}
 };
 
+class Float : public Node {
+private:
+	float flo;
+public:
+	Float(float _flo) : flo(_flo) {}
+	const float getFloat() const { return flo; }
+	virtual void print(std::ostream &dst) const override {
+		dst << flo;
+	}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		return flo;
+	}
+};
+
 #endif
