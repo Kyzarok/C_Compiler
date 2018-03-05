@@ -75,7 +75,7 @@ STATEMENT : RETURN_STATEMENT
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END
 
 EXPRESSION : CONSTANT
-	|	OPERATOR
+	|	OPERATOR	//I know this isn't quite right, but I needed a place to declare Operators
 
 OPERATOR : O_PLUS 
 	| O_EQUALS 

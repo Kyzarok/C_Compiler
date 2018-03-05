@@ -4,7 +4,7 @@
 #include "ast_expressions.hpp"
 
 class Statement : public Node {
-	
+	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };
 
 class ExpressionStatement : public Statement {
