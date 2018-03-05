@@ -7,6 +7,26 @@ class Expression : public Node {
 
 };
 
+class Operator : public Expression {
+protected:
+	NodePtr left;
+	NodePtr right;
+	Operator(NodePtr _left, NodePtr _right) : left(_left), right(_right){}
+public:
+	virtual const char *getOpcode() const = 0;
+	NodePtr getLeft() const {return left}
+	NodePtr getRight() const {return right}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" ";
+		dst<<getOpcode();
+		dst<<" ";
+		right->print(dst);
+		dst<<" )";
+	}
+};
+
  // generic class for all expressions. May add functions to this later so important to separate
 
  //I am unsure what expressions we actually need is the issue.
