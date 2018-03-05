@@ -14,8 +14,8 @@ protected:
 	Operator(NodePtr _left, NodePtr _right) : left(_left), right(_right){}
 public:
 	virtual const char *getOpcode() const = 0;
-	NodePtr getLeft() const {return left}
-	NodePtr getRight() const {return right}
+	NodePtr getLeft() const { return left; }
+	NodePtr getRight() const { return right; }
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
 		left->print(dst);
@@ -49,15 +49,77 @@ public:
 
 };
 
-class EqualsOperator : public Expression { // ie for stuff like x+3
-
+class EqualsOperator : public Operator { // ie for stuff like x+3
+protected:
+	virtual const char *getOpcode() const override { return "="; }
 public:
-	const Expression *getLeft() const;
-	const Expression *getRight() const;
-	std::string getOperator() const;
-s
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return //need to figure out what needs to be returned here as not sure if equals
+	}
 };
 
+class AddOperator : public Operator { 
+protected:
+	virtual const char *getOpcode() const override { return "+"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl + vr;
+	}
+};
+
+class SubOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "-"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl - vr;
+	}
+};
+
+class MulOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "*"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl*vr;
+	}
+};
+
+class DivOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "/"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl/vr;
+	}
+};
+
+class ExpOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "^"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl^vr;
+	}
+};
 //Separate Expression into
 
 
