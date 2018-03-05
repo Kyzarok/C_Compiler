@@ -36,7 +36,6 @@ class CompoundStatement : public Node{ // not sure why this extra level is neede
 }
 
 class StatementList : public Node{
-
 	protected: 
 		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
 	public:
