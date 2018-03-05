@@ -23,6 +23,9 @@
 //They do
 //Got code from DT's primitives example, I think that we should just use Number instead of LitInteger unless there's some special reason we're using it that I'm not aware of
 
+//Need to figure out where the keywords go
+
+
 class Variable : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 private:
     std::string id;
@@ -37,12 +40,12 @@ public:
     }    
 };
 
-class Number : public Node {
+class IntLiteral : public Node {
 private:
-    double value;
+    int value;
 public:
-    Number(double _value) : value(_value) {}
-    double getValue() const { return value; }
+    IntLiteral(int _value) : value(_value) {}
+    int getValue() const { return value; }
     virtual void print(std::ostream &dst) const override {
         dst<<value;
     }
