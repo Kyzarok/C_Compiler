@@ -7,6 +7,8 @@ class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };
 
+typedef const Statement *StatementPtr;
+
 class ExpressionStatement : public Statement {
 
 	protected:
@@ -36,14 +38,14 @@ class CompoundStatement : public Node{ // not sure why this extra level is neede
 class StatementList : public Node{
 
 	protected: 
-		std::vector<Statement> sl; // I think its easiest to have a Statement list be a vector?
-		int sl_l; // possibly just have a variable returning the length? Probably not needed.
+		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
 	public:
 		StatementList(){ // wip constructor
-		
+			//do something
+			/*		vector<StatementPtr> stPtr = new vector<StatementPtr>; */
 		}
 		
-}
+};
 
 
 #endif

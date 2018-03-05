@@ -7,7 +7,7 @@ class Expression : public Node {
 
 };
 
-
+typedef const Expression *ExpressionPtr;
 
 //TODO Add other types of expression
 
