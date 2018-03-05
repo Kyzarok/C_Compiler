@@ -42,9 +42,8 @@ class StatementList : public Node{
 	public:
 		StatementList(){ // wip constructor
 			//do something
-			/*		vector<StatementPtr> stPtr = new vector<StatementPtr>; */
-		}
-		
+			vector<StatementPtr> stPtr = new vector<StatementPtr>;
+		}	
 };
 
 
