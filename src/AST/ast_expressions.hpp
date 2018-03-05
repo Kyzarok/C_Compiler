@@ -51,12 +51,14 @@ public:
 
 
 //TODO Add AST nodes for operators, AST nodes for literals and variables
-//added =, +, -, *, /
+//added =, +, -, *, /, ==, !=, &&, ||, !, &, |, ~, ^, <<, >>
 //when it comes to Operators, Arithmetic, logical and bitwise all require the same root of Operator
 //this means that they can get both Expressions on either side of the Operator
 //I'd like to go over making a separation between Arith, Log and Bit so that we can use OOP
 //it should make sorting stuff out easier as we can classify them all under Expression: Operator
 
+
+//Start of Arithmetic Operators
 class EqualsOperator : public Operator { // ie for stuff like x+3
 protected:
 	virtual const char *getOpcode() const override { return "="; }
@@ -117,8 +119,134 @@ public:
 		return vl/vr;
 	}
 };
+//End of Arithmetic Operators
+//Start of Logical Operators
 
-class ExpOperator : public Operator {
+class EqualToOperator : public Operator {	//need to go over how mapping works with booleans
+protected:
+	virtual const char *getOpcode() const override { return "=="; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		if(vl == vr){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+};
+
+class NotEqualOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "!="; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		if(vl != vr){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+};
+
+class LAndOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "&&"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		if(vl && vr){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+};
+
+class LOrOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "||"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		if(vl || vr){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+};
+
+class NotOperator : public Operator {	// a not operator only requires RHS of !
+protected:
+	virtual const char *getOpcode() const override { return "!"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		if(!vr){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+};
+
+//End of Logical Operators
+//Start of Bitwise Operators
+
+class BAndOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "&"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl & vr;
+	}
+};
+
+class BOrOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "|"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl | vr;
+	}
+};
+
+class BNotOperator : public Operator {	//not would only intake RHS
+protected:
+	virtual const char *getOpcode() const override { return "~"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return ~vr;
+	}
+};
+
+class XorOperator : public Operator {
 protected:
 	virtual const char *getOpcode() const override { return "^"; }
 public:
@@ -126,12 +254,33 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluayte(bindings);
-		return vl^vr;
+		return vl && vr;		//Dont't know bitwise or in C++
 	}
 };
-//Separate Expression into
 
+class LShiftOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return "<<"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl << vr;
+	}
+};
 
+class RShiftOperator : public Operator {
+protected:
+	virtual const char *getOpcode() const override { return ">>"; }
+public:
+	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
+		double vl = left->evaluate(bindings);
+		double vr = right->evaluayte(bindings);
+		return vl >> vr;
+	}
+};
 
 
 //TODO Add other types of expression
