@@ -49,6 +49,14 @@ public:
 
 };
 
+
+//TODO Add AST nodes for operators, AST nodes for literals and variables
+//added =, +, -, *, /
+//when it comes to Operators, Arithmetic, logical and bitwise all require the same root of Operator
+//this means that they can get both Expressions on either side of the Operator
+//I'd like to go over making a separation between Arith, Log and Bit so that we can use OOP
+//it should make sorting stuff out easier as we can classify them all under Expression: Operator
+
 class EqualsOperator : public Operator { // ie for stuff like x+3
 protected:
 	virtual const char *getOpcode() const override { return "="; }
@@ -60,6 +68,7 @@ public:
 		return //need to figure out what needs to be returned here as not sure if equals
 	}
 };
+//Equals needs to be different, its probably just vl = vr but want to make sure we go through this together first
 
 class AddOperator : public Operator { 
 protected:
@@ -122,8 +131,6 @@ public:
 };
 //Separate Expression into
 
-
-//TODO Add AST nodes for operators, AST nodes for literals and variables
 
 
 
