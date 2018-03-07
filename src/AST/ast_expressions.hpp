@@ -13,15 +13,14 @@ typedef const Expression *ExpressionPtr;
 
 class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION	
 	protected:
-		ExpressionPtr target; // has a left expressions
+		std::string target; // has a left expressions
 		ExpressionPtr value; // to be assigned to right expression
 		
 	public:
-		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) : target(_target), value(_value){}
-		const Expression *gettarget() const;
+		AssignmentExpression(std::string _target, ExpressionPtr _value) : target(_target), value(_value){}
 		const Expression *getvalue() const;
 		virtual void print(std::ostream &dst) const override {
-			target->print(dst);
+			dst<<target;
 			dst << " = ";
 			value->print(dst);
 		}
