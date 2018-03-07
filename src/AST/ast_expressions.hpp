@@ -20,7 +20,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) : target(_target), value(_value){}
 		const Expression *gettarget() const;
 		const Expression *getvalue() const;
-	
+		virtual void print(std::ostream &dst) const override {
+			//implement
+		}
 };
 
 class Operator : public Expression {
@@ -33,30 +35,11 @@ public:
 	virtual const char *getOpcode() const = 0;
 	NodePtr getLeft() const { return left; }
 	NodePtr getRight() const { return right; }
-	virtual void print(std::ostream &dst) const override {
-		dst << "( ";
-		left->print(dst);
-		dst<<" ";
-		dst<<getOpcode();
-		dst<<" ";
-		right->print(dst);
-		dst<<" )";
-	}
 };
 
  // generic class for all expressions. May add functions to this later so important to separate
 
  //I am unsure what expressions we actually need is the issue.
- 
-class BinaryExpression : public Expression { // ie for stuff like x+3
-
-public:
-	const Expression *getLeft() const;
-	const Expression *getRight() const;
-	std::string getOperator() const;
-
-};
-
 
 //TODO Add AST nodes for operators, AST nodes for literals and variables
 //added =, +, -, *, /, ==, !=, &&, ||, !, &, |, ~, ^, <<, >>
@@ -75,8 +58,15 @@ public:
 	AddOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl + vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" + ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -87,8 +77,15 @@ public:
 	SubOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl - vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" - ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -99,8 +96,15 @@ public:
 	MulOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl*vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" * ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -111,8 +115,15 @@ public:
 	DivOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl/vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" / ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 //End of Arithmetic Operators
@@ -125,13 +136,20 @@ public:
 	EqualToOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		if(vl == vr){
 			return 1;
 		}
 		else{
 			return 0;
 		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" == ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -142,13 +160,20 @@ public:
 	NotEqualOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		if(vl != vr){
 			return 1;
 		}
 		else{
 			return 0;
 		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" != ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -159,13 +184,20 @@ public:
 	LAndOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		if(vl && vr){
 			return 1;
 		}
 		else{
 			return 0;
 		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" && ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -176,13 +208,20 @@ public:
 	LOrOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		if(vl || vr){
 			return 1;
 		}
 		else{
 			return 0;
 		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" || ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -193,13 +232,20 @@ public:
 	NotOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		//double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		if(!vr){
 			return 1;
 		}
 		else{
 			return 0;
 		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" ! ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -213,8 +259,15 @@ public:
 	BAndOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl & vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" & ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -225,8 +278,15 @@ public:
 	BOrOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl | vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" | ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -237,8 +297,15 @@ public:
 	BNotOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		//double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return ~vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" ~ ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -249,8 +316,15 @@ public:
 	XorOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl && vr;		//Dont't know bitwise or in C++
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" ^ ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -261,8 +335,15 @@ public:
 	LShiftOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl << vr;
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" << ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 
@@ -273,8 +354,14 @@ public:
 	RShiftOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
+		double vr = right->evaluate(bindings);
 		return vl >> vr;
+	}virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst<<" >> ";
+		right->print(dst);
+		dst<<" )";
 	}
 };
 

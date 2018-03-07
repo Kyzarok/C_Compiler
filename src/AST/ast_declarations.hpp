@@ -2,6 +2,7 @@
 #define ast_declarations_hpp
 
 #include "ast_node.hpp"
+#include "ast_statements.hpp"
 
 class FunctionDecl : public Node{
 
@@ -20,8 +21,31 @@ class FunctionDecl : public Node{
 		// constructor with args list -> case where f() so no arg list
 */
 	
+	protected:
+		std::string ret_type; // string containing what the return type is
+		std::string fnc_ID; // string containing the function id
+		CompStatementPtr body; // point to the compount Statement containing the body
+		//ParamListPtr paramlist; // TODO implement this type / node, is a pointer to the parameter list
+		bool isMain; // we need to be able to create a valid main entry point. As such, a boolean tracking if this is the main function
+	public: 
+		//constructor without arguments list
+		FunctionDecl(std::string _ret, std::string _ID, CompStatementPtr _body) : 
+			ret_type(_ret),
+			fnc_ID(_ID),
+			body(_body)
+			{
+				if(fnc_ID=="main"{
+					isMain=true;
+				}
+				else{
+					isMain=false;
+				}
+			}
+		//constructor with arguments list
+		
 
-}
+
+};
 //unsure if needed?
 /*class VariableDecl : public Node{
 

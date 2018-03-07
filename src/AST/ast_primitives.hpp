@@ -31,7 +31,9 @@ class IntLiteral : public Node {
     	}
 };
 
-class StringLiteral : public Node {
+
+//NON PRIORITY
+/*class StringLiteral : public Node {
 	private:
 		std::string str;
 	public:
@@ -71,6 +73,6 @@ class Float : public Node { // not priority, handling floats hard
 		virtual double evaluate(const std::map<std::string, double> &bindings) const override {
 			return flo;
 		}
-};
+};*/
 
 #endif
