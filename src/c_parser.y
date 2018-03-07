@@ -55,7 +55,7 @@ PROGRAM	: FNC_DEC
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET L_CURLBRAC COMPOUND_STATEMENT R_CURLBRAC // I think maybe just have Statement_list here?
+FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET L_CURLBRAC COMPOUND_STATEMENT R_CURLBRAC 
 
 TYPE_SPEC : K_INT
 
@@ -66,6 +66,8 @@ FNC_ID : T_IDENTIFIER
 
 COMPOUND_STATEMENT : STATEMENT_LIST // code to the effect of $$ = new StatementList $1
 		//and some other stuff
+		// ie variable declaration list
+		//declaration list followed vby statement list
 	//
 //A statement list has a vector of statement pointers. When a new statement is found, push it back in the vector, I think
 STATEMENT_LIST : STATEMENT // code to the effect of $$.vector.push_back($1)

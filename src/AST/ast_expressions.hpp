@@ -66,14 +66,7 @@ public:
 
 };
 
-class Identifier : public Expression { // ie for stuff like x+3
 
-public:
-	const Expression *getLeft() const;
-	const Expression *getRight() const;
-	std::string getOperator() const;
-
-};
 
 
 //TODO Add AST nodes for operators, AST nodes for literals and variables
@@ -85,7 +78,8 @@ public:
 
 
 //Start of Arithmetic Operators
-class EqualsOperator : public Operator { // ie for stuff like x+3
+/*TODO: Replace with Assignment Expression
+class EqualsOperator : public Operator {
 protected:
 	virtual const char *getOpcode() const override { return "="; }
 public:
@@ -96,6 +90,7 @@ public:
 		return //need to figure out what needs to be returned here as not sure if equals
 	}
 };
+*/
 //Equals needs to be different, its probably just vl = vr but want to make sure we go through this together first
 
 class AddOperator : public Operator { 
