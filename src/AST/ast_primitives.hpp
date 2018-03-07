@@ -2,8 +2,9 @@
 #define ast_primitives_hpp
 
 #include "ast_node.hpp"
+#include "ast_expressions.hpp"
 
-class Identifier : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
+class Identifier : public Expression {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 	protected:
 		std::string id;
 	public:
@@ -17,7 +18,7 @@ class Identifier : public Node {	//If we can figure out how Variable works then 
     	}    
 };
 
-class IntLiteral : public Node {
+class IntLiteral : public Expression {
 	private:
     	int value;
 	public:
@@ -33,7 +34,7 @@ class IntLiteral : public Node {
 
 
 //NON PRIORITY
-/*class StringLiteral : public Node {
+/*class StringLiteral : public Expression {
 	private:
 		std::string str;
 	public:
@@ -47,7 +48,7 @@ class IntLiteral : public Node {
 		}
 };
 	
-class CharLiteral : public Node {
+class CharLiteral : public Expression {
 	private:
 		char character;
 	public:
@@ -61,7 +62,7 @@ class CharLiteral : public Node {
 		}
 };
 
-class Float : public Node { // not priority, handling floats hard
+class Float : public Expression { // not priority, handling floats hard
 	private:
 		float flo;
 	public:

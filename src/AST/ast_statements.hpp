@@ -29,8 +29,8 @@ class ExpressionStatement : public Statement {
 class ReturnStatement : public Statement { // added 28/02/18. I think this is the correct format?
 	protected:
 		ExpressionPtr ret;
-		ReturnStatement(ExpressionPtr _ret) : ret(_ret){}
 	public:
+		ReturnStatement(ExpressionPtr _ret) : ret(_ret){}
 		ExpressionPtr *getReturnExpression() const;{return ret;} 
 		//print, evaluate, translate, compile, etc
 		virtual void print(std::ostream &dst) const override{
