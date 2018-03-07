@@ -24,11 +24,13 @@ protected:
     ExpressionPtr left;
     ExpressionPtr right;
 
-    Operator(ExpressionPtr _left, ExpressionPtr _right)
+   
+public:
+	 Operator(ExpressionPtr _left, ExpressionPtr _right)
         : left(_left)
         , right(_right)
     {}
-public:
+	
     virtual const char *getOpcode() const =0;
 
     ExpressionPtr getLeft() const

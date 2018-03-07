@@ -71,7 +71,6 @@ T_Digit			[0-9]
 "}" 	{return(P_RCURLBRAC);}
 "(" 	{return(P_LBRACKET);}
 ")" 	{return(P_RBRACKET);}
-	/* SSOOOO slight issue, the symbol for pointer needs * but matches with times as well so we need some level of abstraction to sort it. Solved by renaming O_TIMES to O_ASTR, handles all 3 cases*/
 "," 	{return(P_LIST_SEPARATOR);}
 ":" 	{return(P_STATEMENT_LABEL);}
 ";" 	{return(P_STATEMENT_END);}

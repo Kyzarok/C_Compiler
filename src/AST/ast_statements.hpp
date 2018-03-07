@@ -13,7 +13,7 @@ class ExpressionStatement : public Statement {
 
 	protected:
 		ExpressionPtr expr;
-		
+	public:	
 		ExpressionStatement(ExpressionPtr _expr) : expr(_expr){} // constructor
 	
 

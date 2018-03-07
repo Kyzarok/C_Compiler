@@ -27,73 +27,73 @@
 
 
 class Variable : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
-private:
-    std::string id;
-public:
-    Variable(const std::string &_id) : id(_id) {}
-    const std::string getId() const { return id; }
-	virtual void print(std::ostream &dst) const override {
-        dst<<id;
-    }
-    virtual double evaluate(const std::map<std::string,double> &bindings) const override{
-        return bindings.at(id);
-    }    
+	protected:
+		std::string id;
+	public:
+   	 	Variable(const std::string &_id) : id(_id) {}
+    	const std::string getId() const { return id; }
+		virtual void print(std::ostream &dst) const override {
+        	dst<<id;
+    	}
+    	virtual double evaluate(const std::map<std::string,double> &bindings) const override{
+       		return bindings.at(id);
+    	}    
 };
 
 class IntLiteral : public Node {
-private:
-    int value;
-public:
-    IntLiteral(int _value) : value(_value) {}
-    int getValue() const { return value; }
-    virtual void print(std::ostream &dst) const override {
-        dst<<value;
-    }
-    virtual double evaluate(const std::map<std::string,double> &bindings) const override {
-        return value;
-    }
+	private:
+    	int value;
+	public:
+    	IntLiteral(int _value) : value(_value) {}
+    	int getValue() const { return value; }
+    	virtual void print(std::ostream &dst) const override {
+     	   dst<<value;
+    	}
+    	virtual double evaluate(const std::map<std::string,double> &bindings) const override {
+        	return value;
+    	}
 };
 
 class StringLiteral : public Node {
-private:
-	std::string str;
-public:
-	StringLiteral(std::string _str) : str(_str) {}
-	const std::string getStr() const { return str; }
-	virtual void print(std::ostream &dst) const override {
-		dst << str;
-	}
-	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
-		return str;
-	}
+	private:
+		std::string str;
+	public:
+		StringLiteral(std::string _str) : str(_str) {}
+		const std::string getStr() const { return str; }
+		virtual void print(std::ostream &dst) const override {
+			dst << str;
+		}
+		virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+			return str;
+		}
 };
 	
 class CharLiteral : public Node {
-private:
-	char character;
-public:
-	CharLiteral(char _character) : character(_character) {}
-	const char getChar() const { return character; }
-	virtual void print(std::ostream &dst) const override {
-		dst << character;
-	}
-	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
-		return character;
-	}
+	private:
+		char character;
+	public:
+		CharLiteral(char _character) : character(_character) {}
+		const char getChar() const { return character; }
+		virtual void print(std::ostream &dst) const override {
+			dst << character;
+		}
+		virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+			return character;
+		}
 };
 
-class Float : public Node {
-private:
-	float flo;
-public:
-	Float(float _flo) : flo(_flo) {}
-	const float getFloat() const { return flo; }
-	virtual void print(std::ostream &dst) const override {
-		dst << flo;
-	}
-	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
-		return flo;
-	}
+class Float : public Node { // not priority, handling floats hard
+	private:
+		float flo;
+	public:
+		Float(float _flo) : flo(_flo) {}
+		const float getFloat() const { return flo; }
+		virtual void print(std::ostream &dst) const override {
+			dst << flo;
+		}
+		virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+			return flo;
+		}
 };
 
 #endif

@@ -36,8 +36,9 @@ class Operator : public Expression {
 protected:
 	NodePtr left;
 	NodePtr right;
-	Operator(NodePtr _left, NodePtr _right) : left(_left), right(_right){}
+	
 public:
+	Operator(NodePtr _left, NodePtr _right) : left(_left), right(_right){}
 	virtual const char *getOpcode() const = 0;
 	NodePtr getLeft() const { return left; }
 	NodePtr getRight() const { return right; }
@@ -307,4 +308,4 @@ public:
 	}
 };
 
-#endif ast_expressions_hpp
+#endif
