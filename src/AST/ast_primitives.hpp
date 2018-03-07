@@ -8,7 +8,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 	protected:
 		std::string id;
 	public:
-   	 	Variable(const std::string &_id) : id(_id) {}
+   	 	Identifier(const std::string &_id) : id(_id) {}
     	const std::string getId() const { return id; }
 		virtual void print(std::ostream &dst) const override {
         	dst<<id;
