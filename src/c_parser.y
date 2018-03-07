@@ -32,7 +32,7 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT
+%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT TERM FACTOR
 
 /*
 */
@@ -59,10 +59,10 @@ FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET L_CURLBRAC COMPOUND_STATEMENT R
 
 TYPE_SPEC : K_INT	/*add other types*/
 
-CONSTANT : T_INT
+CONSTANT : T_INT {$$ = new IntLiteral($1);}
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
-FNC_ID : T_IDENTIFIER
+FNC_ID : T_IDENTIFIER	{$$ = new Identifier($1);}
 
 COMPOUND_STATEMENT : STATEMENT_LIST // code to the effect of $$ = new StatementList $1
 		//and some other stuff
@@ -82,6 +82,19 @@ EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 
 EXPRESSION : CONSTANT
 	| ASSIGNMENT_EXPR {$$=$1;}
+	| TERM {$$=$1;}
+	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
+	| EXPRESSION 0_MINUS TERM {$$ = new SubOperator($1, $3);}
+
+TERM : FACTOR {$$=$1;}
+	| TERM O_ASTR FACTOR {$$ = new MulOperator($1, $3);}
+	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
+
+FACTOR : CONSTANT {$$=$1;}
+	| FNC_ID {$$=$1;}
+	| P_LBRACKET EXPRESSION P_RBRACKET {$$ = $2;}
+
+//going to need the same BIDMAS architecture used in lab 2
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression($1,$3);}
 
