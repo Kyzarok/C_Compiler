@@ -3,29 +3,7 @@
 
 #include "ast_node.hpp"
 
-/* class LitInteger : public Expression // an integer literal
-
-{
-	private:
-		int value; // the value of the integer
-
-	public:
-	Number(int _value) // constructor with initialiser
-		: value(_value)
-		{}
-	double getValue() const{ // getter
-		return value;
-	}
-
-} */
-
-//TODO Add more primitives, eg char, string literal, variables. I think they go here?
-//They do
-//Got code from DT's primitives example, I think that we should just use Number instead of LitInteger unless there's some special reason we're using it that I'm not aware of
-
-
-
-class Variable : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
+class Identifier : public Node {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 	protected:
 		std::string id;
 	public:
@@ -37,10 +15,6 @@ class Variable : public Node {	//If we can figure out how Variable works then we
     	virtual double evaluate(const std::map<std::string,double> &bindings) const override{
        		return bindings.at(id);
     	}    
-};
-
-class Identifier : public Node {
-
 };
 
 class IntLiteral : public Node {

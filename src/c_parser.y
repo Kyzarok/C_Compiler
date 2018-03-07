@@ -57,7 +57,7 @@ PROGRAM	: FNC_DEC
 	*/
 FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET L_CURLBRAC COMPOUND_STATEMENT R_CURLBRAC 
 
-TYPE_SPEC : K_INT
+TYPE_SPEC : K_INT	/*add other types*/
 
 CONSTANT : T_INT
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/

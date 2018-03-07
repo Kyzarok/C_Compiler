@@ -67,8 +67,6 @@ public:
 };
 
 
-
-
 //TODO Add AST nodes for operators, AST nodes for literals and variables
 //added =, +, -, *, /, ==, !=, &&, ||, !, &, |, ~, ^, <<, >>
 //when it comes to Operators, Arithmetic, logical and bitwise all require the same root of Operator
@@ -78,20 +76,6 @@ public:
 
 
 //Start of Arithmetic Operators
-/*TODO: Replace with Assignment Expression
-class EqualsOperator : public Operator {
-protected:
-	virtual const char *getOpcode() const override { return "="; }
-public:
-	EqualsOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
-	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
-		double vl = left->evaluate(bindings);
-		double vr = right->evaluayte(bindings);
-		return //need to figure out what needs to be returned here as not sure if equals
-	}
-};
-*/
-//Equals needs to be different, its probably just vl = vr but want to make sure we go through this together first
 
 class AddOperator : public Operator { 
 protected:
