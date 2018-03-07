@@ -32,7 +32,7 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN O_PLUS O_EQUALS O_MINUS O_ASTR O_DIV L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT B_AND B_OR B_NOT B_XOR B_LSHIFT B_RSHIFT TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT OPERATOR ASSIGNMENT_EXPR
+%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT
 
 /*
 */
@@ -47,7 +47,7 @@ ROOT : PROGRAM { g_root = $1; }
 	nodes of the tree we will encounter, it prevents the issue of advancing too
 	far and having an unstable foundation
  */
-PROGRAM	: FNC_DEC
+PROGRAM	: FNC_DEC	{$$=$1;}
 	/* 	comment out things that we don't need right now
 		as they're unneeded for basic parser
 	|GLB_VAR
@@ -73,33 +73,18 @@ COMPOUND_STATEMENT : STATEMENT_LIST // code to the effect of $$ = new StatementL
 STATEMENT_LIST : STATEMENT // code to the effect of $$.vector.push_back($1)
 		| STATEMENT STATEMENT_LIST
 
-STATEMENT : RETURN_STATEMENT	
+STATEMENT : RETURN_STATEMENT {$$=$1;}
+			| EXPR_STATEMENT {$$=$1;}
 
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatement($2); }
 
+EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
+
 EXPRESSION : CONSTANT
-	|	OPERATOR	//I know this isn't quite right, but I needed a place to declare Operators
-					// WRONG
 	| ASSIGNMENT_EXPR {$$=$1;}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression($1,$3);}
 
-OPERATOR : O_PLUS 
-	| O_EQUALS 
-	| O_MINUS 
-	| O_ASTR 
-	| O_DIV
-	| L_IS_EQUAL 
-	| L_IS_NOT_EQUAL 
-	| L_AND 
-	| L_OR 
-	| L_NOT
-	| B_AND 
-	| B_OR 
-	| B_NOT 
-	| B_XOR 
-	| B_LSHIFT 
-	| B_RSHIFT
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?
