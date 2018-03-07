@@ -5,7 +5,7 @@
 
 int main(){
 
-	const Node = *ast=parseAST(); //This function won't really return anything
+	const Node *ast=parseAST(); //This function won't really return anything
 	
 	ast->print(std::cout); //Print function not implemented
     std::cout<<std::endl;

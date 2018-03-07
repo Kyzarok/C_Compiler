@@ -3,7 +3,7 @@
   #include <string>
   #include <cassert>
 
-  extern const Expression *g_root; // A way of getting the AST out
+  extern const Node *g_root; // A way of getting the AST out
 
   //! This is to fix problems when generating C++
   // We are declaring the functions provided by Flex, so
@@ -15,7 +15,7 @@
 // Represents the value associated with any kind of
 // AST node.
 %union{
-  const Expression *expr;
+  const Node *node;
   double number;
   std::string *string;
 }
@@ -32,7 +32,7 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT TERM FACTOR MATH_EXPR
+%type <node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT TERM FACTOR MATH_EXPR
 
 /*
 */

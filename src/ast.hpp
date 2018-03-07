@@ -7,4 +7,6 @@
 #include "AST/ast_declarations.hpp"
 #include "AST/ast_primitives.hpp"
 
+extern const Node *parseAST();
+
 #endif
