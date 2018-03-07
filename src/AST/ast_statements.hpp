@@ -40,7 +40,9 @@ class CompoundStatement : public Node{
 //all dec's come before the statements
 
 };
-typedef const CompoundStatement *CompStatementPtr
+typedef const CompoundStatement *CompStatementPtr // pointer to compound statements
+
+
 class StatementList : public Node{
 	protected: 
 		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
