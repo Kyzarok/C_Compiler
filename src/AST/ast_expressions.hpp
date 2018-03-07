@@ -11,24 +11,15 @@ typedef const Expression *ExpressionPtr;
 
 //TODO Add other types of expression
 
-class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION
-
-	
+class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION	
 	protected:
 		ExpressionPtr target; // has a left expressions
 		ExpressionPtr value; // to be assigned to right expression
 		
 	public:
-		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) // constructor
-			: target(_target)
-			, value(_value)
-		{}
-		
-		
+		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) : target(_target), value(_value){}
 		const Expression *gettarget() const;
 		const Expression *getvalue() const;
-	
-
 	
 };
 

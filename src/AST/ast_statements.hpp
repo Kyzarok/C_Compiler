@@ -22,7 +22,7 @@ class ExpressionStatement : public Statement {
 };
 
 //TODO add more statements, eg Return statement, if statement
-class ReturnStatement :public Statement { // added 28/02/18. I think this is the correct format?
+class ReturnStatement : public Statement { // added 28/02/18. I think this is the correct format?
 	protected:
 		ExpressionPtr ret;
 		
@@ -31,16 +31,12 @@ class ReturnStatement :public Statement { // added 28/02/18. I think this is the
 		ExpressionPtr *getReturnExpression() const; 
 		//print, evaluate, translate, compile, etc
 };
+
+
+
 //TODO make Compound Statement and Statement List work
 
-class CompoundStatement : public Node{ 
-//pointer to dec list
-//pointer to statement list
-//C does not allow for random order of declaration and statement
-//all dec's come before the statements
 
-};
-typedef const CompoundStatement *CompStatementPtr
 class StatementList : public Node{
 	protected: 
 		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
@@ -52,5 +48,19 @@ class StatementList : public Node{
 };
 
 typedef const StatementList *StatementListPtr;
+
+
+class CompoundStatement : public Node{ 
+protected:
+		StatementListPtr sref;
+//pointer to dec list
+//pointer to statement list
+//C does not allow for random order of declaration and statement
+//all dec's come before the statements
+
+};
+
+typedef const CompoundStatement *CompStatementPtr
+
 
 #endif
