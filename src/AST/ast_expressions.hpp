@@ -13,15 +13,14 @@ typedef const Expression *ExpressionPtr;
 
 class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION	
 	protected:
-		ExpressionPtr target; // has a left expressions
+		std::string target; // has a left expressions
 		ExpressionPtr value; // to be assigned to right expression
 		
 	public:
-		AssignmentExpression(ExpressionPtr _target, ExpressionPtr _value) : target(_target), value(_value){}
-		const Expression *gettarget() const;
+		AssignmentExpression(std::string _target, ExpressionPtr _value) : target(_target), value(_value){}
 		const Expression *getvalue() const;
 		virtual void print(std::ostream &dst) const override {
-			target->print(dst);
+			dst<<target;
 			dst << " = ";
 			value->print(dst);
 		}
@@ -262,7 +261,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return vl & vr;
+		return (int)vl & (int)vr;
 	}
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
@@ -281,7 +280,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return vl | vr;
+		return (int)vl | (int)vr;
 	}
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
@@ -300,7 +299,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		//double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return ~vr;
+		return ~(int)vr;
 	}
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
@@ -319,7 +318,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return vl && vr;		//Dont't know bitwise or in C++
+		return (int)vl ^ (int)vr;		//Dont't know bitwise or in C++
 	}
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
@@ -338,7 +337,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return vl << vr;
+		return (int)vl << (int)vr;
 	}
 	virtual void print(std::ostream &dst) const override {
 		dst << "( ";
@@ -357,7 +356,7 @@ public:
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{
 		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		return vl >> vr;
+		return (int)vl >> (int)vr;
 	}virtual void print(std::ostream &dst) const override {
 		dst << "( ";
 		left->print(dst);

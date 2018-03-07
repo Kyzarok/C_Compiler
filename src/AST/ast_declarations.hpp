@@ -4,7 +4,10 @@
 #include "ast_node.hpp"
 #include "ast_statements.hpp"
 
-class FunctionDecl : public Node{
+
+class FunctionDecl : public Node {
+
+
 	
 	protected:
 		std::string ret_type; // string containing what the return type is
@@ -20,7 +23,7 @@ class FunctionDecl : public Node{
 			fnc_ID(_ID),
 			body(_body)
 			{
-				if(fnc_ID=="main"{
+				if(fnc_ID=="main"){
 					isMain=true;
 				}
 				else{
@@ -45,9 +48,5 @@ class FunctionDecl : public Node{
 		}
 
 };
-//unsure if needed?
-/*class VariableDecl : public Node{
-
-*/
 
 #endif

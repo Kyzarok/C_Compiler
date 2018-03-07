@@ -3,7 +3,7 @@
   #include <string>
   #include <cassert>
 
-  extern const Expression *g_root; // A way of getting the AST out
+  extern const Node *g_root; // A way of getting the AST out
 
   //! This is to fix problems when generating C++
   // We are declaring the functions provided by Flex, so
@@ -15,7 +15,8 @@
 // Represents the value associated with any kind of
 // AST node.
 %union{
-  const Expression *expr;
+  const Node *node;
+  const Expression *expression;
   double number;
   std::string *string;
 }
@@ -27,13 +28,16 @@
 %token O_PLUS O_EQUALS O_MINUS O_ASTR O_DIV //Arithmetic Operators (and pointer I guess). Minimal ones for parser / lexer
 %token L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT //Logical operators
 %token B_AND B_OR B_NOT B_XOR B_LSHIFT B_RSHIFT //Bitwise operators
-%token P_LHEADER P_RHEADER P_LSQBRAC P_RSQBRAC L_CURLBRAC R_CURLBRAC P_LBRACKET P_RBRACKET // punctuators
+%token P_LHEADER P_RHEADER P_LSQBRAC P_RSQBRAC P_LCURLBRAC P_RCURLBRAC P_LBRACKET P_RBRACKET // punctuators
 %token P_LIST_SEPARATOR P_STATEMENT_LABEL P_STATEMENT_END P_VARIABLE_LENGTH_ARGUMENT_LIST P_INCLUDE P_CHAR_CONST //more punctuators, not sure if needed?
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <Node> PROGRAM FNC_DEC T_INT T_IDENTIFIER K_INT K_RETURN  TYPE_SPEC FNC_ID COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT EXPRESSION CONSTANT ASSIGNMENT_EXPR EXPR_STATEMENT TERM FACTOR MATH_EXPR
+%type <node> PROGRAM FNC_DEC K_INT K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT STATEMENT_LIST STATEMENT RETURN_STATEMENT   EXPR_STATEMENT  
 
+%type <number> T_INT
+%type <string> T_IDENTIFIER
+%type <expression> EXPRESSION TERM FACTOR MATH_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
 /*
 */
 
@@ -55,14 +59,14 @@ PROGRAM	: FNC_DEC	{$$=$1;}
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET L_CURLBRAC COMPOUND_STATEMENT R_CURLBRAC 
+FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC 
 
 TYPE_SPEC : K_INT	/*add other types*/
 
 CONSTANT : T_INT {$$ = new IntLiteral($1);}
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
-FNC_ID : T_IDENTIFIER	{$$ = new Identifier($1);}
+FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
 
 COMPOUND_STATEMENT : STATEMENT_LIST // code to the effect of $$ = new StatementList $1
 		//and some other stuff
@@ -99,7 +103,7 @@ FACTOR : CONSTANT {$$=$1;}
 
 //going to need the same BIDMAS architecture used in lab 2
 
-ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression($1,$3);}
+ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
 
 %%

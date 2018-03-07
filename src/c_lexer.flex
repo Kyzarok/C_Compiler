@@ -41,7 +41,7 @@ T_Digit			[0-9]
 "+"	{return(O_PLUS);}
 "=" 	{return(O_EQUALS);}
 "-" 	{return(O_MINUS);}
-"*"	{return(O_ASTR;}	//called as such to avoid issue of * being used for pointers, dereferencing, and multiplication
+"*"	{return(O_ASTR);}	//called as such to avoid issue of * being used for pointers, dereferencing, and multiplication
 "/" 	{return(O_DIV);}
 
  /*Logical operator*/

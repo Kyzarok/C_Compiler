@@ -2,6 +2,7 @@
 #define ast_statements_hpp
 
 #include "ast_expressions.hpp"
+#include <vector>
 
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
@@ -31,7 +32,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 		ExpressionPtr ret;
 	public:
 		ReturnStatement(ExpressionPtr _ret) : ret(_ret){}
-		ExpressionPtr *getReturnExpression() const;{return ret;} 
+		ExpressionPtr getReturnExpression() const{return ret;} 
 		//print, evaluate, translate, compile, etc
 		virtual void print(std::ostream &dst) const override{
 			dst<<"return ";
@@ -48,15 +49,14 @@ class StatementList : public Node{
 		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
 	public:
 		StatementList(){ // wip constructor
-			//do something
-			sl(0);
+		
 		}
 	//will have printer, translator, etc
 	//will simply call the function of those beneath
 	
 	virtual void print(std::ostream &dst) const override {
 		for(int i=0; i<sl.size(); i++){
-			sl[i]->print(dst)
+			sl[i]->print(dst);
 		}
 	}
 };
@@ -74,7 +74,7 @@ protected:
 
 };
 
-typedef const CompoundStatement *CompStatementPtr
+typedef const CompoundStatement *CompStatementPtr;
 
 
 #endif
