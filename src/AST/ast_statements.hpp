@@ -3,6 +3,7 @@
 
 #include "ast_expressions.hpp"
 #include <vector>
+#include <iostream> 
 
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
@@ -46,18 +47,22 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 
 class StatementList : public Node{
 	protected: 
-		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
-	public:
-		StatementList(){ // wip constructor
 		
+	public:
+		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
+		StatementList(){ // wip constructor
+		 std::cerr<<"In constructor for StatementList"<<std::endl;
 		}
+		
 	//will have printer, translator, etc
 	//will simply call the function of those beneath
 	
 	virtual void print(std::ostream &dst) const override {
+		std::cerr<<"Print on statement list got called"<<std::endl;
 		for(int i=0; i<sl.size(); i++){
 			sl[i]->print(dst);
 		}
+		std::cerr<<"Print on statement list successfully finished"<<std::endl;
 	}
 };
 
