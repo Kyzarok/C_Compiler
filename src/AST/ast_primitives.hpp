@@ -17,7 +17,9 @@ class Identifier : public Expression {	//If we can figure out how Variable works
        		return bindings.at(id);
     	}    */
 		virtual void translate(std::ostream &dst) const override {
+			std::cerr<<"_____primID1_____"<<std::endl;
 			dst<<id;
+			std::cerr<<"_____primID2_____"<<std::endl;
 		}
 };
 
@@ -34,7 +36,9 @@ class IntLiteral : public Expression {
         	return value;
     	}*/
 		virtual void translate(std::ostream &dst) const override {
+			std::cerr<<"_____primINT1_____"<<std::endl;
 			dst<<value;
+			std::cerr<<"_____primINT2_____"<<std::endl;
 		}
 };
 

@@ -23,7 +23,9 @@ class ExpressionStatement : public Statement {
 			dst<<";"<<std::endl;
 		}
 		virtual void translate(std::ostream &dst) const override {
+			std::cerr<<"_____stateEXPR1_____"<<std::endl;
 			expr->translate(dst);
+			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
 		}
 
@@ -45,8 +47,10 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<std::endl;
 		}
 		virtual void translate(std::ostream &dst) const override {
+			std::cerr<<"_____stateRETURN1_____"<<std::endl;
 			dst<<"return ";
 			ret->translate(dst);
+			std::cerr<<"_____stateRETURN2_____"<<std::endl;
 			dst<<std::endl;
 		}
 };
@@ -82,10 +86,13 @@ class StatementList : public Statement
 		std::cerr<<"Print on statement list successfully finished"<<std::endl;
 	}
 	virtual void translate(std::ostream &dst) const override {
+		std::cerr<<"_____stateLIST1_____"<<std::endl;
 		if(next!=NULL){
 			next->translate(dst);
 		}
+		std::cerr<<"_____stateLIST2_____"<<std::endl;
 		current->translate(dst);
+		std::cerr<<"_____stateLIST3_____"<<std::endl;
 	}
 };
 
@@ -104,7 +111,9 @@ class CompoundStatement : public Node{
 			sref->print(dst);
 		}
 		virtual void translate(std::ostream &dst) const override {
+			std::cerr<<"_____stateCOMP1_____"<<std::endl;
 			sref->translate(dst);
+			std::cerr<<"_____stateCOMP2_____"<<std::endl;
 		}
 };
 

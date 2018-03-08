@@ -56,8 +56,11 @@ class FunctionDecl : public Node {
 					//complete this section
 				//}
 			//	else{
+					std::cerr<<"_____dec1_____"<<std::endl;
 					dst<<"def "<<fnc_ID<<"():"<<std::endl;
+					std::cerr<<"_____dec2_____"<<std::endl;
 					body->translate(dst);
+					std::cerr<<"_____dec3_____"<<std::endl;
 				//}
 		}
 
