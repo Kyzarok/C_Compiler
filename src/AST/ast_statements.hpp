@@ -45,37 +45,51 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 
 //TODO make Compound Statement and Statement List work
 
-class StatementList : public Node{
+class StatementList ;
+typedef const StatementList *StatementListPtr;
+
+class StatementList : public Statement
+{ //lol, rewrite
 	protected: 
-		
+		StatementPtr current;
+		StatementPtr next;
 	public:
-		std::vector<StatementPtr> sl; // I think its easiest to have a Statement list be a vector?
-		StatementList(){ // wip constructor
-		 std::cerr<<"In constructor for StatementList"<<std::endl;
+		//constructor with no next list
+		StatementList(StatementPtr _current) :current(_current),next(NULL){ // wip constructor
+			std::cerr<<"In constructor for StatementList with no next Statement List"<<std::endl;		 
 		}
-		
+		//constructor with next list
+		StatementList(StatementPtr _current, StatementPtr _next) :current(_current),next(_next){
+			std::cerr<<"In constructor for StatementList with next Statement List"<<std::endl;
+		}
 	//will have printer, translator, etc
 	//will simply call the function of those beneath
 	
 	virtual void print(std::ostream &dst) const override {
 		std::cerr<<"Print on statement list got called"<<std::endl;
-		for(int i=0; i<sl.size(); i++){
-			sl[i]->print(dst);
+		current->print(dst);
+		if(next!=NULL){
+			next->print(dst);
 		}
+		
 		std::cerr<<"Print on statement list successfully finished"<<std::endl;
 	}
 };
 
-typedef const StatementList *StatementListPtr;
+
 
 class CompoundStatement : public Node{ 
-protected:
+
+	protected:
 		//TODO DeclListPtr dref
-		StatementListPtr sref;
-//pointer to dec list
-//pointer to statement list
-//C does not allow for random order of declaration and statement
-//all dec's come before the statements
+		StatementPtr sref;
+		
+	public:
+		CompoundStatement(StatementPtr _sref) : sref(_sref){std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;}		
+		virtual void print(std::ostream &dst) const override {
+			//dref->print(dst);
+			sref->print(dst);
+		}
 
 };
 

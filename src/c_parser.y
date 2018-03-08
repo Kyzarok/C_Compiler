@@ -35,12 +35,12 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC K_INT K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT STATEMENT_LIST     
+%type <node> PROGRAM FNC_DEC K_INT K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT      
 
 %type <number> T_INT
 %type <string> T_IDENTIFIER
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
-%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT
+%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST
 /*
 */
 
@@ -71,14 +71,15 @@ CONSTANT : T_INT {$$ = new IntLiteral($1);}
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
 
-COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new StatementList();} // code to the effect of $$ = new StatementList $1
+COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1); std::cerr<<"making a new comp statement"<<std::endl;} // code to the effect of $$ = new StatementList $1
 		//and some other stuff
 		// ie variable declaration list
 		//declaration list followed vby statement list
 	//
-//A statement list has a vector of statement pointers. When a new statement is found, push it back in the vector, I think
-STATEMENT_LIST : STATEMENT {$$ = new std::vector<StatementPtr>; $$.push_back($1);std::cerr<<"Non recursive Statement push back"<<std::endl; }// code to the effect of $$.vector.push_back($1)
-		|  STATEMENT_LIST STATEMENT {$1.push_back($2); std::cerr<<"Push back in statement_list/statement part"<<std::endl;}
+	
+//A statement list has a pointer to the current statement, and a pointer to another statement list / node, yay
+STATEMENT_LIST : STATEMENT_LIST STATEMENT {$$ = new StatementList($2,$1);std::cerr<<"New statmentlist, yay"<<std::endl;}// code to the effect of $$.vector.push_back($1)
+			|   STATEMENT {$$=$1;std::cerr<<"Bottom of left recursion on Statement list?"<<std::endl;}
 
 STATEMENT : RETURN_STATEMENT {$$=$1;}
 			| EXPR_STATEMENT {$$=$1;}

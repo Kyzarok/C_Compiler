@@ -23,6 +23,7 @@ class FunctionDecl : public Node {
 			fnc_ID(_ID),
 			body(_body)
 			{
+				std::cerr<<"Constructor for func decl"<<std::endl;
 				if(fnc_ID=="main"){
 					isMain=true;
 				}
@@ -36,6 +37,7 @@ class FunctionDecl : public Node {
 		//FunctionDecl(std::string _ret, std::string _ID, CompStatementPtr _body, SomeType _args) : 
 		
 		virtual void print(std::ostream &dst) const override {
+			std::cerr<<"I am trying to print the func declr"<<std::endl;
 			dst<<ret_type;
 			dst<<" ";
 			dst<<fnc_ID;
