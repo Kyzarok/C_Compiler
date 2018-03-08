@@ -27,7 +27,7 @@ public:
     ) const
     { throw std::runtime_error("Not implemented."); }
 
-	virtual void translate(std::ostream &dst) const= 0;
+	virtual void translate(std::ostream &dst) const =0;
 
     /* Additional functions to add
     virtual const translate(std::ostream &dst) const=0; // function to be overwritten by subclasses. Will output translated python code over stdout - send to output file.
