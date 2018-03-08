@@ -104,7 +104,7 @@ class CompoundStatement : public Node{
 			sref->print(dst);
 		}
 		virtual void translate(std::ostream &dst) const override {
-			sref->translte(dst);
+			sref->translate(dst);
 		}
 };
 

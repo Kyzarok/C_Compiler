@@ -13,9 +13,9 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 		virtual void print(std::ostream &dst) const override {
         	dst<<id;
     	}
-    	virtual double evaluate(const std::map<std::string,double> &bindings) const override{
+    	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override{
        		return bindings.at(id);
-    	}    
+    	}    */
 		virtual void translate(std::ostream &dst) const override {
 			return bindings.at(id);
 		}
