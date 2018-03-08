@@ -19,10 +19,13 @@ class ExpressionStatement : public Statement {
 		ExpressionStatement(ExpressionPtr _expr) : expr(_expr){} // constructor
 //need to add evaluater
 		virtual void print(std::ostream &dst) const override {
-		expr->print(dst);
-		dst<<";"<<std::endl;
-	}
-	
+			expr->print(dst);
+			dst<<";"<<std::endl;
+		}
+		virtual void translate(std::ostream &dst) const override {
+			expr->translate(dst);
+			dst<<std::endl;
+		}
 
 //TODO add functionality to this class
 };
@@ -39,6 +42,11 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<"return ";
 			ret->print(dst);
 			dst<<";";
+			dst<<std::endl;
+		}
+		virtual void translate(std::ostream &dst) const override {
+			dst<<"return ";
+			ret->translate(dst);
 			dst<<std::endl;
 		}
 };
