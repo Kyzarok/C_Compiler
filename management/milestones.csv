@@ -8,8 +8,8 @@ ImplementGoodCLexer,"ResearchTokens, ImplementLexerForBasicPrograms",3,,b5fa2920
 WriteRequiredTests,None,2,Ed,7073fe10b1c779b821d111f0dee7e3dfa91a08c5,Write tests and test drivers for required tests
 WriteASTForBasicPrograms,DefineBasicPrograms,4,,b5fa29203995d3478145d3feb74fed31171b0378,Write AST nodes sufficient to print out basic program
 WriteParserFileForBasicPrograms,DefineBasicPrograms,4,,fb58c7d8aa66c8a9196b6f294dd3800ae84c7c84,Write Grammar sufficient to handle basic programs
-DebugBasicParser/AST/Lexer,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",3,,,"Be honest, first version won’t work. Debug it"
-WriteCompleteAST,WriteASTForBasicPrograms,3,,,"Living task, add more to AST"
+DebugBasicParser/AST/Lexer,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",3,Ed,d3412f10f6b2157bc973a10c71e8c5552bfbe232,"Be honest, first version won’t work. Debug it"
+WriteCompleteAST,WriteASTForBasicPrograms,3,,,"Living task, add more to AST. Complete is misnomer – final is more accurate"
 WriteCompleteParser,WriteParserFileForBasicPrograms,3,,,"Living task, add more to grammar"
 MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,,,Be capable of translating basic programs
 PythonConverter50%,"WriteCompleteAST, WriteCompleteParser,MinimalPythonConverter",1,,,
