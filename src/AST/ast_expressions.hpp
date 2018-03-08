@@ -72,6 +72,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" + ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class SubOperator : public Operator {
@@ -89,6 +96,13 @@ public:
 		left->print(dst);
 		dst<<" - ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" - ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
@@ -110,6 +124,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" * ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class DivOperator : public Operator {
@@ -127,6 +148,13 @@ public:
 		left->print(dst);
 		dst<<" / ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" / ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
@@ -155,6 +183,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" == ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class NotEqualOperator : public Operator {
@@ -177,6 +212,13 @@ public:
 		left->print(dst);
 		dst<<" != ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" != ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
@@ -203,6 +245,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" AND ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class LOrOperator : public Operator {
@@ -225,6 +274,13 @@ public:
 		left->print(dst);
 		dst<<" || ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" OR ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
@@ -251,6 +307,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" NOT ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 //End of Logical Operators
@@ -273,6 +336,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" & ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class BOrOperator : public Operator {
@@ -292,6 +362,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" | ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class BNotOperator : public Operator {	//not would only intake RHS
@@ -309,6 +386,13 @@ public:
 		left->print(dst);
 		dst<<" ~ ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" ~ ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
@@ -349,6 +433,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" << ";
+		right->translate(dst);
+		dst<<" )";
+	}
 };
 
 class RShiftOperator : public Operator {
@@ -365,6 +456,13 @@ public:
 		left->print(dst);
 		dst<<" >> ";
 		right->print(dst);
+		dst<<" )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst<<"( ";
+		left->translate(dst);
+		dst<<" >> ";
+		right->translate(dst);
 		dst<<" )";
 	}
 };
