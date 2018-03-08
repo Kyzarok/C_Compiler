@@ -49,7 +49,7 @@ class StatementList ;
 typedef const StatementList *StatementListPtr;
 
 class StatementList : public Statement
-{ //lol, rewrite
+{ 
 	protected: 
 		StatementPtr current;
 		StatementPtr next;

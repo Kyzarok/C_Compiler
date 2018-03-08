@@ -35,10 +35,10 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC K_INT K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT      
+%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT      
 
 %type <number> T_INT
-%type <string> T_IDENTIFIER
+%type <string> T_IDENTIFIER K_INT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST
 /*
@@ -48,7 +48,7 @@
 
 %%
 
-ROOT : COMPOUND_STATEMENT { g_root = $1; }
+ROOT : PROGRAM { g_root = $1; }
 
  /*	Most of the AST is not implemented. However, by recognizing in advance what
 	nodes of the tree we will encounter, it prevents the issue of advancing too
@@ -62,7 +62,7 @@ PROGRAM	: FNC_DEC	{$$=$1;}
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC 
+FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {std::cerr<<"just a test"<<std::endl; $$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL";}
 
 TYPE_SPEC : K_INT	/*add other types*/
 
@@ -90,8 +90,6 @@ EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
-
-
 
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}

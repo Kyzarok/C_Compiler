@@ -25,7 +25,7 @@ T_Digit			[0-9]
  /*keywords*/
  /*keywords have a very different meaning in TokenJunk, but I'll leave as is and discuss tmr 27/2/18*/
  /*so we still haven't included strings in this*/
-"int"		{return(K_INT);}
+"int"		{yylval.string=new std::string(yytext);return(K_INT);}
 "char"		{return(K_CHAR);}
 "float"		{return(K_FLOAT);}
 "return"	{return(K_RETURN);}
