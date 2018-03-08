@@ -54,7 +54,7 @@ T_Digit			[0-9]
 ">"		{return(L_GTHAN);}
 "<"		{return(L_LTHAN);}
 ">="	{return(L_GETHAN);}
-"<="	{return(L_LETHEN);}
+"<="	{return(L_LETHAN);}
 
  /*Bitwise operator*/
 
