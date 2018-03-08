@@ -46,7 +46,10 @@ class FunctionDecl : public Node {
 				paramlist->print(dst);
 			}*/
 			dst<<" ) ";
+			dst<<std::endl;
+			dst<<"{"<<std::endl;
 			body->print(dst);
+			dst<<"}";
 		}
 
 };

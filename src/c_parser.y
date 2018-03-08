@@ -48,7 +48,7 @@
 
 %%
 
-ROOT : PROGRAM { g_root = $1; }
+ROOT : COMPOUND_STATEMENT { g_root = $1; }
 
  /*	Most of the AST is not implemented. However, by recognizing in advance what
 	nodes of the tree we will encounter, it prevents the issue of advancing too
@@ -66,7 +66,7 @@ FNC_DEC : TYPE_SPEC FNC_ID P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT 
 
 TYPE_SPEC : K_INT	/*add other types*/
 
-CONSTANT : T_INT {$$ = new IntLiteral($1);}
+CONSTANT : T_INT {$$ = new IntLiteral($1);} 
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}

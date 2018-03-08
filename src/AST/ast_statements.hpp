@@ -67,10 +67,11 @@ class StatementList : public Statement
 	
 	virtual void print(std::ostream &dst) const override {
 		std::cerr<<"Print on statement list got called"<<std::endl;
-		current->print(dst);
 		if(next!=NULL){
 			next->print(dst);
 		}
+		current->print(dst);
+		
 		
 		std::cerr<<"Print on statement list successfully finished"<<std::endl;
 	}
