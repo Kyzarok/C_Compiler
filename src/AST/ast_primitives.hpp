@@ -17,7 +17,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
        		return bindings.at(id);
     	}    
 		virtual void translate(std::ostream &dst) const override {
-			return bindings.at(id);
+			id;
 		}
 };
 
