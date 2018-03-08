@@ -79,9 +79,13 @@ class StatementList : public Statement
 			next->print(dst);
 		}
 		current->print(dst);
-		
-		
 		std::cerr<<"Print on statement list successfully finished"<<std::endl;
+	}
+	virtual void translate(std::ostream &dst) const override {
+		if(next!=NULL){
+			next->translate(dst);
+		}
+		current->translate(dst);
 	}
 };
 
@@ -99,7 +103,9 @@ class CompoundStatement : public Node{
 			//dref->print(dst);
 			sref->print(dst);
 		}
-
+		virtual void translate(std::ostream &dst) const override {
+			sref->translte(dst);
+		}
 };
 
 typedef const CompoundStatement *CompStatementPtr;
