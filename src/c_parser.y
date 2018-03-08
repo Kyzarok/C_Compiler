@@ -28,7 +28,7 @@
 %token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
 %token K_IF K_ELSE K_CHAR K_FLOAT K_FOR K_WHILE //more keyowords, not needed for minimal parser / lexer
 %token O_PLUS O_EQUALS O_MINUS O_ASTR O_DIV //Arithmetic Operators (and pointer I guess). Minimal ones for parser / lexer
-%token L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT //Logical operators
+%token L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT L_GTHAN L_LTHAN L_GETHAN L_LETHAN//Logical operators
 %token B_AND B_OR B_NOT B_XOR B_LSHIFT B_RSHIFT //Bitwise operators
 %token P_LHEADER P_RHEADER P_LSQBRAC P_RSQBRAC P_LCURLBRAC P_RCURLBRAC P_LBRACKET P_RBRACKET // punctuators
 %token P_LIST_SEPARATOR P_STATEMENT_LABEL P_STATEMENT_END P_VARIABLE_LENGTH_ARGUMENT_LIST P_INCLUDE P_CHAR_CONST //more punctuators, not sure if needed?

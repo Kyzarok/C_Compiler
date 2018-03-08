@@ -52,13 +52,13 @@ class FunctionDecl : public Node {
 		}
 
 		virtual void translate(std::ostream &dst) const override {
-				if(takesArgument){
+				//if(takesArgument){
 					//complete this section
-				}
-				else{
+				//}
+			//	else{
 					dst<<"def "<<fnc_ID<<"():"<<std::endl;
 					body->translate(dst);
-				}
+				//}
 		}
 
 };

@@ -51,6 +51,10 @@ T_Digit			[0-9]
 "&&" 	{return(L_AND);}
 "||" 	{return(L_OR);}
 "!" 	{return(L_NOT);}
+">"		{return(L_GTHAN);}
+"<"		{return(L_LTHAN);}
+">="	{return(L_GETHAN);}
+"<="	{return(L_LETHEN);}
 
  /*Bitwise operator*/
 
