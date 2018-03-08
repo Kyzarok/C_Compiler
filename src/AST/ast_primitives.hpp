@@ -16,6 +16,9 @@ class Identifier : public Expression {	//If we can figure out how Variable works
     	virtual double evaluate(const std::map<std::string,double> &bindings) const override{
        		return bindings.at(id);
     	}    
+		virtual void translate(std::ostream &dst) const override {
+			return bindings.at(id);
+		}
 };
 
 class IntLiteral : public Expression {
@@ -30,6 +33,9 @@ class IntLiteral : public Expression {
     	virtual double evaluate(const std::map<std::string,double> &bindings) const override {
         	return value;
     	}
+		virtual void translate(std::ostream &dst) const override {
+			return value;
+		}
 };
 
 
