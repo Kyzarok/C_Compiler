@@ -24,6 +24,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst << " = ";
 			value->print(dst);
 		}
+		virtual void translate(std::ostream &dst) const override {
+			//will fill in later
+		}
 };
 
 class Operator : public Expression {

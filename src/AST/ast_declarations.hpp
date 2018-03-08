@@ -6,9 +6,6 @@
 
 
 class FunctionDecl : public Node {
-
-
-	
 	protected:
 		std::string ret_type; // string containing what the return type is
 		std::string fnc_ID; // string containing the function id
@@ -52,6 +49,16 @@ class FunctionDecl : public Node {
 			dst<<"{"<<std::endl;
 			body->print(dst);
 			dst<<"}";
+		}
+
+		virtual void translate(std::ostream &dst) const override {
+				if(takesArgument){
+					//complete this section
+				}
+				else{
+					dst<<"def "<<fnc_ID<<"():"<<std::endl;
+					body->translate(dst);
+				}
 		}
 
 };
