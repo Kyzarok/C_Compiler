@@ -44,16 +44,7 @@ public:
 	NodePtr getRight() const { return right; }
 };
 
- // generic class for all expressions. May add functions to this later so important to separate
 
- //I am unsure what expressions we actually need is the issue.
-
-//TODO Add AST nodes for operators, AST nodes for literals and variables
-//added =, +, -, *, /, ==, !=, &&, ||, !, &, |, ~, ^, <<, >>
-//when it comes to Operators, Arithmetic, logical and bitwise all require the same root of Operator
-//this means that they can get both Expressions on either side of the Operator
-//I'd like to go over making a separation between Arith, Log and Bit so that we can use OOP
-//it should make sorting stuff out easier as we can classify them all under Expression: Operator
 
 
 //Start of Arithmetic Operators

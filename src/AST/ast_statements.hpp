@@ -29,7 +29,7 @@ class ExpressionStatement : public Statement {
 			dst<<std::endl;
 		}
 
-//TODO add functionality to this class
+
 };
 
 //TODO add more statements, eg Return statement, if statement
@@ -55,7 +55,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 		}
 };
 
-//TODO make Compound Statement and Statement List work
+
 
 class StatementList ;
 typedef const StatementList *StatementListPtr;
