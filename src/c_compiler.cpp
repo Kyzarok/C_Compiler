@@ -6,6 +6,13 @@
 #include<sstream> // makes printing boiler plate somewhat quicker
 #include<cstdlib> //Required for exit
 
+std::string make_boilerplate(){
+	std::stringstream ss; // make a function
+	ss<<"# Boilerplate"<<std::endl<<"if __name__ == \" __main__ \":"<<std::endl;
+	ss<<"import sys"<<std::endl<<"ret=main()"<<std::endl<<"sys.exit(ret)"<<std::endl;
+	return ss.str();
+};
+
 int main(int argc, char *argv[]){
 	
 	//check for expected number of inputs
@@ -16,26 +23,28 @@ int main(int argc, char *argv[]){
 	}
 	// get mode
 	std::string mode_select(argv[1]);
-	const Node *ast=parseAST(); // build the ast
-	//if translator
+	
+	
+	// Build AST
+	const Node *ast=parseAST(); //TODO make this read from source file, not stdin
+	
+	
+	//functionality
 	if(mode_select =="--translate"){ //ie translator mode
 	
-		
-		std::stringstream ss; // make a function
-		ss<<"# Boilerplate"<<std::endl<<"if __name__ == \" __main__ \":"<<std::endl;
-		ss<<"import sys"<<std::endl<<"ret=main()"<<std::endl<<"sys.exit(ret)"<<std::endl;
-		
-		
+	
+			
 		std::cerr<<"We translating"<<std::endl;
 		//translate
 		ast->translate(std::cout);
-		std::cout<<std::endl;
+		std::cout<<std::endl; //TODO make this write to dest file, not stdout. Can put stdout into file stream?
 		std::cerr<<"Boilerplate"<<std::endl;
 		//now for boilerplate
-		std::cout<<ss.str()<<std::endl;
+		std::cout<<make_boilerplate()<<std::endl;
 	}
 	else if(mode_select =="-S"){ //ie compile
 		std::cerr<<"ERROR: Compile unimplemented at time"<<std::endl;
+		std::exit(1);
 	}
 	
 	else{
