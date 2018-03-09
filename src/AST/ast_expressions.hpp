@@ -310,6 +310,129 @@ public:
 	}
 };
 
+class GThanOperator : public Operator {	// a not operator only requires RHS of !
+protected:
+	virtual const char *getOpcode() const override { return "!"; }
+public:
+	GThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluate(bindings);
+		if (!vr) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst << " > ";
+		right->print(dst);
+		dst << " )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst << "( ";
+		left->translate(dst);
+		dst << " > ";
+		right->translate(dst);
+		dst << " )";
+	}
+};
+
+class LThanOperator : public Operator {	// a not operator only requires RHS of !
+protected:
+	virtual const char *getOpcode() const override { return "!"; }
+public:
+	LThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluate(bindings);
+		if (!vr) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst << " < ";
+		right->print(dst);
+		dst << " )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst << "( ";
+		left->translate(dst);
+		dst << " < ";
+		right->translate(dst);
+		dst << " )";
+	}
+};
+
+class GEThanOperator : public Operator {	// a not operator only requires RHS of !
+protected:
+	virtual const char *getOpcode() const override { return "!"; }
+public:
+	GEThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluate(bindings);
+		if (!vr) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst << " >= ";
+		right->print(dst);
+		dst << " )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst << "( ";
+		left->translate(dst);
+		dst << " >= ";
+		right->translate(dst);
+		dst << " )";
+	}
+};
+
+class LEThanOperator : public Operator {	// a not operator only requires RHS of !
+protected:
+	virtual const char *getOpcode() const override { return "!"; }
+public:
+	LEThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
+	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
+		//double vl = left->evaluate(bindings);
+		double vr = right->evaluate(bindings);
+		if (!vr) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	virtual void print(std::ostream &dst) const override {
+		dst << "( ";
+		left->print(dst);
+		dst << " <= ";
+		right->print(dst);
+		dst << " )";
+	}
+	virtual void translate(std::ostream &dst) const override {
+		dst << "( ";
+		left->translate(dst);
+		dst << " <= ";
+		right->translate(dst);
+		dst << " )";
+	}
+};
 //End of Logical Operators
 //Start of Bitwise Operators
 

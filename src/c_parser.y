@@ -39,7 +39,7 @@
 
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT
-%type <expression> EXPRESSION TERM FACTOR MATH_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
+%type <expression> EXPRESSION TERM FACTOR MATH_EXPR LOG_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST
 /*
 */
@@ -90,6 +90,8 @@ EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
+	| LOG_EXPR {$$=$1;}
+	| BIT_EXPR {$$=$1;}
 
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
@@ -102,8 +104,27 @@ TERM : FACTOR {$$=$1;}
 FACTOR : CONSTANT {$$=$1;}
 	| FNC_ID {$$=$1;}
 	| P_LBRACKET MATH_EXPR P_RBRACKET {$$ = $2;}
+	| P_LBRACKET LOG_EXPR P_RBRACKET {$$ = $2;}
+	| P_LBRACKET BIT_EXPR P_RBRACKET {$$ = $2;}
 
 //going to need the same BIDMAS architecture used in lab 2
+
+LOG_EXPR :	FACTOR L_IS_EQUAL LOG_EXPR {$$ = EqualToOperator($1, $3);}
+	| FACTOR L_IS_NOT_EQUAL LOG_EXPR {$$ = NotEqualOperator($1, $3);}
+	| FACTOR L_AND LOG_EXPR {$$ = LAndOperator($1, $3);}
+	| FACTOR L_OR LOG_EXPR {$$ = LOrOperator($1, $3);}
+	| FACTOR L_NOT LOG_EXPR {$$ = NotOperator($1, $3);}
+	| FACTOR L_GTHAN LOG_EXPR {$$ = GThanOperator($1, $3);}
+	| FACTOR L_LTHAN LOG_EXPR {$$ = LThanOperator($1, $3);}
+	| FACTOR L_GETHAN LOG_EXPR {$$ = GEThanOperator($1, $3);}
+	| FACTOR L_LETHAN LOG_EXPR {$$ = LEThanOperator($1, $3);}
+
+BIT_EXPR : FACTOR B_AND BIT_EXPR {$$ = BAndOperator($1, $3);}
+	| FACTOR B_OR BIT_EXPR {$$ = BOrOperator($1, $3);}
+	| FACTOR B_NOT BIT_EXPR {$$ = BNotOperator($1, $3);}
+	| FACTOR B_XOR BIT_EXPR {$$ = XorOperator($1, $3);}
+	| FACTOR B_LSHIFT BIT_EXPR {$$ = LShiftOperator($1, $3);}
+	| FACTOR B_RSHIFT BIT_EXPR {$$ = RShiftOperator($1, $3);}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
