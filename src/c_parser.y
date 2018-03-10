@@ -38,7 +38,7 @@
 %type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT      
 
 %type <number> T_INT
-%type <string> T_IDENTIFIER K_INT
+%type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR LOG_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST
 /*
@@ -65,6 +65,8 @@ PROGRAM	: FNC_DEC	{$$=$1;}
 FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {std::cerr<<"just a test"<<std::endl; $$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL";}
 
 TYPE_SPEC : K_INT	/*add other types*/
+	//| K_CHAR
+	//| K_FLOAT
 
 CONSTANT : T_INT {$$ = new IntLiteral(*$1);} 
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
@@ -89,7 +91,6 @@ RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatemen
 EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 //Somewhere in here we're going to need to differentiate between special cases and baics
 //Everything so far is basic, assignments, 
-
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
