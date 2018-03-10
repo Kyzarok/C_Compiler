@@ -66,7 +66,7 @@ FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMEN
 
 TYPE_SPEC : K_INT	/*add other types*/
 
-CONSTANT : T_INT {$$ = new IntLiteral($1);} 
+CONSTANT : T_INT {$$ = new IntLiteral(*$1);} 
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
@@ -87,6 +87,9 @@ STATEMENT : RETURN_STATEMENT {$$=$1;}
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatement($2); }
 
 EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
+//Somewhere in here we're going to need to differentiate between special cases and baics
+//Everything so far is basic, assignments, 
+
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
@@ -127,7 +130,6 @@ BIT_EXPR : FACTOR B_AND BIT_EXPR {$$ = BAndOperator($1, $3);}
 	| FACTOR B_RSHIFT BIT_EXPR {$$ = RShiftOperator($1, $3);}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
-
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?

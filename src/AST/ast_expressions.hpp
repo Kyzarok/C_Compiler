@@ -9,8 +9,6 @@ class Expression : public Node {
 
 typedef const Expression *ExpressionPtr;
 
-//TODO Add other types of expression
-
 class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION	
 	protected:
 		std::string target; // has a left expressions
@@ -43,9 +41,6 @@ public:
 	NodePtr getLeft() const { return left; }
 	NodePtr getRight() const { return right; }
 };
-
-
-
 
 //Start of Arithmetic Operators
 
@@ -152,6 +147,7 @@ public:
 		dst<<" )";
 	}
 };
+
 //End of Arithmetic Operators
 //Start of Logical Operators
 
