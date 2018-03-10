@@ -17,12 +17,12 @@ int main(int argc, char *argv[]){
 	
 	//check for expected number of inputs
 	//program should be ran in form location {mode} {source} "-o" {dest}
-	if(argc<5){ //expected number
+	/*if(argc<5){ //expected number
 		std::cerr<<"ERROR: Incorrect number of arguments provided"<<std::endl;
 		std::exit(1);
 	}
 	// get mode
-	std::string mode_select(argv[1]);
+	std::string mode_select(argv[1]);*/
 	
 	
 	// Build AST
@@ -30,8 +30,8 @@ int main(int argc, char *argv[]){
 	
 	
 	//functionality
-	if(mode_select =="--translate"){ //ie translator mode
-	
+	//if(mode_select =="--translate"){ //ie translator mode
+	if(true){ // temp hard code to translate
 	
 			
 		std::cerr<<"We translating"<<std::endl;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
 		//now for boilerplate
 		std::cout<<make_boilerplate()<<std::endl;
 	}
-	else if(mode_select =="-S"){ //ie compile
+	/*else if(mode_select =="-S"){ //ie compile
 		std::cerr<<"ERROR: Compile unimplemented at time"<<std::endl;
 		std::exit(1);
 	}
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
 	else{
 		std::cerr<<"ERROR: Invalid command"<<std::endl;
 		std::exit(1);
-	}
+	}*/
 	
 	return 0;
 }

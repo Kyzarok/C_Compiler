@@ -68,7 +68,7 @@ TYPE_SPEC : K_INT	/*add other types*/
 	//| K_CHAR
 	//| K_FLOAT
 
-CONSTANT : T_INT {$$ = new IntLiteral(*$1);} 
+CONSTANT : T_INT {$$ = new IntLiteral($1);} 
 	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
