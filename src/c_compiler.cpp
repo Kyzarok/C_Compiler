@@ -10,7 +10,7 @@
 std::string make_boilerplate(){
 	std::stringstream ss; // make a function
 	ss<<"# Boilerplate"<<std::endl<<"if __name__ == \" __main__ \":"<<std::endl;
-	ss<<"import sys"<<std::endl<<"ret=main()"<<std::endl<<"sys.exit(ret)"<<std::endl;
+	ss<<"    import sys"<<std::endl<<"    ret=main()"<<std::endl<<"    sys.exit(ret)"<<std::endl;
 	return ss.str();
 };
 
