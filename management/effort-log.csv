@@ -12,3 +12,4 @@ Date,Effort,Developers,Milestones
 07/03/2018,6.5,"Ed, Kai","WriteParserFileForBasicPrograms, WriteASTForBasicPrograms"
 08/03/2018,3,"Ed,Kai","DebugBasicParser/AST/Lexer, MinimalPythonConverter"
 09/03/018,4,Kai,MinimalPythonConverter
+12/03/2018,1.5,Ed,MinimalPythonConverter

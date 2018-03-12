@@ -12,5 +12,4 @@ DebugBasicParser/AST/Lexer,"WriteASTForBasicPrograms, WriteParserFileForBasicPro
 WriteCompleteAST,WriteASTForBasicPrograms,3,,,"Living task, add more to AST. Complete is misnomer – final is more accurate"
 WriteCompleteParser,WriteParserFileForBasicPrograms,3,,,"Living task, add more to grammar"
 MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,,,Be capable of translating basic programs
-PythonConverter50%,"WriteCompleteAST, WriteCompleteParser,MinimalPythonConverter",1,,,
 PythonConverter,"WriteCompleteAST, WriteCompleteParser,PythonConverter50%",2,,,Translate 50%required programs
