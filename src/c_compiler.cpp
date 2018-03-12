@@ -24,13 +24,13 @@ int main(int argc, char *argv[]){
 	}
 	
 	// open source file
-	std::ifstream fileSource;
+	/*std::ifstream fileSource;
 	
 	fileSource.open(argv[2]); //the first parameter will be name / location of bin
 	if(!(fileSource.is_open())){ //if not opened then return error
 		std::cerr<<"Source File "<<argv[2]<< " not found"<<std::endl; 
 		std::exit(1);//exit
-	}
+	}*/
 	
 	//open dest file
 	
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]){
 	
 	
 	// Build AST
-	const Node *ast=parseAST(); //TODO make this read from source file, not stdin
+	const Node *ast=parseAST(argv[2]); //TODO make this read from source file, not stdin
 	
 	
 	//functionality

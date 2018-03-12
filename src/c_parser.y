@@ -3,7 +3,7 @@
   #include <string>
   #include <cassert>
   #include <iostream>
-
+  extern FILE *yyin; //hopefully allows reading from not stdin
   extern const Node *g_root; // A way of getting the AST out
 
   //! This is to fix problems when generating C++
@@ -135,10 +135,13 @@ ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpressio
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?
 
-const Node *parseAST() //This function returns the tree
+const Node *parseAST(const char* location) //This function returns the tree
 {
-  g_root=0;
-  yyparse();
-  return g_root;
+	
+	yyin = fopen(location,"r");
+	g_root=0;
+	yyparse();
+	return g_root;
 }
+
 /*need to create more abstraction to separate operators, identifiers, keywords etc....*/
