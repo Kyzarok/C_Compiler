@@ -1,3 +1,4 @@
+
 %code requires{
   #include "ast.hpp"
   #include <string>
@@ -35,11 +36,11 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT      
+%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT   
 
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
-%type <expression> EXPRESSION TERM FACTOR MATH_EXPR LOG_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
+%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID LOG_EXPR
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT
 /*
 */
@@ -116,22 +117,24 @@ FACTOR : CONSTANT {$$=$1;}
 
 //going to need the same BIDMAS architecture used in lab 2
 
-LOG_EXPR :	FACTOR L_IS_EQUAL LOG_EXPR {$$ = EqualToOperator($1, $3);}
-	| FACTOR L_IS_NOT_EQUAL LOG_EXPR {$$ = NotEqualOperator($1, $3);}
-	| FACTOR L_AND LOG_EXPR {$$ = LAndOperator($1, $3);}
-	| FACTOR L_OR LOG_EXPR {$$ = LOrOperator($1, $3);}
-	| FACTOR L_NOT LOG_EXPR {$$ = NotOperator($1, $3);}
-	| FACTOR L_GTHAN LOG_EXPR {$$ = GThanOperator($1, $3);}
-	| FACTOR L_LTHAN LOG_EXPR {$$ = LThanOperator($1, $3);}
-	| FACTOR L_GETHAN LOG_EXPR {$$ = GEThanOperator($1, $3);}
-	| FACTOR L_LETHAN LOG_EXPR {$$ = LEThanOperator($1, $3);}
+LOG_EXPR :	LOG_EXPR L_IS_EQUAL MATH_EXPR {$$ = new EqualToOperator($1, $3);}
+	| LOG_EXPR L_IS_NOT_EQUAL MATH_EXPR {$$ = new NotEqualOperator($1, $3);}
+	| LOG_EXPR L_AND MATH_EXPR {$$ = new LAndOperator($1, $3);}
+	| LOG_EXPR L_OR MATH_EXPR {$$ = new LOrOperator($1, $3);}
+	| LOG_EXPR L_NOT MATH_EXPR {$$ = new NotOperator($1, $3);}
+	| LOG_EXPR L_GTHAN MATH_EXPR {$$ = new GThanOperator($1, $3);}
+	| LOG_EXPR L_LTHAN MATH_EXPR {$$ = new LThanOperator($1, $3);}
+	| LOG_EXPR L_GETHAN MATH_EXPR {$$ = new GEThanOperator($1, $3);}
+	| LOG_EXPR L_LETHAN MATH_EXPR {$$ = new LEThanOperator($1, $3);}
+	| MATH_EXPR {$$ = $1;}
 
-BIT_EXPR : FACTOR B_AND BIT_EXPR {$$ = BAndOperator($1, $3);}
-	| FACTOR B_OR BIT_EXPR {$$ = BOrOperator($1, $3);}
-	| FACTOR B_NOT BIT_EXPR {$$ = BNotOperator($1, $3);}
-	| FACTOR B_XOR BIT_EXPR {$$ = XorOperator($1, $3);}
-	| FACTOR B_LSHIFT BIT_EXPR {$$ = LShiftOperator($1, $3);}
-	| FACTOR B_RSHIFT BIT_EXPR {$$ = RShiftOperator($1, $3);}
+BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
+	| BIT_EXPR B_OR MATH_EXPR {$$ = new BOrOperator($1, $3);}
+	| BIT_EXPR B_NOT MATH_EXPR {$$ = new BNotOperator($1, $3);}
+	| BIT_EXPR B_XOR MATH_EXPR {$$ = new XorOperator($1, $3);}
+	| BIT_EXPR B_LSHIFT MATH_EXPR {$$ = new LShiftOperator($1, $3);}
+	| BIT_EXPR B_RSHIFT MATH_EXPR {$$ = new RShiftOperator($1, $3);}
+	| MATH_EXPR {$$ = $1;}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
