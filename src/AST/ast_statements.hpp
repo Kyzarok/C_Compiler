@@ -135,7 +135,7 @@ protected:
 	ExpressionPtr condition; // the execute condition
 	StatementPtr body; // actually a statement list, the body of the if
 public:
-	ifStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	IfStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
 		dst << "if ( ";		//this won't work until bindings map is made
 		condition->print(dst);
