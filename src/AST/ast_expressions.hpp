@@ -527,6 +527,13 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
+	virtual void translate(std::ostream &dst, int indent) const override {
+		dst<<"( ";
+		left->translate(dst,indent);
+		dst<<" ^ ";
+		right->translate(dst,indent);
+		dst<<" )";
+	}
 };
 
 class LShiftOperator : public Operator {
