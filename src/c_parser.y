@@ -54,10 +54,10 @@ ROOT : PROGRAM { g_root = $1; }
 	nodes of the tree we will encounter, it prevents the issue of advancing too
 	far and having an unstable foundation
  */
-PROGRAM	: FNC_DEC	{$$=$1;}
+PROGRAM	: FNC_DEC	{$$=$1;} // oh god, another layer of abstraction
 	/* 	comment out things that we don't need right now
 		as they're unneeded for basic parser
-	|GLB_VAR
+	|GLB_VAR_DEC
 	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
 
