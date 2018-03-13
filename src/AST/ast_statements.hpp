@@ -149,5 +149,24 @@ public:
 		dst << std::endl;
 	}
 };
-
+/*
+class elseStatement : Statement {
+protected:
+	ExpressionPtr condition; // the execute condition
+	StatementPtr body; // actually a statement list, the body of the if
+public:
+	elseStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	virtual void print(std::ostream &dst) const override {//if case exists
+		dst << "else {" << std::endl;
+		body->print(dst);
+		dst << "}";
+		dst << std::endl;
+	}
+	virtual void translate(std::ostream &dst, int indent) const override {
+		dst << "else :" << std::endl;
+		body->translate(dst, indent);
+		dst << std::endl;
+	}
+};
+*/
 #endif
