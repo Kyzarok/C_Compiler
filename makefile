@@ -25,3 +25,5 @@ clean :
 	rm src/*.yy.cpp	
 	rm src/*.tab.hpp
 	rm src/*.output
+	rm *.py
+	clear
