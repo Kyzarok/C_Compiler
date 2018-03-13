@@ -52,6 +52,7 @@ class DeclLocal : public Declaration{
 			else{
 				dst<<"0";
 			}
+			dst<<std::endl;
 		}
 };
 

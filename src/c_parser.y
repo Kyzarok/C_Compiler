@@ -20,6 +20,7 @@
   const Node *node;
   const Expression *expression;
   const Statement *statement;
+  const Declaration *declaration;
   double number;
   std::string *string;
 }
@@ -36,12 +37,13 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT   
+%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT 
 
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID LOG_EXPR
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT
+%type <declaration>  DECL_LIST DECL_LOCAL
 /*
 */
 
@@ -74,11 +76,15 @@ CONSTANT : T_INT {$$ = new IntLiteral($1);}
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
 
-COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1); std::cerr<<"making a new comp statement"<<std::endl;} // code to the effect of $$ = new StatementList $1
-		//and some other stuff
-		// ie variable declaration list
-		//declaration list followed vby statement list
-	//
+COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1); std::cerr<<"making a new comp statement only stat list"<<std::endl;} 
+		| DECL_LIST {$$ = new CompoundStatement($1);std::cerr<<"making a new comp statement only decl list"<<std::endl;}
+		| DECL_LIST STATEMENT_LIST {$$ = new CompoundStatement($2,$1); std::cerr<<"making a new comp statement both list"<<std::endl;}
+		
+DECL_LIST : DECL_LIST DECL_LOCAL {$$ = new DeclList($2,$1);std::cerr<<"New decllist, yay"<<std::endl;}
+		| DECL_LOCAL {$$=$1;std::cerr<<"Bottom of left recursion on decl list?"<<std::endl;}
+		
+DECL_LOCAL : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2);std::cerr<<"New local decl with no initial value"<<std::endl;}
+		| K_INT T_IDENTIFIER O_EQUALS EXPRESSION P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2,$4);std::cerr<<"New local decl with  initial value"<<std::endl;}
 	
 //A statement list has a pointer to the current statement, and a pointer to another statement list / node, yay
 STATEMENT_LIST : STATEMENT_LIST STATEMENT {$$ = new StatementList($2,$1);std::cerr<<"New statmentlist, yay"<<std::endl;}// code to the effect of $$.vector.push_back($1)
