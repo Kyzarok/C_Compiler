@@ -29,7 +29,7 @@ T_Digit			[0-9]
 "char"		{return(K_CHAR);}
 "float"		{return(K_FLOAT);}
 "return"	{return(K_RETURN);}
-"if"		{return(K_IF);}
+"if"		{yylval.string=new std::string(yytext);return(K_IF);}
 "else"		{return(K_ELSE);}
 "for"		{return(K_FOR);}
 "while"		{return(K_WHILE);}

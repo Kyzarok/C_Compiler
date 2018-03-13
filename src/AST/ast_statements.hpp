@@ -129,7 +129,7 @@ typedef const CompoundStatement *CompStatementPtr;
 
 
 
-class IfStatement : Statement {
+class IfStatement : public Statement {
 
 protected:
 	ExpressionPtr condition; // the execute condition
@@ -137,6 +137,7 @@ protected:
 public:
 	IfStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
+				
 		dst << "if ( ";		//this won't work until bindings map is made
 		condition->print(dst);
 		dst << " ) { " << std::endl;
@@ -145,6 +146,9 @@ public:
 		dst << std::endl;
 	}
 	virtual void translate(std::ostream &dst, int indent) const override {
+		for(int i=0; i<indent;i++){ //Shold make a function / member function, quick hack for now
+			dst<<" ";
+		}		
 		dst << "if ";
 		condition->translate(dst, indent);
 		dst << " :" << std::endl;
