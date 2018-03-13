@@ -127,7 +127,10 @@ class CompoundStatement : public Node{
 
 typedef const CompoundStatement *CompStatementPtr;
 
-class ifStatement : Statement {
+
+
+class IfStatement : Statement {
+
 protected:
 	ExpressionPtr condition; // the execute condition
 	StatementPtr body; // actually a statement list, the body of the if
@@ -145,7 +148,7 @@ public:
 		dst << "if ";
 		condition->translate(dst, indent);
 		dst << " :" << std::endl;
-		body->translate(dst, indent);
+		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
 };

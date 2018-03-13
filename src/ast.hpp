@@ -6,7 +6,7 @@
 #include "AST/ast_statements.hpp"
 #include "AST/ast_declarations.hpp"
 #include "AST/ast_primitives.hpp"
-#include "AST/ast_varb_declarations.hpp"
+//#include "AST/ast_varb_declarations.hpp"
 
 extern const Node *parseAST(const char* location);
 
