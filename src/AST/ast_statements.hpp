@@ -129,41 +129,25 @@ typedef const CompoundStatement *CompStatementPtr;
 
 class ifStatement : Statement {
 protected:
-	ExpressionPtr condition // the execute condition
-	StatementPtr body // actually a statement list, the body of the if
+	ExpressionPtr condition; // the execute condition
+	StatementPtr body; // actually a statement list, the body of the if
 public:
 	ifStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
-	virtual void print(std::ostream &dst) cosnt override {
-		if (condition.evaluate() == 1) {	//if case exists
-			dst << "if ( ";			//this won't work until bindings map is made
-			condition->print(dst);
-			dst << " ) { " << std::endl;
-			body->print(dst);
-			dst << "}";
-			dst << std::endl;
-		}
-		/*else {
-			if(){ //else case exists
-			}			
-			else{ //else case does not exist
-			}
-		}*/
+	virtual void print(std::ostream &dst) const override {//if case exists
+		dst << "if ( ";		//this won't work until bindings map is made
+		condition->print(dst);
+		dst << " ) { " << std::endl;
+		body->print(dst);
+		dst << "}";
+		dst << std::endl;
 	}
-	virtual void translate(std::ostrem &dst, int indent) const override {
-		if (condition.evaluate() == 1) {
-			dst << "if ";
-			condition->evaluate(dst);
-			dst << " :" << std::endl;
-			body->evaluate(dst);
-			dst << std::endl;
-		}
-		/*else {
-			if(){ //else case exists
-			}			
-			else{ //else case does not exist
-			}
-		}*/
+	virtual void translate(std::ostream &dst, int indent) const override {
+		dst << "if ";
+		condition->translate(dst, indent);
+		dst << " :" << std::endl;
+		body->translate(dst, indent);
+		dst << std::endl;
 	}
-}
+};
 
 #endif
