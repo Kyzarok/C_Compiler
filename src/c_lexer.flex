@@ -30,7 +30,7 @@ T_Digit			[0-9]
 "float"		{return(K_FLOAT);}
 "return"	{return(K_RETURN);}
 "if"		{yylval.string=new std::string(yytext);return(K_IF);}
-"else"		{return(K_ELSE);}
+"else"		{yylval.string=new std::string(yytext);return(K_ELSE);}
 "for"		{return(K_FOR);}
 "while"		{return(K_WHILE);}
 	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/

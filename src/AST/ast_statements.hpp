@@ -172,13 +172,12 @@ public:
 		dst << std::endl;
 	}
 };
-/*
-class elseStatement : Statement {
+
+class ElseStatement : public Statement {
 protected:
-	ExpressionPtr condition; // the execute condition
 	StatementPtr body; // actually a statement list, the body of the if
 public:
-	elseStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	ElseStatement( StatementPtr _body) : body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
 		dst << "else {" << std::endl;
 		body->print(dst);
@@ -186,10 +185,13 @@ public:
 		dst << std::endl;
 	}
 	virtual void translate(std::ostream &dst, int indent) const override {
+		for(int i=0; i<indent;i++){ //Shold make a function / member function, quick hack for now
+			dst<<" ";
+		}
 		dst << "else :" << std::endl;
-		body->translate(dst, indent);
+		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
 };
-*/
+
 #endif
