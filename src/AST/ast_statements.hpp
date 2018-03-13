@@ -2,8 +2,8 @@
 #define ast_statements_hpp
 
 #include "ast_expressions.hpp"
-#include <vector>
 #include <iostream> 
+#include <string>
 
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
@@ -24,6 +24,10 @@ class ExpressionStatement : public Statement {
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____stateEXPR1_____"<<std::endl;
+			std::cerr<<"Adding indent, indent is currently "<<indent<<std::endl;
+			for(int i=0; i<indent;i++){ //Shold make a function / member function, quick hack for now
+				dst<<" ";
+			}
 			expr->translate(dst,indent);
 			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
@@ -48,6 +52,10 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____stateRETURN1_____"<<std::endl;
+			std::cerr<<"Adding indent, indent is currently "<<indent<<std::endl;
+			for(int i=0; i<indent;i++){//Shold make a function / member function, quick hack for now
+				dst<<" ";
+			}
 			dst<<"return ";
 			ret->translate(dst,indent);
 			std::cerr<<"_____stateRETURN2_____"<<std::endl;
