@@ -40,7 +40,7 @@
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR LOG_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID
-%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST
+%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT
 /*
 */
 
@@ -62,7 +62,7 @@ PROGRAM	: FNC_DEC	{$$=$1;}
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {std::cerr<<"just a test"<<std::endl; $$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL";}
+FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {std::cerr<<"just a test"<<std::endl; $$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL";} //hard coded to only handle ints
 
 TYPE_SPEC : K_INT	/*add other types*/
 	//| K_CHAR
@@ -85,6 +85,9 @@ STATEMENT_LIST : STATEMENT_LIST STATEMENT {$$ = new StatementList($2,$1);std::ce
 
 STATEMENT : RETURN_STATEMENT {$$=$1;}
 			| EXPR_STATEMENT {$$=$1;}
+			| IF_STATEMENT {$$=$1;}
+			
+IF_STATEMENT: K_IF P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC STATEMENT_LIST P_RCURLBRAC {$$ = new IfStatement($3,$6);}
 
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatement($2); }
 

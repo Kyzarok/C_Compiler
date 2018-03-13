@@ -23,15 +23,6 @@ int main(int argc, char *argv[]){
 		std::exit(1);
 	}
 	
-	// open source file
-	/*std::ifstream fileSource;
-	
-	fileSource.open(argv[2]); //the first parameter will be name / location of bin
-	if(!(fileSource.is_open())){ //if not opened then return error
-		std::cerr<<"Source File "<<argv[2]<< " not found"<<std::endl; 
-		std::exit(1);//exit
-	}*/
-	
 	//open dest file
 	
 	std::ofstream fileDest;
