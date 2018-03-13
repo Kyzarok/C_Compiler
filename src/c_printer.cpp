@@ -3,9 +3,13 @@
 
 #include "ast.hpp"
 #include <iostream>
-int main(){
-
-	const Node *ast=parseAST(); //This function won't really return anything
+#include<cstdlib> //Required for exit
+int main(int argc, char *argv[]){
+	if(argc<2){
+		std::cerr<<"ERROR, expected more arguments"<<std::endl;
+		std::exit(1);
+	}
+	const Node *ast=parseAST(argv[1]); //This function won't really return anything
 	//error checking
 	std::cerr<<"I parsed the tree"<<std::endl;
 	ast->print(std::cout); //Print implemented! Very basic though
