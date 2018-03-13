@@ -51,7 +51,7 @@ class FunctionDecl : public Node {
 			dst<<"}";
 		}
 
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 				//if(takesArgument){
 					//complete this section
 				//}
@@ -59,7 +59,7 @@ class FunctionDecl : public Node {
 					std::cerr<<"_____dec1_____"<<std::endl;
 					dst<<"def "<<fnc_ID<<"():"<<std::endl;
 					std::cerr<<"_____dec2_____"<<std::endl;
-					body->translate(dst);
+					body->translate(dst,indent+4);
 					std::cerr<<"_____dec3_____"<<std::endl;
 				//}
 		}

@@ -16,7 +16,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
     	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override{
        		return bindings.at(id);
     	}    */
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____primID1_____"<<std::endl;
 			dst<<id;
 			std::cerr<<"_____primID2_____"<<std::endl;
@@ -35,7 +35,7 @@ class IntLiteral : public Expression {
     	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override {
         	return value;
     	}*/
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____primINT1_____"<<std::endl;
 			dst<<value;
 			std::cerr<<"_____primINT2_____"<<std::endl;

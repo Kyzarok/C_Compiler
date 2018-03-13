@@ -58,7 +58,7 @@ int main(int argc, char *argv[]){
 		std::cerr<<"We translating"<<std::endl;
 		//translate
 		
-		ast->translate(fileDest);
+		ast->translate(fileDest,0);
 		//fileDest<<std::cout<<std::endl; //TODO make this write to dest file, not stdout. Can put stdout into file stream?
 		
 		

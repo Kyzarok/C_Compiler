@@ -22,10 +22,10 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst << " = ";
 			value->print(dst);
 		}
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			dst<<target;
 			dst << " = ( ";
-			value->translate(dst);
+			value->translate(dst,indent);
 			dst << " )";
 		}
 };
@@ -61,11 +61,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" + ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -87,11 +87,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" - ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -113,11 +113,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" * ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -139,11 +139,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" / ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -173,11 +173,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" == ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -204,11 +204,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" != ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -235,11 +235,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" AND ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -266,11 +266,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" OR ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -297,11 +297,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" NOT ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -328,11 +328,11 @@ public:
 		right->print(dst);
 		dst << " )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst << "( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst << " > ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst << " )";
 	}
 };
@@ -359,11 +359,11 @@ public:
 		right->print(dst);
 		dst << " )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst << "( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst << " < ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst << " )";
 	}
 };
@@ -390,11 +390,11 @@ public:
 		right->print(dst);
 		dst << " )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst << "( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst << " >= ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst << " )";
 	}
 };
@@ -421,11 +421,11 @@ public:
 		right->print(dst);
 		dst << " )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst << "( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst << " <= ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst << " )";
 	}
 };
@@ -449,11 +449,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" & ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -475,11 +475,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" | ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -501,11 +501,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" ~ ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -546,11 +546,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" << ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };
@@ -571,11 +571,11 @@ public:
 		right->print(dst);
 		dst<<" )";
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		dst<<"( ";
-		left->translate(dst);
+		left->translate(dst,indent);
 		dst<<" >> ";
-		right->translate(dst);
+		right->translate(dst,indent);
 		dst<<" )";
 	}
 };

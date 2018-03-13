@@ -22,9 +22,9 @@ class ExpressionStatement : public Statement {
 			expr->print(dst);
 			dst<<";"<<std::endl;
 		}
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____stateEXPR1_____"<<std::endl;
-			expr->translate(dst);
+			expr->translate(dst,indent);
 			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
 		}
@@ -46,10 +46,10 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<";";
 			dst<<std::endl;
 		}
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____stateRETURN1_____"<<std::endl;
 			dst<<"return ";
-			ret->translate(dst);
+			ret->translate(dst,indent);
 			std::cerr<<"_____stateRETURN2_____"<<std::endl;
 			dst<<std::endl;
 		}
@@ -85,13 +85,13 @@ class StatementList : public Statement
 		current->print(dst);
 		std::cerr<<"Print on statement list successfully finished"<<std::endl;
 	}
-	virtual void translate(std::ostream &dst) const override {
+	virtual void translate(std::ostream &dst, int indent) const override {
 		std::cerr<<"_____stateLIST1_____"<<std::endl;
 		if(next!=NULL){
-			next->translate(dst);
+			next->translate(dst,indent);
 		}
 		std::cerr<<"_____stateLIST2_____"<<std::endl;
-		current->translate(dst);
+		current->translate(dst,indent);
 		std::cerr<<"_____stateLIST3_____"<<std::endl;
 	}
 };
@@ -110,9 +110,9 @@ class CompoundStatement : public Node{
 			//dref->print(dst);
 			sref->print(dst);
 		}
-		virtual void translate(std::ostream &dst) const override {
+		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____stateCOMP1_____"<<std::endl;
-			sref->translate(dst);
+			sref->translate(dst,indent);
 			std::cerr<<"_____stateCOMP2_____"<<std::endl;
 		}
 };
