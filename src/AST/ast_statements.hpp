@@ -126,7 +126,7 @@ class CompoundStatement : public Node{
 };
 
 typedef const CompoundStatement *CompStatementPtr;
-/*
+
 class ifStatement : Statement {
 protected:
 	ExpressionPtr condition // the execute condition
@@ -134,33 +134,36 @@ protected:
 public:
 	ifStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) cosnt override {
-		if (condition.evaluate() == 1) {	//this won't work until bindings map is made
-			dst << "if ( ";
+		if (condition.evaluate() == 1) {	//if case exists
+			dst << "if ( ";			//this won't work until bindings map is made
 			condition->print(dst);
 			dst << " ) { " << std::endl;
 			body->print(dst);
 			dst << "}";
 			dst << std::endl;
 		}
-		else {
-
-		}
+		/*else {
+			if(){ //else case exists
+			}			
+			else{ //else case does not exist
+			}
+		}*/
 	}
-	virtual void translate(std::ostrem &dst) const override {
+	virtual void translate(std::ostrem &dst, int indent) const override {
 		if (condition.evaluate() == 1) {
-			dst << "if ";	//so, slight issue, if we don't get indentation right none of this will work
-			//am so worried that we won't be able to get this working
-			//entirely dependent on indentation system, halp
+			dst << "if ";
 			condition->evaluate(dst);
-			dst << " " << std::endl;
+			dst << " :" << std::endl;
 			body->evaluate(dst);
-			dst << "";
 			dst << std::endl;
 		}
-		else {
-
-		}
+		/*else {
+			if(){ //else case exists
+			}			
+			else{ //else case does not exist
+			}
+		}*/
 	}
 }
-*/
+
 #endif
