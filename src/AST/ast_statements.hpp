@@ -193,5 +193,31 @@ public:
 		dst << std::endl;
 	}
 };
-
+/*
+class WhileStatement : public Statement {
+protected:
+	ExpressionPtr condition;
+	StatementPtr body; // actually a statement list, the body of the if
+public:
+	WhileStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	virtual void print(std::ostream &dst) const override {//if case exists
+		dst << "while (";
+		condition->print(dst);
+		dst<< ") {" << std::endl;
+		body->print(dst);
+		dst << "}";
+		dst << std::endl;
+	}
+	virtual void translate(std::ostream &dst, int indent) const override {
+		for (int i = 0; i<indent;i++) { //Shold make a function / member function, quick hack for now
+			dst << " ";
+		}
+		dst << "while ";
+		condition->translate(dst);
+		dst << " :" << std::endl;
+		body->translate(dst, indent + 4);
+		dst << std::endl;
+	}
+};
+*/
 #endif
