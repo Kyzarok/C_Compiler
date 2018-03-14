@@ -32,7 +32,7 @@ T_Digit			[0-9]
 "if"		{yylval.string=new std::string(yytext);return(K_IF);}
 "else"		{yylval.string=new std::string(yytext);return(K_ELSE);}
 "for"		{return(K_FOR);}
-"while"		{return(K_WHILE);}
+"while"		{yylval.string=new std::string(yytext);return(K_WHILE);}
 	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/
 
 
@@ -85,6 +85,8 @@ T_Digit			[0-9]
 "/*"[.]*"*/" {} // strip comments
 "//"[^\n]* {} //strip comments
 
+\n { fprintf(stderr, "Consume Unwanted characters, newline\n"); }
+\t { fprintf(stderr, "Consume Unwanted characters, tabs\n"); }
  /*types*/
 
 {T_Digit}+ { yylval.number=strtod(yytext, 0); return T_INT; }

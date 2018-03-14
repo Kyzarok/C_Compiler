@@ -197,7 +197,7 @@ public:
 class WhileStatement : public Statement {
 protected:
 	ExpressionPtr condition;
-	StatementPtr body; // actually a statement list, the body of the if
+	StatementPtr body; // actually a statement list, the body of the while
 public:
 	WhileStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
