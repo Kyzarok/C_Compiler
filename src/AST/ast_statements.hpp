@@ -193,7 +193,7 @@ public:
 		dst << std::endl;
 	}
 };
-/*
+
 class WhileStatement : public Statement {
 protected:
 	ExpressionPtr condition;
@@ -219,5 +219,5 @@ public:
 		dst << std::endl;
 	}
 };
-*/
+
 #endif
