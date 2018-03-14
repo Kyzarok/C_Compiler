@@ -37,8 +37,7 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC  K_RETURN  TYPE_SPEC  COMPOUND_STATEMENT 
-
+%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID LOG_EXPR
@@ -65,14 +64,20 @@ PROGRAM	: FNC_DEC	{$$=$1;} // oh god, another layer of abstraction
 	|GLB_VAR PROGRAM
 
 	*/
-FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {std::cerr<<"just a test"<<std::endl; $$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL";} //hard coded to only handle ints
+FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
+		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with not params";}
 
-TYPE_SPEC : K_INT	/*add other types*/
+PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParameterList($3,$1); std::cerr<<"New paramlist, yay"<<std::endl;}
+					| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}
+						
+PARAMETER	: K_INT T_IDENTIFIER {$$ = new Paramater(*$1,*$2);}
+
+/*TYPE_SPEC : K_INT	
 	//| K_CHAR
-	//| K_FLOAT
+	//| K_FLOAT */
 
 CONSTANT : T_INT {$$ = new IntLiteral($1);} 
-	/*okay, so if I understand this correctly, this is where the return that goes into the AST happens*/
+	
 
 FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
 
