@@ -149,9 +149,9 @@ class IfStatement : public Statement {
 
 protected:
 	ExpressionPtr condition; // the execute condition
-	StatementPtr body; // actually a statement list, the body of the if
+	NodePtr body; // actually a statement list, the body of the if
 public:
-	IfStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	IfStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
 				
 		dst << "if ( ";		//this won't work until bindings map is made
@@ -175,9 +175,9 @@ public:
 
 class ElseStatement : public Statement {
 protected:
-	StatementPtr body; // actually a statement list, the body of the if
+	NodePtr body; // actually a statement list, the body of the if
 public:
-	ElseStatement( StatementPtr _body) : body(_body) {}
+	ElseStatement(NodePtr _body) : body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
 		dst << "else {" << std::endl;
 		body->print(dst);
@@ -197,9 +197,9 @@ public:
 class WhileStatement : public Statement {
 protected:
 	ExpressionPtr condition;
-	StatementPtr body; // actually a statement list, the body of the while
+	NodePtr body; // actually a statement list, the body of the while
 public:
-	WhileStatement(ExpressionPtr _condition, StatementPtr _body) : condition(_condition), body(_body) {}
+	WhileStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {}
 	virtual void print(std::ostream &dst) const override {//if case exists
 		dst << "while (";
 		condition->print(dst);
