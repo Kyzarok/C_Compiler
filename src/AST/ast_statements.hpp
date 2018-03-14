@@ -213,7 +213,7 @@ public:
 			dst << " ";
 		}
 		dst << "while ";
-		condition->translate(dst);
+		condition->translate(dst,indent);
 		dst << " :" << std::endl;
 		body->translate(dst, indent + 4);
 		dst << std::endl;
