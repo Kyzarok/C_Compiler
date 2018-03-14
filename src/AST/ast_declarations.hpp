@@ -69,11 +69,12 @@ class FunctionDecl : public Node {
 		virtual void translate(std::ostream &dst, int indent) const override {
 		
 			std::cerr<<"_____dec1_____"<<std::endl;
-			dst<<"def "<<fnc_ID<<"():"<<std::endl;
+			dst<<"def "<<fnc_ID<<"(";
 			std::cerr<<"_____dec2_____"<<std::endl;
 			if(args!=NULL){
 				args->translate(dst, indent);
 			}
+			dst<<" )"<<std::endl;
 			std::cerr<<"_____dec3_____"<<std::endl;
 			body->translate(dst,indent+4);
 			std::cerr<<"_____dec4_____"<<std::endl;
@@ -82,15 +83,17 @@ class FunctionDecl : public Node {
 
 };
 
-class Parameter : public Node{
+class Param : public Node{
 
 	protected:
 		std::string type;
 		std::string id;
 		//ExpresstionPtr value; // technically this is valid eg int f(int x=2){return x;} is a valid function, returning 2 or the input. Not going to be supported.
 	public:
-		Parameter(std::string _type, std::string _id) : type(_type), id(_id){} //constructor
-		
+		Param (std::string _type, std::string _id) : type(_type), id(_id){} //constructor
+		virtual void print(std::ostream &dst) const override {
+			
+		}
 		virtual void translate(std::ostream &dst, int indent) const override {
 			dst<<type;
 			dst<<" ";
@@ -100,20 +103,24 @@ class Parameter : public Node{
 
 };
 
-class ParamaterList : public Node{ // list of function paramaters
+class ParamList : public Node{ // list of function paramaters
 
 	protected:
 		NodePtr current; // pointer to current Parameter, of type node
 		NodePtr next; // pointer to next Parameter list, of type node too
 	public:
-		ParamaterList(NodePtr _current) : current(_current), next(NULL){} // constructor with no next
-		ParamaterList(NodePtr _current, NodePtr _next) : current(_current), next(_next){} // constructor with next
+		ParamList(NodePtr _current) : current(_current), next(NULL){} // constructor with no next
+		ParamList(NodePtr _current, NodePtr _next) : current(_current), next(_next){} // constructor with next
+		
+		virtual void print(std::ostream &dst) const override {
+			
+		}
 		
 		virtual void translate(std::ostream &dst, int indent) const override {
 			std::cerr<<"_____paramLIST1_____"<<std::endl;
-			if(next!=NULL){
-				dst<<", ";
+			if(next!=NULL){				
 				next->translate(dst,indent);
+				dst<<", ";
 			}
 			std::cerr<<"_____paramLIST2_____"<<std::endl;
 			current->translate(dst,indent);
