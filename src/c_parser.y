@@ -55,14 +55,17 @@ ROOT : PROGRAM { g_root = $1; }
 	nodes of the tree we will encounter, it prevents the issue of advancing too
 	far and having an unstable foundation
  */
-PROGRAM	: FNC_DEC	{$$=$1;} // oh god, another layer of abstraction
+ 
+PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of abstraction
 	/* 	comment out things that we don't need right now
 		as they're unneeded for basic parser
 	|GLB_VAR_DEC
-	|FNC_DEC PROGRAM
 	|GLB_VAR PROGRAM
-
+	
 	*/
+	| FNC_DEC	{$$=$1;}
+	
+	
 FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
 		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with not params";}
 

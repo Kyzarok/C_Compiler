@@ -6,7 +6,7 @@
 #
 
 
-class Program : Node{ // class that points to one GLB_VAR or FNC_DEC, then another program
+class Program : public Node{ // class that points to one GLB_VAR or FNC_DEC, then another program
 
 	protected:
 		NodePtr current; //points to current FunctionDeclaration or GlobalDeclaration
@@ -18,11 +18,8 @@ class Program : Node{ // class that points to one GLB_VAR or FNC_DEC, then anoth
 		
 		virtual void print(std::ostream &dst) const override {
 			std::cerr<<"Print on Program list got called"<<std::endl;
-			if(next!=NULL){
-				next->print(dst);
-			}
-			current->print(dst);
-			std::cerr<<"Print on Program list successfully finished"<<std::endl;
+		
+			std::cerr<<"Print on Program list not implemented"<<std::endl;
 		}
 		
 		virtual void translate(std::ostream &dst, int indent) const override {
