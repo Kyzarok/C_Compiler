@@ -92,7 +92,8 @@ class DeclList : public Declaration{
 		}
 };
 
+class DeclGlobal : public Node{ 
 
-
+};
 
 #endif
