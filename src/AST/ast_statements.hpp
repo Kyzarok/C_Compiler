@@ -138,10 +138,10 @@ class CompoundStatement : public Node{
 			}
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
-		
-			if(myGlobVarbCounter){
+			//buggy
+			/*if(myGlobVarbCounter){
 				std::cerr<<"There were some global variables to translate"<<std::endl;
-			}
+			}*/
 			if(dref!=NULL){
 				std::cerr<<"_____declCOMP1_____"<<std::endl;
 				dref->translate(dst,indent);
