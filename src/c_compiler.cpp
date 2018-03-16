@@ -8,9 +8,9 @@
 #include<fstream> 
 #include<vector>
 
-bool myGlobVarbCounter =false; // a global variab (gasp) to track global variables as they are parsed...
 
-std::vector<std::string> myGlobVarbContainer; // another global variable, allowing for translation from c to python, hopefully
+
+
 
 std::string make_boilerplate(){
 	std::stringstream ss; // make a function

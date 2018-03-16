@@ -5,12 +5,13 @@
 #include <iostream> 
 #include <vector>
 
-extern bool myGlobVarbCounter;
+//bloody global variables for handling global variables
+extern int myGlobVarbCounter;
 
 extern std::vector<std::string> myGlobVarbContainer;
 
 class Declaration : public Node{
-
+	
 };
 
 class DeclLocal : public Declaration{
@@ -58,7 +59,6 @@ class DeclLocal : public Declaration{
 		}
 };
 
-typedef const Declaration *DeclPtr;
 
 class DeclList : public Declaration{
 
@@ -147,6 +147,44 @@ class DeclGlobal : public Node{
 			dst<<std::endl;
 		}
 
+};
+class CompoundStatement : public Node{ 
+
+	protected:
+		StatementPtr sref;
+		DeclPtr dref;
+		
+		
+	public:
+		CompoundStatement(StatementPtr _sref) : sref(_sref){std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;}		
+		CompoundStatement(DeclPtr _dref) : dref(_dref){std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;}
+		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref){std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;}	
+			
+		virtual void print(std::ostream &dst) const override {
+			if(dref!=NULL){
+				dref->print(dst);
+			}
+			if(sref!=NULL){
+				sref->print(dst);
+			}
+		}
+		virtual void translate(std::ostream &dst, int indent) const override {
+			//buggy
+			if(myGlobVarbCounter!=0){
+				std::cerr<<"There were some global variables to translate"<<std::endl;
+				
+			}
+			if(dref!=NULL){
+				std::cerr<<"_____declCOMP1_____"<<std::endl;
+				dref->translate(dst,indent);
+				std::cerr<<"_____declCOMP2_____"<<std::endl;
+			}
+			if(sref!=NULL){
+				std::cerr<<"_____declCOMP1_____"<<std::endl;
+				sref->translate(dst,indent);
+				std::cerr<<"_____declCOMP2_____"<<std::endl;
+			}
+		}
 };
 
 #endif

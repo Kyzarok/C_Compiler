@@ -1,27 +1,20 @@
 #ifndef ast_statements_hpp
 #define ast_statements_hpp
 
-#include "ast_node.hpp"
-#include "ast_expressions.hpp"
-
 #include <iostream> 
 #include <vector>
-
-#include "ast_varb_declarations.hpp"
 #include <iostream> 
 #include <string>
 
 
-//bloody global variables for handling global variables
-extern bool myGlobVarbCounter;
 
-extern std::vector<std::string> myGlobVarbContainer;
+
 
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };
 
-typedef const Statement *StatementPtr;
+
 
 class ExpressionStatement : public Statement {
 
@@ -78,7 +71,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 
 
 class StatementList ;
-typedef const StatementList *StatementListPtr;
+
 
 class StatementList : public Statement
 { 
@@ -116,46 +109,6 @@ class StatementList : public Statement
 	}
 };
 
-
-class CompoundStatement : public Node{ 
-
-	protected:
-		StatementPtr sref;
-		DeclPtr dref;
-		
-		
-	public:
-		CompoundStatement(StatementPtr _sref) : sref(_sref){std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;}		
-		CompoundStatement(DeclPtr _dref) : dref(_dref){std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;}
-		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref){std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;}	
-			
-		virtual void print(std::ostream &dst) const override {
-			if(dref!=NULL){
-				dref->print(dst);
-			}
-			if(sref!=NULL){
-				sref->print(dst);
-			}
-		}
-		virtual void translate(std::ostream &dst, int indent) const override {
-			//buggy
-			/*if(myGlobVarbCounter){
-				std::cerr<<"There were some global variables to translate"<<std::endl;
-			}*/
-			if(dref!=NULL){
-				std::cerr<<"_____declCOMP1_____"<<std::endl;
-				dref->translate(dst,indent);
-				std::cerr<<"_____declCOMP2_____"<<std::endl;
-			}
-			if(sref!=NULL){
-				std::cerr<<"_____declCOMP1_____"<<std::endl;
-				sref->translate(dst,indent);
-				std::cerr<<"_____declCOMP2_____"<<std::endl;
-			}
-		}
-};
-
-typedef const CompoundStatement *CompStatementPtr;
 
 
 

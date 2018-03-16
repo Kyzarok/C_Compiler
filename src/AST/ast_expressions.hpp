@@ -1,13 +1,13 @@
 #ifndef ast_expressions_hpp
 #define ast_expressions_hpp
 
-#include "ast_node.hpp"
+
 
 class Expression : public Node {
 
 };
 
-typedef const Expression *ExpressionPtr;
+
 
 class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSION	
 	protected:
