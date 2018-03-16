@@ -1,10 +1,21 @@
 #ifndef ast_statements_hpp
 #define ast_statements_hpp
 
+#include "ast_node.hpp"
 #include "ast_expressions.hpp"
+
+#include <iostream> 
+#include <vector>
+
 #include "ast_varb_declarations.hpp"
 #include <iostream> 
 #include <string>
+
+
+//bloody global variables for handling global variables
+extern int myGlobVarbCounter;
+
+extern std::vector<std::string> myGlobVarbContainer;
 
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
@@ -128,6 +139,10 @@ class CompoundStatement : public Node{
 			}
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
+		
+			if(myGlobVarbCounter!=0){
+				std::cerr<<"There were some global variables to translate"<<std::endl;
+			}
 			if(dref!=NULL){
 				std::cerr<<"_____declCOMP1_____"<<std::endl;
 				dref->translate(dst,indent);
