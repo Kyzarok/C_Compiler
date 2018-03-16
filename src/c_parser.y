@@ -155,8 +155,11 @@ BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
-FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET
-	//|  T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET
+FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET {$$ = new FunctionCall($1);}
+	|  T_IDENTIFIER P_LBRACKET VAR_LIST P_RBRACKET {$$ = new FunctionCall($1, $3);}
+
+VAR_LIST : K_INT VAR_LIST {$$ = new VarList($1, $2);}	//can't be Expression
+	| K_INT {$$ = new Varlist($1);}	//maybe directly a variable?
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?

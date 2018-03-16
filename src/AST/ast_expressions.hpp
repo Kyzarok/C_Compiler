@@ -67,7 +67,6 @@ class VarList : public Node{
 				dst<<", ";
 			}
 			dst<<current;
-
 		}
 };
 
