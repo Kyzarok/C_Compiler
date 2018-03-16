@@ -8,7 +8,7 @@
 #include<fstream> 
 #include<vector>
 
-int myGlobVarbCounter =0; // a global variab (gasp) to track global variables as they are parsed...
+bool myGlobVarbCounter =false; // a global variab (gasp) to track global variables as they are parsed...
 
 std::vector<std::string> myGlobVarbContainer; // another global variable, allowing for translation from c to python, hopefully
 

@@ -13,7 +13,7 @@
 
 
 //bloody global variables for handling global variables
-extern int myGlobVarbCounter;
+extern bool myGlobVarbCounter;
 
 extern std::vector<std::string> myGlobVarbContainer;
 
@@ -117,7 +117,6 @@ class StatementList : public Statement
 };
 
 
-
 class CompoundStatement : public Node{ 
 
 	protected:
@@ -140,7 +139,7 @@ class CompoundStatement : public Node{
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
 		
-			if(myGlobVarbCounter!=0){
+			if(myGlobVarbCounter){
 				std::cerr<<"There were some global variables to translate"<<std::endl;
 			}
 			if(dref!=NULL){

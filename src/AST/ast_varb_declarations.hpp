@@ -5,7 +5,7 @@
 #include <iostream> 
 #include <vector>
 
-extern int myGlobVarbCounter;
+extern bool myGlobVarbCounter;
 
 extern std::vector<std::string> myGlobVarbContainer;
 
@@ -106,7 +106,7 @@ class DeclGlobal : public Node{
 			value(NULL) {
 			
 			std::cerr<<"Behold, a global with no initial value. Increment the counter and store the relevant details!"<<std::endl;
-			myGlobVarbCounter++;
+			myGlobVarbCounter=true;
 			myGlobVarbContainer.push_back(type);
 			myGlobVarbContainer.push_back(var_id);
 			std::cerr<<"The global constructor hath finished!"<<std::endl;
@@ -117,7 +117,7 @@ class DeclGlobal : public Node{
 			value(_value) {
 			
 			std::cerr<<"Behold, a global with an initial value. Increment the counter and store the relevant details!"<<std::endl;
-			myGlobVarbCounter++;
+			myGlobVarbCounter=true;
 			myGlobVarbContainer.push_back(type);
 			myGlobVarbContainer.push_back(var_id);
 			std::cerr<<"The global constructor hath finished!"<<std::endl;
