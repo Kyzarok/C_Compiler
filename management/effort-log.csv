@@ -11,8 +11,9 @@ Date,Effort,Developers,Milestones
 05/03/2018,3,Kai,WriteASTForBasicPrograms
 07/03/2018,6.5,"Ed, Kai","WriteParserFileForBasicPrograms, WriteASTForBasicPrograms"
 08/03/2018,3,"Ed,Kai","DebugBasicParser/AST/Lexer, MinimalPythonConverter"
-09/03/018,4,Kai,MinimalPythonConverter
+09/03/2018,4,Kai,MinimalPythonConverter
 12/03/2018,1.5,Ed,MinimalPythonConverter
 13/03/2018,4.5,"Ed,Kai","WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter"
-14/08/2018,5,"Ed,Kai","WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter"
-15/08/2018,1,Ed,"WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter"
+14/03/2018,5,"Ed,Kai","WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter"
+15/03/2018,1,Ed,"WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter"
+16/03/2018,5,"Ed, Kai","WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter,PythonConverter"
