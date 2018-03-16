@@ -32,8 +32,22 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 
 
 class FunctionCall : public Expression{
-
-
+	protected:
+		std::string id;
+		NodePtr vlist;
+	public:
+		FunctionCall(std::string _id) : id(_id), vlist(NULL) {}
+		FunctionCall(std::string _id, NodePtr _vlist) : id(_id), vlist(_vlist) {}
+		virtual void print(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void translate(std::ostream &dst, int indent) const override {
+			dst<<id<<" ( ";
+			if(vlist != NULL){
+				vlist->translate(dst, indent);
+			}
+			dst<<" )";
+		}
 };
 
 
