@@ -36,7 +36,7 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST
+%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST DECL_GLOB
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT LOG_EXPR FNC_CALL 
@@ -56,15 +56,13 @@ ROOT : PROGRAM { g_root = $1; }
 	far and having an unstable foundation
  */
  
-PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of abstraction
-	/* 	comment out things that we don't need right now
-		as they're unneeded for basic parser
-	|GLB_VAR_DEC
-	|GLB_VAR PROGRAM
-	
-	*/
+PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of abstraction	
+	|DECL_GLOB PROGRAM {$$ = new Program($2,$1);}
 	| FNC_DEC	{$$=$1;}
+	|DECL_GLOB {$$=$1;}
 	
+DECL_GLOB : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclGlobal(*$1,*$2);}
+		| K_INT T_IDENTIFIER O_EQUALS EXPRESSION P_STATEMENT_END {$$ = new DeclGlobal(*$1,*$2,$4);}
 	
 FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
 		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with params";}
