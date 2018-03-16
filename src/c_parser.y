@@ -67,7 +67,7 @@ PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of
 	
 	
 FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
-		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with not params";}
+		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with params";}
 
 PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($3,$1); std::cerr<<"New paramlist, yay"<<std::endl;}
 					| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}
@@ -79,9 +79,6 @@ PARAMETER	: K_INT T_IDENTIFIER {$$ = new Param(*$1,*$2);}
 	//| K_FLOAT */
 
 CONSTANT : T_INT {$$ = new IntLiteral($1);} 
-	
-
-FNC_ID : T_IDENTIFIER	{$$ = new Identifier(*$1);}
 
 COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1); std::cerr<<"making a new comp statement only stat list"<<std::endl;} 
 		| DECL_LIST {$$ = new CompoundStatement($1);std::cerr<<"making a new comp statement only decl list"<<std::endl;}
@@ -120,6 +117,7 @@ EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
 	| LOG_EXPR {$$=$1;}
 	| BIT_EXPR {$$=$1;}
+	| FNC_CALL {$$=$1;}
 
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
@@ -130,7 +128,6 @@ TERM : FACTOR {$$=$1;}
 	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
 
 FACTOR : CONSTANT {$$=$1;}
-	| FNC_ID {$$=$1;}
 	| P_LBRACKET MATH_EXPR P_RBRACKET {$$ = $2;}
 	| P_LBRACKET LOG_EXPR P_RBRACKET {$$ = $2;}
 	| P_LBRACKET BIT_EXPR P_RBRACKET {$$ = $2;}
@@ -157,6 +154,9 @@ BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
 	| MATH_EXPR {$$ = $1;}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
+
+FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET
+	|  T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?

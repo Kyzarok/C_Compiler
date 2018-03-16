@@ -127,8 +127,6 @@ class ParamList : public Node{ // list of function paramaters
 			std::cerr<<"_____paramLIST3_____"<<std::endl;
 				
 		}
-
-
 };
 
 #endif

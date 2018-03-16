@@ -30,6 +30,33 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 		}
 };
 
+
+class FunctionCall : public Expression{
+
+
+};
+
+
+class VarList : public Node{
+	protected:
+		std::string current;
+		NodePtr next;
+	public:
+		VarList(std::string _current) : current(_current), next(NULL){}
+		VarList(std::string _current, NodePtr _next) : current(_current), next(_next){}
+		virtual void print(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void translate(std::ostream &dst, int indent) const override {
+			if(next!=NULL){				
+				next->translate(dst,indent);
+				dst<<", ";
+			}
+			dst<<current;
+
+		}
+};
+
 class Operator : public Expression {
 protected:
 	NodePtr left;
