@@ -72,7 +72,7 @@ class FunctionDecl : public Node {
 			if(args!=NULL){
 				args->translate(dst, indent);
 			}
-			dst<<" )"<<std::endl;
+			dst<<" ):"<<std::endl;
 			std::cerr<<"_____dec3_____"<<std::endl;
 			body->translate(dst,indent+4);
 			std::cerr<<"_____dec4_____"<<std::endl;
@@ -93,8 +93,6 @@ class Param : public Node{
 			
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
-			dst<<type;
-			dst<<" ";
 			dst<<id;
 				
 		}

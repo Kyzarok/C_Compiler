@@ -36,10 +36,10 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER
+%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
-%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID LOG_EXPR FNC_CALL
+%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT FNC_ID LOG_EXPR FNC_CALL 
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT
 %type <declaration>  DECL_LIST DECL_LOCAL
 /*
@@ -117,7 +117,7 @@ EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
 	| LOG_EXPR {$$=$1;}
 	| BIT_EXPR {$$=$1;}
-	| FNC_CALL {$$=$1;}
+	
 
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
@@ -128,9 +128,11 @@ TERM : FACTOR {$$=$1;}
 	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
 
 FACTOR : CONSTANT {$$=$1;}
+	| T_IDENTIFIER {$$ = new Identifier(*$1);}
 	| P_LBRACKET MATH_EXPR P_RBRACKET {$$ = $2;}
 	| P_LBRACKET LOG_EXPR P_RBRACKET {$$ = $2;}
 	| P_LBRACKET BIT_EXPR P_RBRACKET {$$ = $2;}
+	| FNC_CALL {$$=$1;}
 
 //going to need the same BIDMAS architecture used in lab 2
 
@@ -155,11 +157,18 @@ BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
-FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET {$$ = new FunctionCall($1);}
-	|  T_IDENTIFIER P_LBRACKET VAR_LIST P_RBRACKET {$$ = new FunctionCall($1, $3);}
+FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET {$$ = new FunctionCall(*$1);}
+	|  T_IDENTIFIER P_LBRACKET VAR_LIST P_RBRACKET {$$ = new FunctionCall(*$1, $3);}
 
-VAR_LIST : K_INT VAR_LIST {$$ = new VarList($1, $2);}	//can't be Expression
-	| K_INT {$$ = new Varlist($1);}	//maybe directly a variable?
+VAR_LIST : VAR_LIST P_LIST_SEPARATOR T_IDENTIFIER {$$ = new VarList(*$3,$1);}	//can't be Expression
+	| VAR_LIST P_LIST_SEPARATOR T_INT {$$ = new VarList(std::to_string($3),$1);} // if we supported other types this wouldn't be T_INT
+											//maybe condense back into something else, T_INT
+											//and T_VAR both as some other layer
+	| T_IDENTIFIER {$$=new VarList(*$1);}
+	| T_INT {$$=new VarList(std::to_string($1));}
+	
+	
+
 
 %%
 const Node *g_root; // The top of the program is a node. Might be better type?
