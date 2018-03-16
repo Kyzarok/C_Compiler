@@ -1,9 +1,7 @@
 #ifndef ast_declarations_hpp
 #define ast_declarations_hpp
 
-#include "ast_node.hpp"
-#include "ast_statements.hpp"
-#include "ast_expressions.hpp"
+
 #include <string>
 
 
