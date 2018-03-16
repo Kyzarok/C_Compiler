@@ -5,7 +5,11 @@
 #include "ast_expressions.hpp"
 #include <string>
 #include <iostream> 
+#include <vector>
 
+extern int myGlobVarbCounter;
+
+extern std::vector<std::string> myGlobVarbContainer;
 
 class Declaration : public Node{
 
@@ -93,6 +97,57 @@ class DeclList : public Declaration{
 };
 
 class DeclGlobal : public Node{ 
+	protected:
+		std::string type;
+		std::string var_id;
+		ExpressionPtr value;
+	public:
+		DeclGlobal(std::string _type, std::string _var_id) : 
+			type(_type),
+			var_id(_var_id),
+			value(NULL) {
+			
+			std::cerr<<"Behold, a global with no initial value. Increment the counter and store the relevant details!"<<std::endl;
+			myGlobVarbCounter++;
+			myGlobVarbContainer.push_back(type);
+			myGlobVarbContainer.push_back(var_id);
+			std::cerr<<"The global constructor hath finished!"<<std::endl;
+		}
+		DeclGlobal(std::string _type, std::string _var_id, ExpressionPtr _value) :
+			type(_type),
+			var_id(_var_id),
+			value(_value) {
+			
+			std::cerr<<"Behold, a global with an initial value. Increment the counter and store the relevant details!"<<std::endl;
+			myGlobVarbCounter++;
+			myGlobVarbContainer.push_back(type);
+			myGlobVarbContainer.push_back(var_id);
+			std::cerr<<"The global constructor hath finished!"<<std::endl;
+		}
+		virtual void print(std::ostream &dst) const override {
+			dst<<type;
+			dst << " ";
+			dst << var_id;
+			dst<<" ";
+			if(value!=NULL){
+				dst<<"= ";
+				value->print(dst);
+			}
+		}
+		virtual void translate(std::ostream &dst, int indent) const override {
+			for(int i=0; i<indent;i++){//Shold make a function / member function, quick hack for now
+				dst<<" ";
+			}	
+			dst<<var_id;
+			dst<<" = ";
+			if(value!=NULL){
+				value ->translate(dst,indent);
+			}
+			else{
+				dst<<"0";
+			}
+			dst<<std::endl;
+		}
 
 };
 

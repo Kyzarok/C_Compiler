@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+
 class Node; //template function, contains only virtual functions to overwrite.
 
 typedef const Node *NodePtr; // use NodePtr to point to other nodes
