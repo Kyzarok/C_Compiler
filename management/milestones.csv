@@ -1,15 +1,18 @@
 MilestoneID,             Dependencies, EstimatedEffort, Lead,  Completed, Description
 DefineInitialMilestones,None,0.5,Ed,1ce9aa4f81f27cba6b39624ddaf00a7c70e5080d, Come up with initial milestones for getting started
 InitialPlanningMeeting,None,0.5,Ed and Kai,1ce9aa4f81f27cba6b39624ddaf00a7c70e5080d,Meet to establish basic goals and common understanding
-DefineBasicPrograms,None,1,,3d9fca7a2744c4b05e13fd1b96db857e4dbe0fcf,Come up with very basic programs to run through the entire compiler and write them
+DefineBasicPrograms,None,1,Ed,3d9fca7a2744c4b05e13fd1b96db857e4dbe0fcf,Come up with very basic programs to run through the entire compiler and write them
 ResearchTokens,None,4,Kai,335ac60e421b3082557897d7c1704c6929ea1902,Research all tokens required for C
-ImplementLexerForBasicPrograms,DefineBasicPrograms,2,,75b56b7a8e5628e869bb815f22018322e5a7e9bf,Implement Lexer to support tokens found in basic programs
-ImplementGoodCLexer,"ResearchTokens, ImplementLexerForBasicPrograms",3,,b5fa29203995d3478145d3feb74fed31171b0378,Implement Lexer to support all C tokens
+ImplementLexerForBasicPrograms,DefineBasicPrograms,2,Kai,75b56b7a8e5628e869bb815f22018322e5a7e9bf,Implement Lexer to support tokens found in basic programs
+ImplementGoodCLexer,"ResearchTokens, ImplementLexerForBasicPrograms",3,Kai,b5fa29203995d3478145d3feb74fed31171b0378,Implement Lexer to support all C tokens
 WriteRequiredTests,None,2,Ed,7073fe10b1c779b821d111f0dee7e3dfa91a08c5,Write tests and test drivers for required tests
-WriteASTForBasicPrograms,DefineBasicPrograms,4,,b5fa29203995d3478145d3feb74fed31171b0378,Write AST nodes sufficient to print out basic program
-WriteParserFileForBasicPrograms,DefineBasicPrograms,4,,fb58c7d8aa66c8a9196b6f294dd3800ae84c7c84,Write Grammar sufficient to handle basic programs
+WriteASTForBasicPrograms,DefineBasicPrograms,4,"Ed,Kai",b5fa29203995d3478145d3feb74fed31171b0378,Write AST nodes sufficient to print out basic program
+WriteParserFileForBasicPrograms,DefineBasicPrograms,4,Ed,fb58c7d8aa66c8a9196b6f294dd3800ae84c7c84,Write Grammar sufficient to handle basic programs
 DebugBasicParser/AST/Lexer,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",3,Ed,d3412f10f6b2157bc973a10c71e8c5552bfbe232,"Be honest, first version won’t work. Debug it"
-WriteCompleteAST,WriteASTForBasicPrograms,3,,,"Living task, add more to AST. Complete is misnomer – final is more accurate"
-WriteCompleteParser,WriteParserFileForBasicPrograms,3,,,"Living task, add more to grammar"
-MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,,,Be capable of translating basic programs
-PythonConverter,"WriteCompleteAST, WriteCompleteParser,PythonConverter50%",2,,,Translate 50%required programs
+WriteCompleteAST,WriteASTForBasicPrograms,3,Ed,5890604996038b811ece86e03c4dbd7cf00f1453,"Living task, add more to AST. Complete is misnomer – final is more accurate"
+WriteCompleteParser,WriteParserFileForBasicPrograms,3,Kai,ada713018506fe5b5811a3927baaca8477eac82c,"Living task, add more to grammar"
+MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,Ed,e965bd3177bd9f49f684933e1dc554073bc4ccc5,Be capable of translating basic programs
+PythonConverter,"WriteCompleteAST, WriteCompleteParser,MinimalPythonConverter",2,Ed,ada713018506fe5b5811a3927baaca8477eac82c,Translate 50%required programs
+MinimalCompilation,"WriteCompleteAST, WriteCompleteParser ",8,Ed,,"Get basic structure for compilation working, be able to compile int x(){return 3;}"
+AdvancedCompilation,MinimalCompilation,6,Ed,,Add support to varialle declarations and basic maths
+FullCompilation,AdvancedCompilation,4,Ed,,Add support to all things in grammar for compilation
