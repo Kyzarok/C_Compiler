@@ -172,6 +172,9 @@ class CompoundStatement : public Node{
 			//buggy
 			if(myGlobVarbCounter!=0){
 				std::cerr<<"There were some global variables to translate"<<std::endl;
+				for (int i=1; i<myGlobVarbContainer.size();i=i+2){
+					dst<<"global "<<myGlobVarbContainer[i]<<std::endl;
+				}
 				
 			}
 			if(dref!=NULL){
