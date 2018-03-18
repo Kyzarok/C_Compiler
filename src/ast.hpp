@@ -10,7 +10,7 @@
 #include "AST/ast_primitives.hpp"
 #include "AST/ast_varb_declarations.hpp"
 #include "AST/ast_program.hpp"
-
+#include "context.hpp"
 
 
 /*  I regret so many choices found in the entire AST. 
