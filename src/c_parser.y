@@ -70,8 +70,8 @@ FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMEN
 	| K_VOID T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);}
 
 PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($3,$1); std::cerr<<"New paramlist, yay"<<std::endl;}
-					| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}
-						
+	| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}
+					
 PARAMETER	: K_INT T_IDENTIFIER {$$ = new Param(*$1,*$2);}
 
 /*TYPE_SPEC : K_INT	
