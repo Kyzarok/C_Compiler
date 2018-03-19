@@ -192,8 +192,12 @@ class CompoundStatement : public Node{
 				std::cerr<<"_____declCOMP2_____"<<std::endl;
 			}
 		}
+
+
+
 		/*virtual void compile(std::ostream &dst) const override {
 			
+
 			if(dref!=NULL){
 				dref->compile(dst);
 			}
