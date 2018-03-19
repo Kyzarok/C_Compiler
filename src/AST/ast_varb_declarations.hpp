@@ -57,6 +57,12 @@ class DeclLocal : public Declaration{
 			}
 			dst<<std::endl;
 		}
+		/*virtual void compile(std::ostream &dst) const override {
+			//need to specify an open register for the new variable
+			//need to use addi or addiu
+			//reserve reg
+			
+		}*/
 };
 
 
@@ -191,13 +197,11 @@ class CompoundStatement : public Node{
 				sref->translate(dst,indent);
 				std::cerr<<"_____declCOMP2_____"<<std::endl;
 			}
-		}
+		} 
 
 
 
 		/*virtual void compile(std::ostream &dst) const override {
-			
-
 			if(dref!=NULL){
 				dref->compile(dst);
 			}
