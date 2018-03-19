@@ -78,7 +78,7 @@ class FunctionDecl : public Node {
 			std::cerr<<"_____dec4_____"<<std::endl;
 			
 		}
-		virtual void compile(std::ostream &dst) const override {
+		/*virtual void compile(std::ostream &dst) const override {
 			dst<<fnc_ID<<":"<<std::endl;
 			dst<<"addiu $sp, $sp, -8" <<std::endl;
 			dst<<"sw $fp,4($sp)"<<std::endl;
@@ -89,7 +89,7 @@ class FunctionDecl : public Node {
 			dst<<"addiu $sp, $sp, 8" <<std::endl;			
 		}	//may be an idea to make sure stuff can point to parent
 			//or at least the capability to count up a glob var
-
+		*/
 };
 
 class Param : public Node{
