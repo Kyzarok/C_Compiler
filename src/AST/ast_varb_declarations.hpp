@@ -193,12 +193,6 @@ class CompoundStatement : public Node{
 			}
 		}
 		virtual void compile(std::ostream &dst) const override {
-			/*if(myGlobVarbCounter!=0){
-				std::cerr<<"Global variables to compile"<<std::endl;	
-				for (int i=1; i<myGlobVarbContainer.size();i=i+2){
-					dst<<"global "<<myGlobVarbContainer[i]<<std::endl;
-				}	
-			}*/
 			if(dref!=NULL){
 				dref->compile(dst);
 			}
