@@ -14,6 +14,6 @@ WriteCompleteParser,WriteParserFileForBasicPrograms,3,Kai,ada713018506fe5b5811a3
 MinimalPythonConverter,"WriteASTForBasicPrograms, WriteParserFileForBasicPrograms, ImplementLexerForBasicPrograms",2,Ed,e965bd3177bd9f49f684933e1dc554073bc4ccc5,Be capable of translating basic programs
 PythonConverter,"WriteCompleteAST, WriteCompleteParser,MinimalPythonConverter",2,Ed,ada713018506fe5b5811a3927baaca8477eac82c,Translate 50%required programs
 CompilationPrep,None,2,Ed,,"Get ground work for compilation, eg context, register stuff, etc"
-MinimalCompilation,"WriteCompleteAST, WriteCompleteParser,CompilationPrep",8,Ed,,"Get basic structure for compilation working, be able to compile int x(){return 3;}"
+MinimalCompilation,"WriteCompleteAST, WriteCompleteParser",8,Ed,0248cbf41a0ae297a95534c429b75212aabd6e8b,"Get basic structure for compilation working, be able to compile int x(){return 3;} - this doesn’t need new backend "
 AdvancedCompilation,MinimalCompilation,6,Ed,,Add support to variable declarations and basic maths
 FullCompilation,AdvancedCompilation,4,Ed,,Add support to all things in grammar for compilation
