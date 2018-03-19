@@ -45,14 +45,9 @@ public:
 
 	virtual void translate(std::ostream &dst, int indent) const =0;
 	
-	virtual void compile(std::ostream &dst) const =0;
+	//virtual void compile(std::ostream &dst) const =0;
 
-    /* Additional functions to add
-    virtual const translate(std::ostream &dst) const=0; // function to be overwritten by subclasses. Will output translated python code over stdout - send to output file.
-
-    virtual const compile (std::ostream &dst) const =0; // function to be overwritten by subclasses. Will output compiled MIPS assembly over stdout - send to output file.
-    */
-};
+};    
 
 
 

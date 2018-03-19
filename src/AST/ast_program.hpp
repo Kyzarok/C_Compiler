@@ -28,12 +28,12 @@ class Program : public Node{ // class that points to one GLB_VAR or FNC_DEC, the
 			std::cerr<<"_____progLIST3_____"<<std::endl;
 		}
 
-		virtual void compile(std::ostream &dst) const override {
+		/*virtual void compile(std::ostream &dst) const override {
 			if(next!=NULL){
 				next->compile(dst);
 			}		
 			current->compile(dst);
-		}
+		}*/
 };
 
 #endif
