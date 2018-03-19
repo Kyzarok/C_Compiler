@@ -27,7 +27,7 @@
 //Need to put all token types here
 
 %token K_INT K_RETURN  //Keywords. These are the ones needed for my minimal lexer / parser
-%token K_IF K_ELSE K_CHAR K_FLOAT K_FOR K_WHILE //more keyowords, not needed for minimal parser / lexer
+%token K_IF K_ELSE K_CHAR K_FLOAT K_FOR K_WHILE K_VOID//more keyowords, not needed for minimal parser / lexer
 %token O_PLUS O_EQUALS O_MINUS O_ASTR O_DIV //Arithmetic Operators (and pointer I guess). Minimal ones for parser / lexer
 %token L_IS_EQUAL L_IS_NOT_EQUAL L_AND L_OR L_NOT L_GTHAN L_LTHAN L_GETHAN L_LETHAN//Logical operators
 %token B_AND B_OR B_NOT B_XOR B_LSHIFT B_RSHIFT //Bitwise operators
@@ -38,7 +38,7 @@
 
 %type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST DECL_GLOB
 %type <number> T_INT
-%type <string> T_IDENTIFIER K_INT //K_CHAR K_FLOAT
+%type <string> T_IDENTIFIER K_INT K_VOID //K_CHAR K_FLOAT
 %type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT LOG_EXPR FNC_CALL 
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT
 %type <declaration>  DECL_LIST DECL_LOCAL
@@ -66,6 +66,8 @@ DECL_GLOB : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclGlobal(*$1,*$2);}
 	
 FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
 		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with params";}
+	| K_VOID T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);}
+	| K_VOID T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);}
 
 PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($3,$1); std::cerr<<"New paramlist, yay"<<std::endl;}
 					| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}

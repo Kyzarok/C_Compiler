@@ -33,6 +33,7 @@ T_Digit			[0-9]
 "else"		{yylval.string=new std::string(yytext);return(K_ELSE);}
 "for"		{return(K_FOR);}
 "while"		{yylval.string=new std::string(yytext);return(K_WHILE);}
+"void"		{yylval.string=new std::string(yytext);return(K_VOID);}
 	/*"enumerator"		{return(K_ENUM);}	NO IDEA WHAT THIS DOES*/
 
 
