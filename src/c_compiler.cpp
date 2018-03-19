@@ -14,7 +14,7 @@
 
 std::string make_boilerplate(){
 	std::stringstream ss; // make a function
-	ss<<"# Boilerplate"<<std::endl<<"if __name__ == \" __main__ \":"<<std::endl;
+	ss<<"# Boilerplate"<<std::endl<<"if __name__ == \"__main__\":"<<std::endl;
 	ss<<"    import sys"<<std::endl<<"    ret=main()"<<std::endl<<"    sys.exit(ret)"<<std::endl;
 	return ss.str();
 };
@@ -61,6 +61,7 @@ int main(int argc, char *argv[]){
 		
 		std::cerr<<"Boilerplate"<<std::endl;
 		//now for boilerplate
+		fileDest<<std::endl;
 		fileDest<<make_boilerplate()<<std::endl;
 	}
 	else if(mode_select =="-S"){ //ie compile
