@@ -79,6 +79,8 @@ class FunctionDecl : public Node {
 			
 		}
 		virtual void compile(std::ostream &dst) const override {
+			dst<<"	.globl	"<<fnc_ID<<std::endl;
+			dst<<"	.ent	"<<fnc_ID<<std::endl;
 			dst<<fnc_ID<<":"<<std::endl;
 			dst<<"addiu $sp,$sp,-8" <<std::endl;
 			dst<<"sw $fp,4($sp)"<<std::endl;
@@ -91,7 +93,8 @@ class FunctionDecl : public Node {
 			dst<<"lw $fp,4($sp)"<<std::endl;
 			dst<<"addiu $sp,$sp,8" <<std::endl;
 			dst<<"j $31"<<std::endl;
-			dst<<"nop"<<std::endl;						
+			dst<<"nop"<<std::endl;			
+			dst<<"	.end	"<<fnc_ID<<std::endl;			
 		}	//may be an idea to make sure stuff can point to parent
 			//or at least the capability to count up a glob var
 };
