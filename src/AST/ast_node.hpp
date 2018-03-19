@@ -45,7 +45,7 @@ public:
 
 	virtual void translate(std::ostream &dst, int indent) const =0;
 	
-	//virtual void compile(std::ostream &dst) const =0;
+	virtual void compile(std::ostream &dst) const =0;
 
 };    
 

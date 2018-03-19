@@ -37,8 +37,12 @@ class ExpressionStatement : public Statement {
 			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
 		}
-
-
+		/*virtual void compile(std::ostream &dst) const override{
+			expr->compile(dst);
+		}*/
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 //TODO add more statements, eg Return statement, if statement
@@ -64,6 +68,11 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<"return ";
 			ret->translate(dst,indent);
 			std::cerr<<"_____stateRETURN2_____"<<std::endl;
+			dst<<std::endl;
+		}
+		virtual void compile(std::ostream &dst) const override{
+			dst<<"li $2,";
+			ret->compile(dst);
 			dst<<std::endl;
 		}
 };
@@ -107,6 +116,12 @@ class StatementList : public Statement
 		current->translate(dst,indent);
 		std::cerr<<"_____stateLIST3_____"<<std::endl;
 	}
+	virtual void compile(std::ostream &dst) const override{
+		if(next!=NULL){
+			next->compile(dst);
+		}
+		current->compile(dst);
+	}
 };
 
 
@@ -138,6 +153,9 @@ public:
 		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class ElseStatement : public Statement {
@@ -158,6 +176,9 @@ public:
 		dst << "else :" << std::endl;
 		body->translate(dst, indent+4);
 		dst << std::endl;
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -184,6 +205,9 @@ public:
 		dst << " :" << std::endl;
 		body->translate(dst, indent + 4);
 		dst << std::endl;
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 

@@ -23,6 +23,9 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 	/*virtual void compile(std::ostream &dst) const override {
 		
 	}*/ //still quite lost here, if id works as a string in compilation?
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class IntLiteral : public Expression {
@@ -42,14 +45,9 @@ class IntLiteral : public Expression {
 		dst<<value;
 		std::cerr<<"_____primINT2_____"<<std::endl;
 	}
-	/*virtual void compile(std::ostream &dst) const override {
-		//how to declare an Intliteral
-		//use ADDI? ADDIU?
-		dst<<"addiu ";//need to include the register that is not in use
-		
-
-
-	}*/
+	virtual void compile(std::ostream &dst) const override {
+		dst<<value;
+	}
 };
 
 

@@ -61,8 +61,13 @@ class DeclLocal : public Declaration{
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
-			
+			dst<<"li $2,";
+			value->compile(dst);
+			dst<<std::endl;
 		}*/
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 
@@ -97,6 +102,9 @@ class DeclList : public Declaration{
 			std::cerr<<"_____declLIST2_____"<<std::endl;
 			current->translate(dst,indent);
 			std::cerr<<"_____declLIST3_____"<<std::endl;
+		}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
 
@@ -152,7 +160,15 @@ class DeclGlobal : public Node{
 			}
 			dst<<std::endl;
 		}
-
+		virtual void compile(std::ostream &dst) const override {
+			//choose an empty register
+			//use empty register to assign value
+			//will use $28 for now as "global pointer"
+			/*dst<<"li $28,";
+			value->compile(dst);
+			dst<<std::endl;*/
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 class CompoundStatement : public Node{ 
 
@@ -197,18 +213,15 @@ class CompoundStatement : public Node{
 				sref->translate(dst,indent);
 				std::cerr<<"_____declCOMP2_____"<<std::endl;
 			}
-		} 
-
-
-
-		/*virtual void compile(std::ostream &dst) const override {
+		}
+		virtual void compile(std::ostream &dst) const override {
 			if(dref!=NULL){
 				dref->compile(dst);
 			}
 			if(sref!=NULL){
 				sref->compile(dst);
 			}
-		}*/
+		}
 };
 
 #endif

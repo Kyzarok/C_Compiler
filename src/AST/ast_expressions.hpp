@@ -28,6 +28,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			value->translate(dst,indent);
 			dst << " )";
 		}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 
@@ -48,6 +51,9 @@ class FunctionCall : public Expression{
 			}
 			dst<<" )";
 		}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 
@@ -67,6 +73,9 @@ class VarList : public Node{
 				dst<<", ";
 			}
 			dst<<current;
+		}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
 
@@ -108,6 +117,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class SubOperator : public Operator {
@@ -133,6 +145,9 @@ public:
 		dst<<" - ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -160,6 +175,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class DivOperator : public Operator {
@@ -185,6 +203,9 @@ public:
 		dst<<" / ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -220,6 +241,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class NotEqualOperator : public Operator {
@@ -250,6 +274,9 @@ public:
 		dst<<" != ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -282,6 +309,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class LOrOperator : public Operator {
@@ -312,6 +342,9 @@ public:
 		dst<<" OR ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -344,6 +377,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class GThanOperator : public Operator {	// a not operator only requires RHS of !
@@ -374,6 +410,9 @@ public:
 		dst << " > ";
 		right->translate(dst,indent);
 		dst << " )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -406,6 +445,9 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class GEThanOperator : public Operator {	// a not operator only requires RHS of !
@@ -436,6 +478,9 @@ public:
 		dst << " >= ";
 		right->translate(dst,indent);
 		dst << " )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -468,6 +513,9 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 //End of Logical Operators
 //Start of Bitwise Operators
@@ -496,6 +544,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class BOrOperator : public Operator {
@@ -521,6 +572,9 @@ public:
 		dst<<" | ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -548,6 +602,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class XorOperator : public Operator {
@@ -573,6 +630,9 @@ public:
 		dst<<" ^ ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}	
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
@@ -600,6 +660,9 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class RShiftOperator : public Operator {
@@ -624,6 +687,9 @@ public:
 		dst<<" >> ";
 		right->translate(dst,indent);
 		dst<<" )";
+	}
+	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
 
