@@ -65,8 +65,7 @@ int main(int argc, char *argv[]){
 		fileDest<<make_boilerplate()<<std::endl;
 	}
 	else if(mode_select =="-S"){ //ie compile
-		std::cerr<<"ERROR: Compile unimplemented at time"<<std::endl;
-		std::exit(1);
+		ast->compile(fileDest);
 	}
 	
 	else{
