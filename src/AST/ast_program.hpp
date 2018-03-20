@@ -36,6 +36,7 @@ class Program : public Node{ // class that points to one GLB_VAR or FNC_DEC, the
 		}
 		virtual void explore(int & declarations) const override {
 			if(next != NULL){
+				next->explore(declarations);
 			}
 			current->explore(declarations);
 		}

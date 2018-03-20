@@ -61,7 +61,9 @@ class FunctionCall : public Expression{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
+			
 			vlist->explore(declarations);
+			std::cerr<<"An function call can't contain a declaration, stopping"<<std::endl;
 		}
 };
 
@@ -87,7 +89,10 @@ class VarList : public Node{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
-			next->explore(declarations);
+			if(next!=NULL){
+				next->explore(declarations);
+			}
+			else{std::cerr<<"Have reached the end of a VarList, stopping"<<std::endl;}
 		}
 };
 

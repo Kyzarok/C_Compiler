@@ -177,8 +177,9 @@ class DeclGlobal : public Node{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
+			std::cerr<<"Do I make it here?"<<std::endl;
 			declarations++;
-			value->explore(declarations);
+			
 		}
 };
 class CompoundStatement : public Node{ 

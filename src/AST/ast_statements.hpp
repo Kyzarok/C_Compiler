@@ -42,7 +42,7 @@ class ExpressionStatement : public Statement {
 			//expr->compile(dst);
 		}		
 		virtual void explore(int & declarations) const override{
-			expr->explore(declarations);
+			std::cerr<<"An expression statement can't contain a declaration, stopping"<<std::endl;
 		}
 };
 
@@ -76,7 +76,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			//ret->compile(dst);
 		}
 		virtual void explore(int & declarations) const override{
-			ret->explore(declarations);
+			std::cerr<<"A return statement can't contain a declaration, stopping"<<std::endl;
 		}
 };
 
