@@ -47,6 +47,8 @@ public:
 	
 	virtual void compile(std::ostream &dst) const =0;
 
+	//virtual void explore(int & declarations);
+
 };    
 
 

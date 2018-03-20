@@ -32,7 +32,7 @@ class FunctionDecl : public Node {
 
 			}
 		//constructor with arguments list
-
+	`	//going to need to use special case with $4 - $7
 		FunctionDecl(std::string _ret, std::string _ID, NodePtr _body, NodePtr _args) : 
 			ret_type(_ret),
 			fnc_ID(_ID),
@@ -152,10 +152,51 @@ class ParamList : public Node{ // list of function paramaters
 
 #endif
 
+/*addiu	$sp,$sp,-8			return 3
+	sw	$fp,4($sp)
+	move	$fp,$sp
+
+	li	$2,3			# 0x3
+	
+	move	$sp,$fp
+	lw	$fp,4($sp)
+	addiu	$sp,$sp,8
+	j	$31
+	nop
+
+addiu	$sp,$sp,-16			int x = 3
+	sw	$fp,12($sp)		return x
+	move	$fp,$sp
+
+	li	$2,3			# 0x3
+	sw	$2,4($fp)	storing 3 into main mem
+	lw	$2,4($fp)	loading the mem location with 3
+
+	move	$sp,$fp
+	lw	$fp,12($sp)
+	addiu	$sp,$sp,16
+	j	$31
+	nop
 
 
+addiu	$sp,$sp,-16			int f(int x){
+	sw	$fp,12($sp)			int y;
+	move	$fp,$sp				y = 5;
+						return x+y;
+	sw	$4,16($fp)
+	li	$2,5			# 0x5
+	sw	$2,4($fp)
+	lw	$3,16($fp)
+	lw	$2,4($fp)
+	addu	$2,$3,$2
+
+	move	$sp,$fp
+	lw	$fp,12($sp)
+	addiu	$sp,$sp,16
+	j	$31
+	nop
 
 
-
+*/
 
 
