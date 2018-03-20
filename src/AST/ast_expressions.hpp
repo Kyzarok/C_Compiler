@@ -61,7 +61,7 @@ class FunctionCall : public Expression{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			vlist->explore(declarations);
 		}
 };
 
@@ -87,7 +87,7 @@ class VarList : public Node{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			next->explore(declarations);
 		}
 };
 
@@ -139,7 +139,9 @@ public:
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		//unsure if overwriting something counts, but this will need one
+		declarations++;
+		left->explore(declarations);
 	}
 };
 
@@ -177,7 +179,8 @@ public:
 		dst<<std::endl;*/
 	}
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		declarations++;
+		left->explore(declarations);
 	}
 };
 
