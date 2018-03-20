@@ -1,5 +1,5 @@
 Date,Effort,Developers,Milestones
-2018/29/01,1.5,"Ed, Kai","DefineInitialMilestones, ImplementLexerForBasicPrograms"
+01/29/2018,1.5,"Ed, Kai","DefineInitialMilestones, ImplementLexerForBasicPrograms"
 01/02/2018,2.5,"Ed, Kai","InitialPlanningMeeting, WriteParserFileForBasicPrograms"
 10/02/2018,1,Ed,DefineBasicPrograms
 19/02/2018,3.5,"Ed,Kai","ResearchTokens, ImplementLexerForBasicPrograms, WriteASTForBasicPrograms, WriteParserFileForBasicPrograms"
@@ -19,3 +19,4 @@ Date,Effort,Developers,Milestones
 16/03/2018,5,"Ed, Kai","WriteCompleteAST,WriteCompleteParser,MinimalPythonConverter,PythonConverter"
 18/03/2018,1,Ed,CompilationPrep
 19/03/2018,4.5,"Ed, Kai","CompilationPrep,MinimalCompilation"
+20/03/2018,5,"Ed, Kai",CompilationPrep
