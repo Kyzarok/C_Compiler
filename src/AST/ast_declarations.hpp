@@ -32,7 +32,7 @@ class FunctionDecl : public Node {
 
 			}
 		//constructor with arguments list
-	`	//going to need to use special case with $4 - $7
+		//going to need to use special case with $4 - $7
 		FunctionDecl(std::string _ret, std::string _ID, NodePtr _body, NodePtr _args) : 
 			ret_type(_ret),
 			fnc_ID(_ID),
@@ -82,7 +82,7 @@ class FunctionDecl : public Node {
 			dst<<"	.globl	"<<fnc_ID<<std::endl;
 			dst<<"	.ent	"<<fnc_ID<<std::endl;
 			dst<<fnc_ID<<":"<<std::endl;
-			dst<<"addiu $sp,$sp,-8" <<std::endl;
+			dst<<"addiu $sp,$sp,-8" <<std::endl; // this number 8 needs to be dynamic
 			dst<<"sw $fp,4($sp)"<<std::endl;
 			if(args!=NULL){
 				args->compile(dst);
@@ -96,6 +96,10 @@ class FunctionDecl : public Node {
 			dst<<"	.end	"<<fnc_ID<<std::endl;			
 		}	//may be an idea to make sure stuff can point to parent
 			//or at least the capability to count up a glob var
+		/*virtual void explore(int & declarations) const override{
+			
+
+		}*/
 };
 
 class Param : public Node{

@@ -121,9 +121,6 @@ public:
 	}
 	virtual void compile(std::ostream &dst) const override {
 		/*dst<<"addiu $";
-		//destReg necessary, looking through with finding empty
-		//what if register already in use for it?
-		//irrelevant
 		dst<<reg.EmptyRegister()<<",$";
 		left->compile(dst);
 		dst<<",";
@@ -159,6 +156,12 @@ public:
 	}
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
+		/*dst<<"addiu $";
+		dst<<reg.EmptyRegister()<<",$";
+		left->compile(dst);
+		dst<<",-";
+		right->compile(dst);
+		dst<<std::endl;*/
 	}
 };
 

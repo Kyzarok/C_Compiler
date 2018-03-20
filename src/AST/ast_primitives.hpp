@@ -19,38 +19,36 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 	virtual void translate(std::ostream &dst, int indent) const override {
 		std::cerr<<"_____primID1_____"<<std::endl;
 		dst<<id;
-		std::cerr<<"_____primID2_____"<<std::endl
+		std::cerr<<"_____primID2_____"<<std::endl;
 	}
 
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
-		/*
-		offset = 4*(reg.EmptyRegister());
-		dst<<"sw $2,"<<offset<<"($fp)"<<std::endl;*/
+		
 	}
 };
 
 class IntLiteral : public Expression {
 	private:
-    	int value;
+    		int value;
 	public:
-    	IntLiteral(int _value) : value(_value) {}
-    	int getValue() const { return value; }
-    	virtual void print(std::ostream &dst) const override {
-     	   dst<<value;
-    	}
-    	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override {
-        	return value;
-    	}*/
-	virtual void translate(std::ostream &dst, int indent) const override {
-		std::cerr<<"_____primINT1_____"<<std::endl;
-		dst<<value;
-		std::cerr<<"_____primINT2_____"<<std::endl;
-	}
-	virtual void compile(std::ostream &dst) const override {
-		std::cerr<<"Not implemented"<<std::endl;
-		//dst<<"li $2,"<<value<<std::endl;
-	}
+	    	IntLiteral(int _value) : value(_value) {}
+	    	int getValue() const { return value; }
+	    	virtual void print(std::ostream &dst) const override {
+	     	   dst<<value;
+	    	}
+	    	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override {
+			return value;
+	    	}*/
+		virtual void translate(std::ostream &dst, int indent) const override {
+			std::cerr<<"_____primINT1_____"<<std::endl;
+			dst<<value;
+			std::cerr<<"_____primINT2_____"<<std::endl;
+		}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
+		}
 };
 
 

@@ -61,8 +61,9 @@ class DeclLocal : public Declaration{
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
-			dst<<"sw $2,";
-			dst<<some value that we calculate that is useful<<"($fp)"<<std::endl;
+			//dst<<"sw $2,";
+			//dst<<some value that we calculate that is useful<<"($fp)"<<std::endl;
+			std::cerr<<"Not implemented"<<std::endl;		
 		}
 		/*virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
