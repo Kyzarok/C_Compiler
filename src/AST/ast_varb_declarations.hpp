@@ -66,6 +66,7 @@ class DeclLocal : public Declaration{
 			std::cerr<<"Not implemented"<<std::endl;		
 		}
 		virtual void explore(int & declarations) const override{
+			declarations++;
 			value->explore(declarations);
 		}
 };
@@ -176,6 +177,7 @@ class DeclGlobal : public Node{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
+			declarations++;
 			value->explore(declarations);
 		}
 };
