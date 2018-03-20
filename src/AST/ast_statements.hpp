@@ -168,7 +168,7 @@ public:
 	}
 	
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		body->explore(declarations);
 	}
 };
 
@@ -196,7 +196,7 @@ public:
 	}
 	
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		body->explore(declarations);
 	}
 };
 
@@ -229,7 +229,7 @@ public:
 	}
 	
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		body->explore(declarations);
 	}
 };
 

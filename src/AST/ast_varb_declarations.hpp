@@ -202,7 +202,6 @@ class CompoundStatement : public Node{
 			}
 		}
 		virtual void translate(std::ostream &dst, int indent) const override {
-			//buggy
 			if(myGlobVarbCounter!=0){
 				std::cerr<<"There were some global variables to translate"<<std::endl;
 				

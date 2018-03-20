@@ -65,6 +65,9 @@ int main(int argc, char *argv[]){
 		fileDest<<make_boilerplate()<<std::endl;
 	}
 	else if(mode_select =="-S"){ //ie compile
+		int declarations=0;
+		ast->explore(declarations);
+		std::cerr<<"I explored and found "<<declarations<<" declarations"<<std::endl;
 		ast->compile(fileDest);
 	}
 	
