@@ -47,7 +47,7 @@ public:
 	
 	virtual void compile(std::ostream &dst) const =0;
 
-	virtual void explore(int & declarations) const =0;
+	//virtual void explore(int & declarations) const =0;
 	//if we keep $2 free then all we need is declarations, all other operations can be run internally
 };    
 

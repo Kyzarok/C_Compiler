@@ -6,10 +6,7 @@
 #include <iostream> 
 #include <string>
 
-
-
-
-
+s
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };
@@ -42,6 +39,7 @@ class ExpressionStatement : public Statement {
 		}*/
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
+			//expr->compile(dst);
 		}
 };
 

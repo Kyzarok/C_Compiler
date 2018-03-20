@@ -6,8 +6,9 @@
 class Identifier : public Expression {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 	protected:
 		std::string id;
+		//int offset;
 	public:
-   	 	Identifier(const std::string &_id) : id(_id) {}
+   	 	Identifier(const std::string &_id) : id(_id) /*, offset(NULL) */ {}
     	const std::string getId() const { return id; }
 		virtual void print(std::ostream &dst) const override {
         	dst<<id;
@@ -18,16 +19,14 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 	virtual void translate(std::ostream &dst, int indent) const override {
 		std::cerr<<"_____primID1_____"<<std::endl;
 		dst<<id;
-		std::cerr<<"_____primID2_____"<<std::endl;
+		std::cerr<<"_____primID2_____"<<std::endl
 	}
-	/*virtual void compile(std::ostream &dst) const override {
-		
-	}*/ //still quite lost here, if id works as a string in compilation?
+
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 		/*
-		int offset = 4*(reg.EmptyRegister());
-		dst<<"sw $2,"<<offset<<"($fp)"\<<std::endl;*/
+		offset = 4*(reg.EmptyRegister());
+		dst<<"sw $2,"<<offset<<"($fp)"<<std::endl;*/
 	}
 };
 

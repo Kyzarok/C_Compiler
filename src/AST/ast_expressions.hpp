@@ -29,7 +29,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst << " )";
 		}
 		virtual void compile(std::ostream &dst) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Not implemented"<<std::endl; /*		
+			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
+			*/
 		}
 };
 
