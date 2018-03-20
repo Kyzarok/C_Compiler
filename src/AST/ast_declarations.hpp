@@ -82,6 +82,14 @@ class FunctionDecl : public Node {
 			dst<<"	.globl	"<<fnc_ID<<std::endl;
 			dst<<"	.ent	"<<fnc_ID<<std::endl;
 			dst<<fnc_ID<<":"<<std::endl;
+			/*
+			//will need something along the lines of:
+			int max_offset;
+			max_offset = declarations * 4;
+			//and then the lines:
+			dst<<"addiu $sp,$sp,-"<<max_offset<<std::endl;
+			dst<<"sw $fp,"<<(max_offset - 4)<<"($sp)"<<std::endl;
+			*/
 			dst<<"addiu $sp,$sp,-8" <<std::endl; // this number 8 needs to be dynamic
 			dst<<"sw $fp,4($sp)"<<std::endl;
 			if(args!=NULL){
