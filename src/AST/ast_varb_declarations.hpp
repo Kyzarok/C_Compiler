@@ -65,9 +65,9 @@ class DeclLocal : public Declaration{
 			//dst<<some value that we calculate that is useful<<"($fp)"<<std::endl;
 			std::cerr<<"Not implemented"<<std::endl;		
 		}
-		/*virtual void compile(std::ostream &dst) const override {
+		virtual void explore(int & declarations) const override{
 			std::cerr<<"Not implemented"<<std::endl;
-		}*/
+		}
 };
 
 
@@ -104,6 +104,9 @@ class DeclList : public Declaration{
 			std::cerr<<"_____declLIST3_____"<<std::endl;
 		}
 		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
@@ -169,6 +172,9 @@ class DeclGlobal : public Node{
 			dst<<std::endl;*/
 			std::cerr<<"Not implemented"<<std::endl;
 		}
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 class CompoundStatement : public Node{ 
 
@@ -221,6 +227,9 @@ class CompoundStatement : public Node{
 			if(sref!=NULL){
 				sref->compile(dst);
 			}
+		}
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
 

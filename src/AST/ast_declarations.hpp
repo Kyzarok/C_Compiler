@@ -96,10 +96,12 @@ class FunctionDecl : public Node {
 			dst<<"	.end	"<<fnc_ID<<std::endl;			
 		}	//may be an idea to make sure stuff can point to parent
 			//or at least the capability to count up a glob var
-		/*virtual void explore(int & declarations) const override{
-			
-
-		}*/
+		virtual void explore(int & declarations) const override{
+			if(args!=NULL){
+				args->explore(declarations);
+			}
+			body->explore(declarations);
+		}
 };
 
 class Param : public Node{
@@ -118,6 +120,9 @@ class Param : public Node{
 				
 		}
 		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
@@ -147,6 +152,9 @@ class ParamList : public Node{ // list of function paramaters
 				
 		}
 		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 };

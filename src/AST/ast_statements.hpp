@@ -40,6 +40,9 @@ class ExpressionStatement : public Statement {
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 			//expr->compile(dst);
+		}		
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
 
@@ -71,6 +74,9 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 		virtual void compile(std::ostream &dst) const override{
 			std::cerr<<"Not implemented"<<std::endl;
 			//ret->compile(dst);
+		}
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
 
@@ -119,6 +125,10 @@ class StatementList : public Statement
 		}
 		current->compile(dst);
 	}
+	
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 
@@ -153,6 +163,10 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class ElseStatement : public Statement {
@@ -175,6 +189,10 @@ public:
 		dst << std::endl;
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -204,6 +222,10 @@ public:
 		dst << std::endl;
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };

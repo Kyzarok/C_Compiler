@@ -9,23 +9,25 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 		//int offset;
 	public:
    	 	Identifier(const std::string &_id) : id(_id) /*, offset(NULL) */ {}
-    	const std::string getId() const { return id; }
-		virtual void print(std::ostream &dst) const override {
-        	dst<<id;
-    	}
-    	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override{
-       		return bindings.at(id);
-    	}    */
-	virtual void translate(std::ostream &dst, int indent) const override {
-		std::cerr<<"_____primID1_____"<<std::endl;
-		dst<<id;
-		std::cerr<<"_____primID2_____"<<std::endl;
-	}
+	    	const std::string getId() const { return id; }
+			virtual void print(std::ostream &dst) const override {
+			dst<<id;
+	    	}
+	    	/*virtual double evaluate(const std::map<std::string,double> &bindings) const override{
+	       		return bindings.at(id);
+	    	}    */
+		virtual void translate(std::ostream &dst, int indent) const override {
+			std::cerr<<"_____primID1_____"<<std::endl;
+			dst<<id;
+			std::cerr<<"_____primID2_____"<<std::endl;
+		}
 
-	virtual void compile(std::ostream &dst) const override {
-		std::cerr<<"Not implemented"<<std::endl;
-		
-	}
+		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 class IntLiteral : public Expression {
@@ -48,6 +50,9 @@ class IntLiteral : public Expression {
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
+			declarations++;	
 		}
 };
 

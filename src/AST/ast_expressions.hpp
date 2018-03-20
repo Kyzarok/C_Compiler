@@ -33,6 +33,10 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
 		}
+		virtual void explore(int & declarations) const override{
+			//target name irrelevant, will be assigned under a name and offset value
+			value->explore(declarations);
+		}
 };
 
 
@@ -56,6 +60,9 @@ class FunctionCall : public Expression{
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
+		virtual void explore(int & declarations) const override{
+			std::cerr<<"Not implemented"<<std::endl;
+		}
 };
 
 
@@ -77,6 +84,9 @@ class VarList : public Node{
 			dst<<current;
 		}
 		virtual void compile(std::ostream &dst) const override {
+			std::cerr<<"Not implemented"<<std::endl;
+		}
+		virtual void explore(int & declarations) const override{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 };
@@ -128,6 +138,9 @@ public:
 		dst<<std::endl;*/
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class SubOperator : public Operator {
@@ -163,6 +176,9 @@ public:
 		right->compile(dst);
 		dst<<std::endl;*/
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class MulOperator : public Operator {
@@ -192,6 +208,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class DivOperator : public Operator {
@@ -219,6 +238,9 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -258,6 +280,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class NotEqualOperator : public Operator {
@@ -290,6 +315,9 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -326,6 +354,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class LOrOperator : public Operator {
@@ -358,6 +389,9 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -394,6 +428,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class GThanOperator : public Operator {	// a not operator only requires RHS of !
@@ -426,6 +463,9 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -462,6 +502,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class GEThanOperator : public Operator {	// a not operator only requires RHS of !
@@ -494,6 +537,9 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -530,6 +576,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 //End of Logical Operators
 //Start of Bitwise Operators
@@ -561,6 +610,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class BOrOperator : public Operator {
@@ -588,6 +640,9 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -619,6 +674,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class XorOperator : public Operator {
@@ -646,6 +704,9 @@ public:
 		dst<<" )";
 	}	
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -677,6 +738,9 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
+	virtual void explore(int & declarations) const override{
+		std::cerr<<"Not implemented"<<std::endl;
+	}
 };
 
 class RShiftOperator : public Operator {
@@ -703,6 +767,9 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst) const override {
+		std::cerr<<"Not implemented"<<std::endl;
+	}
+	virtual void explore(int & declarations) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
