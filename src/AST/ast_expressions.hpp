@@ -140,8 +140,7 @@ public:
 	}
 	virtual void explore(int & declarations) const override{
 		//unsure if overwriting something counts, but this will need one
-		declarations++;
-		left->explore(declarations);
+		std::cerr<<"In add, I can terminate here happily. Could have ages ago tbh"<<std::endl;
 	}
 };
 
@@ -179,7 +178,7 @@ public:
 		dst<<std::endl;*/
 	}
 	virtual void explore(int & declarations) const override{
-		declarations++;
+		std::cerr<<"In sub, I can terminate here happily. Could have ages ago tbh"<<std::endl;
 		left->explore(declarations);
 	}
 };
