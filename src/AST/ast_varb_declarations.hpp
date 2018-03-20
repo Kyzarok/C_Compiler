@@ -107,7 +107,10 @@ class DeclList : public Declaration{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			if(next!=NULL){
+				next->explore(declarations);
+			}
+			current->explore(declarations);
 		}
 };
 
@@ -173,7 +176,7 @@ class DeclGlobal : public Node{
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			value->explore(declarations);
 		}
 };
 class CompoundStatement : public Node{ 
@@ -229,7 +232,12 @@ class CompoundStatement : public Node{
 			}
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			if(dref!=NULL){
+				dref->explore(declarations);
+			}
+			if(sref!=NULL){
+				sref->explore(declarations);
+			}
 		}
 };
 
