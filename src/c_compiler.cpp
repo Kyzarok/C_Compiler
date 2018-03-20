@@ -67,7 +67,7 @@ int main(int argc, char *argv[]){
 	else if(mode_select =="-S"){ //ie compile
 		int declarations=0;
 		ast->explore(declarations);
-		std::cerr<<"I explored and found "<<declarations<<" declarations"<<std::endl;
+		std::cerr<<"I explored and found "<<declarations<<" total declarations across the entire program."<<std::endl; // not actually useful
 		ast->compile(fileDest);
 	}
 	

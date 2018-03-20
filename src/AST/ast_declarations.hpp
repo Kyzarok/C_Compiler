@@ -12,6 +12,7 @@ class FunctionDecl : public Node {
 		NodePtr body; // point to the compount Statement containing the body
 		NodePtr args; // pointer to a parameter list
 		bool isMain; // we need to be able to create a valid main entry point. As such, a boolean tracking if this is the main function
+		int myDecls; // we need to record how many variables are declared in this function
 	public: 
 		//constructor without arguments list
 		FunctionDecl(std::string _ret, std::string _ID, NodePtr _body) : 
@@ -22,6 +23,7 @@ class FunctionDecl : public Node {
 		
 			{
 				std::cerr<<"Constructor for func decl"<<std::endl;
+				myDecls=0;
 				if(fnc_ID=="main"){
 					isMain=true;
 					std::cerr<<"Just made the main"<<std::endl;
@@ -29,8 +31,13 @@ class FunctionDecl : public Node {
 				else{
 					isMain=false;
 				}
+				int explore_v=0;
+				body->explore(explore_v);
+				myDecls=explore_v;
+				std::cerr<<"I am function "<<fnc_ID<<" I explored myself and found "<<myDecls<<"Decls inside of me"<<std::endl;
 
 			}
+			
 		//constructor with arguments list
 		//going to need to use special case with $4 - $7
 		FunctionDecl(std::string _ret, std::string _ID, NodePtr _body, NodePtr _args) : 
@@ -48,6 +55,10 @@ class FunctionDecl : public Node {
 			else{
 				isMain=false;
 			}
+			int explore_v=0;
+			body->explore(explore_v);
+			myDecls=explore_v;
+			std::cerr<<"I am function "<<fnc_ID<<" I explored myself and found "<<myDecls<<"Decls inside of me"<<std::endl;
 			
 		}
 		
@@ -104,11 +115,13 @@ class FunctionDecl : public Node {
 			dst<<"	.end	"<<fnc_ID<<std::endl;			
 		}	//may be an idea to make sure stuff can point to parent
 			//or at least the capability to count up a glob var
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations) const  override{
 			if(args!=NULL){
 				args->explore(declarations);
 			}
 			body->explore(declarations);
+			
+			
 		}
 };
 
