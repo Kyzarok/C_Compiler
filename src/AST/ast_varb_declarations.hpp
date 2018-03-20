@@ -66,7 +66,7 @@ class DeclLocal : public Declaration{
 			std::cerr<<"Not implemented"<<std::endl;		
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			value->explore(declarations);
 		}
 };
 

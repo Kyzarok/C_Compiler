@@ -42,7 +42,7 @@ class ExpressionStatement : public Statement {
 			//expr->compile(dst);
 		}		
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			expr->explore(declarations);
 		}
 };
 
@@ -76,7 +76,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			//ret->compile(dst);
 		}
 		virtual void explore(int & declarations) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			ret->explore(declarations);
 		}
 };
 
@@ -127,7 +127,10 @@ class StatementList : public Statement
 	}
 	
 	virtual void explore(int & declarations) const override{
-		std::cerr<<"Not implemented"<<std::endl;
+		if(next!=NULL){
+			next->explore(declarations);
+		}
+		current->explore(declarations);
 	}
 };
 
