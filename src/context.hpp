@@ -1,7 +1,19 @@
 #ifndef context_hpp
 #define context_hpp
 
-class Context; // contains a map, key is string, stored is string. Maps variables to values
+#include <map>
+
+
+
+class Context{ // contains a map, key is string, stored is string. Maps variables to values
+	/*protected:
+		std::map<std::string, std::string>  ctxt;
+	public:
+		void update(std::string str_1, std::string str_2){
+			
+
+		}*/
+};
 
 class Registers{ // contains useful info about registers
 	/*Register conventions
@@ -58,10 +70,6 @@ class Registers{ // contains useful info about registers
 			}
 			return -1;
 		}
-
-			
-
 };
-
 
 #endif

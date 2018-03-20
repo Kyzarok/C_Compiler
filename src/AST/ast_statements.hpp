@@ -71,15 +71,8 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<std::endl;
 		}
 		virtual void compile(std::ostream &dst) const override{
-			if(ret == identifier){
-				dst<<"lw $2,";
-				dst<<some value calculated<<"($fp)"<<std::endl;
-			}
-			else{
-			}
-			dst<<"li $2,";
-			ret->compile(dst);
-			dst<<std::endl;
+			std::cerr<<"Not implemented"<<std::endl;
+			//ret->compile(dst);
 		}
 };
 

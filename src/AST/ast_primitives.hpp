@@ -25,6 +25,9 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 	}*/ //still quite lost here, if id works as a string in compilation?
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
+		/*
+		int offset = 4*(reg.EmptyRegister());
+		dst<<"sw $2,"<<offset<<"($fp)"\<<std::endl;*/
 	}
 };
 
@@ -46,7 +49,8 @@ class IntLiteral : public Expression {
 		std::cerr<<"_____primINT2_____"<<std::endl;
 	}
 	virtual void compile(std::ostream &dst) const override {
-		dst<<value;
+		std::cerr<<"Not implemented"<<std::endl;
+		//dst<<"li $2,"<<value<<std::endl;
 	}
 };
 

@@ -34,6 +34,11 @@ class Program : public Node{ // class that points to one GLB_VAR or FNC_DEC, the
 			}		
 			current->compile(dst);
 		}
+		virtual void explore(int & declarations) const override {
+			if(next != NULL){
+			}
+			current->explore(declarations);
+		}
 };
 
 #endif

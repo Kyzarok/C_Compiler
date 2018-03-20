@@ -84,7 +84,6 @@ class FunctionDecl : public Node {
 			dst<<fnc_ID<<":"<<std::endl;
 			dst<<"addiu $sp,$sp,-8" <<std::endl;
 			dst<<"sw $fp,4($sp)"<<std::endl;
-			dst<<"move $fp,$sp"<<std::endl;
 			if(args!=NULL){
 				args->compile(dst);
 			}
