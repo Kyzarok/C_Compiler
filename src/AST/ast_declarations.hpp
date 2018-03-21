@@ -101,15 +101,16 @@ class FunctionDecl : public Node {
 			dst<<"addiu $sp,$sp,-"<<max_offset<<std::endl;
 			dst<<"sw $fp,"<<(max_offset - 4)<<"($sp)"<<std::endl;
 			*/
-			dst<<"addiu $sp,$sp,-8" <<std::endl; // this number 8 needs to be dynamic
-			dst<<"sw $fp,4($sp)"<<std::endl;
+			int stackAllocate = 8 + 4*myDecls;//dynamically work out how much stack to allocate
+			dst<<"addiu $sp,$sp,-"<<stackAllocate <<std::endl; //allocate stack
+			dst<<"sw $fp,"<<(stackAllocate-4)<<"($sp)"<<std::endl; //the location of the old frame pointer is 4 less the top of the stack
 			if(args!=NULL){
 				args->compile(dst);
 			}
 			body->compile(dst);
-			dst<<"move $sp,$fp" << std::endl;
-			dst<<"lw $fp,4($sp)"<<std::endl;
-			dst<<"addiu $sp,$sp,8" <<std::endl;
+			dst<<"move $sp,$fp" << std::endl; // boiler plate
+			dst<<"lw $fp,"<<(stackAllocate-4)<<"($sp)"<<std::endl; //the location of the old frame pointer is 4 less the top of the stack
+			dst<<"addiu $sp,$sp,"<<stackAllocate <<std::endl; // restore stack pointer
 			dst<<"j $31"<<std::endl;
 			dst<<"nop"<<std::endl;			
 			dst<<"	.end	"<<fnc_ID<<std::endl;			

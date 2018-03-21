@@ -2,8 +2,8 @@
 
 int f(){
 	int x=5;
-	x=x+3;
 	int y=2;
+	x=x+3;
 	x=x+y;
 	return x;
 }
