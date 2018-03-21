@@ -6,9 +6,22 @@
 
 
 class Context{ // contains a map, key is string, stored is string. Maps variables to values
-	/*protected:
+	/*
+	this container should create a table that looks like: 	
+	
+	var_id	| reg_stored_in?	| StackPointer Offset
+	x			| NULL				| 4
+	y			| $8					| 8
+	
+	etc
+	
+	
+	protected:
 		std::map<std::string, std::string>  ctxt;
+		
+		
 	public:
+		Context(){}
 		void update(std::string str_1, std::string str_2){
 			
 
@@ -20,7 +33,7 @@ class Registers{ // contains useful info about registers
 	$0 - always 0
 	$1 - used by assembler?
 	$2,3 - return values ($2 by default, $3 if more than 32 bits)
-	$4-7 - argument registers, contain first four arg values in function call
+	$4-7 - argument registers, contain first four arg values in function call. These are also by convention stored at the top of the stack / bottom of last frame?
 	$8-15,24,25 - temp registers
 	$16-23 - saved registers
 	$26-27 - Kernel reserved, don't use
