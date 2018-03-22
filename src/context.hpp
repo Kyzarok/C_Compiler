@@ -14,18 +14,25 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 	y			| $8					| 8
 	
 	etc
-	
+	*/	
 	
 	protected:
-		std::map<std::string, std::string>  ctxt;
-		
-		
+		std::map<std::string, std::string>  conReg;
+		std::map<std::string, int> conOffset;
+
 	public:
 		Context(){}
-		void update(std::string str_1, std::string str_2){
+		std::string check(std::string var_id){	//returns reg_stored_in? for each string
+			std::string tmp = conReg.at(var_id);
+			return tmp;
+		}
+		void updateRegLoc(std::string var_id, std::string newReg){
 			
-
-		}*/
+		}
+		int getOffset(std::string var_id){
+			int offset = conOffset.at(var_id);
+			return offset;
+		}
 };
 
 class Registers{ // contains useful info about registers
