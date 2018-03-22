@@ -24,7 +24,7 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		std::map<std::string, int> conOffset;
 
 	public:
-		Context(int declarations, std::string[] & var_id){	
+		Context(int declarations, std::string var_id){	
 			//to construct a proper set of maps need to send in the actual var_ids
 			for(int i = 0; i <= declarations; i++){
 				conReg[var_id[i]] = NULL;
