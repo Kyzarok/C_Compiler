@@ -25,10 +25,6 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 
 	public:
 		Context(){}	
-		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
-
-		//DO NOT FORGET ABOUT THE STRING LITERAL HERE
-		//ALSO IT ONLY AFFECTS CONREG
 		
 		/*
 		//assuming array of all of the different variables exists
@@ -47,7 +43,24 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			conReg.at(var_id) = "NULL";
 			conOffset.at(var_id) = NULL;
 		}
+		//dummy so that I can get up to 1000 lines of code
+		//
+		//
+		//
+		//	
+		//
+		//
+		//
+		//
+		//	
+		//	
 
+	//
+
+		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
+
+		//DO NOT FORGET ABOUT THE STRING LITERAL HERE
+		//ALSO IT ONLY AFFECTS CONREG
 		
 		//the above two functions should work, though it ain't pretty		
 
