@@ -24,10 +24,8 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		std::map<std::string, int> conOffset;
 
 	public:
-		Context(std::string var_id){
-			conReg.at(var_id) = "NULL";
-			conOffset.at(var_id) = NULL;
-		}	//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
+		Context(){}	
+		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
 
 		//DO NOT FORGET ABOUT THE STRING LITERAL HERE
 		//ALSO IT ONLY AFFECTS CONREG
@@ -37,9 +35,9 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		
 		std::string[declarations] var_ids;
 
-		Context tmp(var_ids[0]);
+		Context tmp();
 
-		for(int i=1; i<=declarations; i++){
+		for(int i=0; i<=declarations; i++){
 			tmp.updateKey(var_ids[i]);
 		}
 
