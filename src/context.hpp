@@ -24,14 +24,31 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		std::map<std::string, int> conOffset;
 
 	public:
-		Context(int declarations, std::string var_id){	
-			//to construct a proper set of maps need to send in the actual var_ids
-			for(int i = 0; i <= declarations; i++){
-				conReg[var_id[i]] = NULL;
-				conOffset[var_id[i]] = NULL;
-			}//should construct empty maps for both maps
-			//issue of creating var_id string array
+		Context(std::string var_id){
+			conReg.at(var_id) = NULL;
+			conOffset.at(var_id) = NULL;
 		}
+		/*
+		//assuming array of all of the different variables exists
+		
+		std::string[declarations] var_ids;
+
+		Context tmp(var_ids[0]);
+
+		for(int i=1; i<=declarations; i++){
+			tmp.updateKey(var_ids[i]);
+		}
+
+		*/
+	
+		void updateKey(std::string var_id){	
+			conReg.at(var_id) = NULL;
+			conOffset.at(var_id) = NULL;
+		}
+
+		
+		//the above two functions should work, though it ain't pretty		
+
 		std::string getReg(std::string var_id){	//returns reg_stored_in? for each string
 			std::string tmp = conReg.at(var_id);
 			return tmp;
