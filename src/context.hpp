@@ -26,8 +26,11 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			std::string tmp = conReg.at(var_id);
 			return tmp;
 		}
-		void updateRegLoc(std::string var_id, std::string newReg){
-			
+		void updateConReg(std::string var_id, std::string newReg){
+			conReg.at(var_id) = newReg;	
+		}
+		void updateConOffset(std::string var_id, int offset){
+			conOffset.at(var_id) = offset;
 		}
 		int getOffset(std::string var_id){
 			int offset = conOffset.at(var_id);
