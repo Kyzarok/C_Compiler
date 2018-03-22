@@ -25,9 +25,13 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 
 	public:
 		Context(std::string var_id){
-			conReg.at(var_id) = NULL;
+			conReg.at(var_id) = "NULL";
 			conOffset.at(var_id) = NULL;
-		}
+		}	//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
+
+		//DO NOT FORGET ABOUT THE STRING LITERAL HERE
+		//ALSO IT ONLY AFFECTS CONREG
+		
 		/*
 		//assuming array of all of the different variables exists
 		
@@ -42,7 +46,7 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		*/
 	
 		void updateKey(std::string var_id){	
-			conReg.at(var_id) = NULL;
+			conReg.at(var_id) = "NULL";
 			conOffset.at(var_id) = NULL;
 		}
 
