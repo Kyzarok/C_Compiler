@@ -7,34 +7,44 @@
 
 class Context{ // contains a map, key is string, stored is string. Maps variables to values
 	/*
-	this container should create a table that looks like: 	
-	
-	var_id	| reg_stored_in?	| StackPointer Offset
-	x			| NULL				| 4
-	y			| $8					| 8
-	
-	etc
-	*/	
+		now creates two maps, both have the same set of var_id keys
+
+				reg_stored_in
+		x	|	NULL
+		y	|	$8
+
+				offset
+		x	|	4
+		y	|	8
+
+	*/
 	
 	protected:
 		std::map<std::string, std::string>  conReg;
 		std::map<std::string, int> conOffset;
 
 	public:
-		Context(){}
-		std::string check(std::string var_id){	//returns reg_stored_in? for each string
+		Context(int declarations, std::string[] & var_id){	
+			//to construct a proper set of maps need to send in the actual var_ids
+			for(int i = 0; i <= declarations; i++){
+				conReg[var_id[i]] = NULL;
+				conOffset[var_id[i]] = NULL;
+			}//should construct empty maps for both maps
+			//issue of creating var_id string array
+		}
+		std::string getReg(std::string var_id){	//returns reg_stored_in? for each string
 			std::string tmp = conReg.at(var_id);
 			return tmp;
+		}
+		int getOffset(std::string var_id){
+			int offset = conOffset.at(var_id);
+			return offset;
 		}
 		void updateConReg(std::string var_id, std::string newReg){
 			conReg.at(var_id) = newReg;	
 		}
 		void updateConOffset(std::string var_id, int offset){
 			conOffset.at(var_id) = offset;
-		}
-		int getOffset(std::string var_id){
-			int offset = conOffset.at(var_id);
-			return offset;
 		}
 };
 
