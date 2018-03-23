@@ -44,19 +44,6 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			conOffset.at(var_id) = NULL;
 		}
 		//dummy so that I can get up to 1000 lines of code
-		//
-		//
-		//
-		//	
-		//
-		//
-		//
-		//
-		//	
-		//	
-
-	//
-
 		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
 
 		//DO NOT FORGET ABOUT THE STRING LITERAL HERE

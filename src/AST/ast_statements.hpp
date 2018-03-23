@@ -11,8 +11,6 @@ class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };
 
-
-
 class ExpressionStatement : public Statement {
 
 	protected:
@@ -79,8 +77,6 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			std::cerr<<"A return statement can't contain a declaration, stopping"<<std::endl;
 		}
 };
-
-
 
 class StatementList ;
 

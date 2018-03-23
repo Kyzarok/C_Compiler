@@ -225,6 +225,7 @@ class CompoundStatement : public Node{
 				std::cerr<<"_____declCOMP2_____"<<std::endl;
 			}
 		}
+		//each compile construction will require a context for itself
 		virtual void compile(std::ostream &dst) const override {
 			if(dref!=NULL){
 				dref->compile(dst);
