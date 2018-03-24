@@ -22,9 +22,12 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 	protected:
 		std::map<std::string, std::string>  conReg;
 		std::map<std::string, int> conOffset;
+		int nextOffset;
 
 	public:
-		Context(){}	
+		Context(){
+			nextOffset =4; // first varb stored at sp+4
+		}	
 		
 		/*
 		//assuming array of all of the different variables exists
@@ -39,9 +42,10 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 
 		*/
 	
-		void updateKey(std::string var_id){	
-			conReg[var_id] = "NULL";
-			conOffset[var_id] = NULL;
+		void growTable(std::string var_id){	
+			conReg[var_id] = "NULL"; // need to use square brackets operator for assignment
+			conOffset[var_id] = nextOffset; // as using at would throw an error
+			nextOffset=nextOffset+4;
 		}
 		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
 
@@ -50,18 +54,18 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		
 		//the above two functions should work, though it ain't pretty		
 
-		std::string getReg(std::string var_id){	//returns reg_stored_in? for each string
+		std::string getReg(std::string var_id){	//returns reg_stored_in for a given key
 			std::string tmp = conReg.at(var_id); // this works assuming the variable exists.
 			return tmp;
 		}
-		int getOffset(std::string var_id){
+		int getOffset(std::string var_id){ // returns SP offset for a given key
 			int offset = conOffset.at(var_id);
 			return offset;
 		}
-		void updateConReg(std::string var_id, std::string newReg){
+		void updateConReg(std::string var_id, std::string newReg){ // update reg stored in
 			conReg.at(var_id) = newReg;	
 		}
-		void updateConOffset(std::string var_id, int offset){
+		void updateConOffset(std::string var_id, int offset){ // update SP offset
 			conOffset.at(var_id) = offset;
 		}
 };
