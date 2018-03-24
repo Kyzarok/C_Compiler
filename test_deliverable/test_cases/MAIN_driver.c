@@ -1,5 +1,4 @@
-//Driver for required Test MAIN.c
-//Test not implemented
+/*Driver for required Test MAIN.c */
 
 int f(){
 	return 0;

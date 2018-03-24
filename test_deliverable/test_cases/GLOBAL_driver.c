@@ -1,4 +1,4 @@
-//driver for test case GLOBAL
+/*driver for test case GLOBAL*/
 
 void f();
 int test_glob;

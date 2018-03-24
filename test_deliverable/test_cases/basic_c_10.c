@@ -1,4 +1,4 @@
-//Basic Program 10, testing globals
+/*Basic Program 10, testing globals*/
 
 int x=1;
 int y;

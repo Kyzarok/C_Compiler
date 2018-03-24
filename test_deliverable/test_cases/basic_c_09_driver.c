@@ -1,4 +1,4 @@
-// dirver for basic c 09
+/* driver for basic c 09*/
 int f();
 
 int main(){

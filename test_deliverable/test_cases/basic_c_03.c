@@ -1,4 +1,4 @@
-//Basic Program 3, testing addition operator
+/*Basic Program 3, testing addition operator*/
 
 int f(){
 	int x=5;

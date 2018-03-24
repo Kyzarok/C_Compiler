@@ -1,4 +1,4 @@
-//Required Test, meets ATOF
+/*Required Test, meets ATOF*/
 
 double atof(const char* str);
 
