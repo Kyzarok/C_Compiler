@@ -123,6 +123,7 @@ class Registers{ // contains useful info about registers
 			if(!register_used[25]){
 				return 25;
 			}
+			//if no free register found
 			return -1;
 		}
 };

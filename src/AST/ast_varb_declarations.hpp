@@ -187,6 +187,7 @@ class CompoundStatement : public Node{
 	protected:
 		StatementPtr sref;
 		DeclPtr dref;
+		Context varb_bindings;
 		
 		
 	public:
