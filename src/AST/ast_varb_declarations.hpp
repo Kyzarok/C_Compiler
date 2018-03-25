@@ -187,31 +187,32 @@ class CompoundStatement : public Node{
 	protected:
 		StatementPtr sref;
 		DeclPtr dref;
-		Context varb_bindings; // as it currently stands, Compound Statements are our only change of scope. So each compount statement must have a Context.
+		Context* varb_bindings; // as it currently stands, Compound Statements are our only change of scope. So each compount statement must have a Context.
 		int	noDecls; // count how many declarations exist below you
 		
 	public:
-		CompoundStatement(StatementPtr _sref) : sref(_sref), noDecls(0), varb_bindings()
+		CompoundStatement(StatementPtr _sref) : sref(_sref), noDecls(0)
 		{
+			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;
-			sref->explore(noDecls,varb_bindings);
-			std::cerr<<"Testing, dump bindings"<<std::endl;
-			varb_bindings.dumpTable();
+			sref->explore(noDecls,*varb_bindings);
+
 		}	
 			
-		CompoundStatement(DeclPtr _dref) : dref(_dref), noDecls(0), varb_bindings()
+		CompoundStatement(DeclPtr _dref) : dref(_dref), noDecls(0)
 		{
+			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;
-			dref->explore(noDecls,varb_bindings);
-			std::cerr<<"Testing, dump bindings"<<std::endl;
-			varb_bindings.dumpTable();
+			dref->explore(noDecls,*varb_bindings);
+
 		}
 		
-		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref), noDecls(0), varb_bindings()
+		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref), noDecls(0)
 		{
+			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;
-			dref->explore(noDecls,varb_bindings);
-			sref->explore(noDecls,varb_bindings);
+			dref->explore(noDecls,*varb_bindings);
+			sref->explore(noDecls,*varb_bindings);
 			
 		}	
 			
@@ -248,6 +249,10 @@ class CompoundStatement : public Node{
 		}
 		//each compile construction will require a context for itself
 		virtual void compile(std::ostream &dst) const override {
+			
+			std::cerr<<"Testing, dump bindings"<<std::endl;
+			varb_bindings->dumpTable();
+			
 			if(dref!=NULL){
 				dref->compile(dst);
 			}
@@ -259,7 +264,7 @@ class CompoundStatement : public Node{
 			// here be interesting things
 			
 			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
-			
+			varb_bindings->mergeMaps(bindings);
 		}
 };
 

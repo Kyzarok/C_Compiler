@@ -161,6 +161,7 @@ public:
 	}
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
+		body->compile(dst);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -222,6 +223,7 @@ public:
 	}
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
+		body->compile(dst);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{

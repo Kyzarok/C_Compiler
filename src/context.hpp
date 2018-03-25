@@ -77,6 +77,11 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			}
 		
 		}
+		
+		void mergeMaps(Context add){
+			conReg.insert(add.conReg.begin(),add.conReg.end());
+			
+		}
 };
 
 class Registers{ // contains useful info about registers
