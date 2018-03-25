@@ -67,7 +67,6 @@ class DeclLocal : public Declaration{
 		}
 		virtual void explore(int & declarations) const override{
 			declarations++;
-			value->explore(declarations);
 		}
 };
 
