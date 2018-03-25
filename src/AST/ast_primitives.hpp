@@ -48,7 +48,8 @@ class IntLiteral : public Expression {
 			std::cerr<<"_____primINT2_____"<<std::endl;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"IntLiteral"<<std::endl;
+			dst<<value;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{

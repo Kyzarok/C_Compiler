@@ -70,8 +70,11 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			dst<<std::endl;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override{
-			std::cerr<<"Not implemented"<<std::endl;
-			//ret->compile(dst, bindings, regs,destReg);
+			std::cerr<<"Returning in compile"<<std::endl;
+			dst<<"lw "<<destReg<<",";
+			ret->compile(dst, bindings, regs, destReg);
+			dst<<std::endl;
+			//destReg will be $2 here
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"A return statement can't contain a declaration, stopping"<<std::endl;
