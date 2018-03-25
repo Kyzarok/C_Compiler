@@ -38,6 +38,7 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			value->compile(dst, bindings, regs, destReg);
 			dst<<"sw "<<destReg<<","<<bindings.getOffset(target)<<"($fp)"<<std::endl;
 			destReg = "NULL";
+			regs.ReleaseRegister(tmp);
 			/*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
