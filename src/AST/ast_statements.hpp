@@ -72,8 +72,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override{
 			std::cerr<<"Returning in compile"<<std::endl;
 			destReg="$2";
-			regs.ReserveRegister(2);	
-			
+			regs.ReserveRegister(2);
 			ret->compile(dst, bindings, regs, destReg);
 			std::cerr<<"YO"<<std::endl;
 			regs.ReleaseRegister(2);
