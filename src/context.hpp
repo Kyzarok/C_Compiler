@@ -2,7 +2,7 @@
 #define context_hpp
 
 #include <map>
-
+#include <iostream>
 
 
 class Context{ // contains a map, key is string, stored is string. Maps variables to values
@@ -67,6 +67,15 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		}
 		void updateConOffset(std::string var_id, int offset){ // update SP offset
 			conOffset.at(var_id) = offset;
+		}
+		void dumpTable(){
+			std::cerr<<"Dumping map for testing"<<std::endl;
+			for(std::map<std::string,std::string>::iterator pos = conReg.begin(); pos!= conReg.end(); ++pos){
+				std::cerr<< pos->first<<" "<<pos->second<<std::endl;
+					
+				
+			}
+		
 		}
 };
 

@@ -67,6 +67,7 @@ class DeclLocal : public Declaration{
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			declarations++;
+			bindings.growTable(var_id);
 		}
 };
 
@@ -194,12 +195,16 @@ class CompoundStatement : public Node{
 		{
 			std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;
 			sref->explore(noDecls,varb_bindings);
+			std::cerr<<"Testing, dump bindings"<<std::endl;
+			varb_bindings.dumpTable();
 		}	
 			
 		CompoundStatement(DeclPtr _dref) : dref(_dref), noDecls(0), varb_bindings()
 		{
 			std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;
 			dref->explore(noDecls,varb_bindings);
+			std::cerr<<"Testing, dump bindings"<<std::endl;
+			varb_bindings.dumpTable();
 		}
 		
 		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref), noDecls(0), varb_bindings()
@@ -207,6 +212,8 @@ class CompoundStatement : public Node{
 			std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;
 			dref->explore(noDecls,varb_bindings);
 			sref->explore(noDecls,varb_bindings);
+			std::cerr<<"Testing, dump bindings"<<std::endl;
+			varb_bindings.dumpTable();
 		}	
 			
 		virtual void print(std::ostream &dst) const override {
