@@ -61,9 +61,15 @@ class DeclLocal : public Declaration{
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
-			//dst<<"sw $2,";
-			//dst<<some value that we calculate that is useful<<"($fp)"<<std::endl;
-			std::cerr<<"Not implemented"<<std::endl;		
+			if(){		//value case
+				int tmp = regs.EmptyRegister();
+				reg.ReserveRegister(tmp);
+				dst<<"li $"<<tmp<<",";
+				
+			}
+			else{
+
+			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			declarations++;
