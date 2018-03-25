@@ -30,7 +30,7 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {		
 			std::cerr<<"Assignment Expression not implemented"<<std::endl;		 
-
+			
 			/*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
