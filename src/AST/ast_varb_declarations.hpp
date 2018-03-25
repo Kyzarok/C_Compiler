@@ -201,7 +201,7 @@ class CompoundStatement : public Node{
 		{
 			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;
-			sref->explore(noDecls,*varb_bindings);
+			//sref->explore(noDecls,*varb_bindings);
 
 		}	
 			
@@ -209,7 +209,7 @@ class CompoundStatement : public Node{
 		{
 			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;
-			dref->explore(noDecls,*varb_bindings);
+			//dref->explore(noDecls,*varb_bindings);
 
 		}
 		
@@ -217,8 +217,8 @@ class CompoundStatement : public Node{
 		{
 			varb_bindings = new Context;
 			std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;
-			dref->explore(noDecls,*varb_bindings);
-			sref->explore(noDecls,*varb_bindings);
+			//dref->explore(noDecls,*varb_bindings);
+			//sref->explore(noDecls,*varb_bindings);
 			
 		}	
 			
@@ -268,12 +268,15 @@ class CompoundStatement : public Node{
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			// here be interesting things
-			
+			if(dref!=NULL){
+				dref->explore(declarations,bindings);
+			}
 			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
 			bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);
-			sref->explore(declarations,bindings);
-			
+			if(sref!=NULL){
+				sref->explore(declarations,bindings);
+			}
 			/*bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);

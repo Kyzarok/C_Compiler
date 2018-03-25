@@ -97,7 +97,7 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 				pos->second+=x-4;
 				
 			}
-			nextOffset+=x-8;
+			nextOffset+=x-4;
 		}
 };
 
