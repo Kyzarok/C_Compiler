@@ -2,6 +2,7 @@
 #define ast_varb_declarations_hpp
 
 #include <string>
+#include <sstream>
 #include <iostream> 
 #include <vector>
 
@@ -64,13 +65,13 @@ class DeclLocal : public Declaration{
 			if(value != NULL){		//value case
 				int tmp = regs.EmptyRegister();
 				regs.ReserveRegister(tmp);
-				destReg = "$"+tmp;				
-				dst<<"li "<<destReg<<",";
+				destReg = "$"+std::to_string(tmp);
 				value->compile(dst, bindings, regs, destReg);
 				dst<<std::endl;
 				std::cerr<<bindings.getOffset(var_id)<<std::endl;
 				dst<<"sw "<<destReg<<","<<bindings.getOffset(var_id)<<"($fp)"<<std::endl;
 				std::cerr<<"Test 1"<<std::endl;
+				destReg = "NULL";
 			}
 			else{
 
@@ -281,7 +282,7 @@ class CompoundStatement : public Node{
 			if(dref!=NULL){
 				dref->explore(declarations,bindings);
 			}
-			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
+			//declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
 			bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);
 			if(sref!=NULL){

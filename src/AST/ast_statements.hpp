@@ -36,8 +36,8 @@ class ExpressionStatement : public Statement {
 			expr->compile(dst, bindings, regs,destReg);
 		}*/
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl;
-			//expr->compile(dst, bindings, regs,destReg);
+			
+			expr->compile(dst, bindings, regs,destReg);
 		}		
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"An expression statement can't contain a declaration, stopping"<<std::endl;
@@ -73,8 +73,9 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			std::cerr<<"Returning in compile"<<std::endl;
 			destReg="$2";
 			regs.ReserveRegister(2);	
-			dst<<"lw "<<destReg<<",";
+			
 			ret->compile(dst, bindings, regs, destReg);
+			std::cerr<<"YO"<<std::endl;
 			regs.ReleaseRegister(2);
 			destReg="NULL";
 			dst<<std::endl;
@@ -167,7 +168,7 @@ public:
 		dst << std::endl;
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		std::cerr<<"If Statement not fully implemented"<<std::endl;
 		body->compile(dst, bindings, regs,destReg);
 	}
 	
@@ -206,7 +207,7 @@ class IfElseStatement : public Statement{
 			body_f->explore(declarations,bindings);
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		
+			std::cerr<<"IFELSE not fully implemented"<<std::endl;
 			body_t->compile(dst, bindings, regs,destReg);
 			body_f->compile(dst, bindings, regs,destReg);
 		}

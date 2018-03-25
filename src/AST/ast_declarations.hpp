@@ -34,6 +34,7 @@ class FunctionDecl : public Node {
 				int explore_v=0;
 				Context explore_m; // currently empty
 				body->explore(explore_v,explore_m);
+
 				myDecls=explore_v;
 				std::cerr<<"I am function "<<fnc_ID<<" I explored myself and found "<<myDecls<<"Decls inside of me"<<std::endl;
 
@@ -103,9 +104,11 @@ class FunctionDecl : public Node {
 			dst<<"addiu $sp,$sp,-"<<max_offset<<std::endl;
 			dst<<"sw $fp,"<<(max_offset - 4)<<"($sp)"<<std::endl;
 			*/
+			std::cerr<<"DEBUG, myDECLS is "<<myDecls<<std::endl;
 			int stackAllocate = 8 + 4*myDecls;//dynamically work out how much stack to allocate
 			dst<<"addiu $sp,$sp,-"<<stackAllocate <<std::endl; //allocate stack
 			dst<<"sw $fp,"<<(stackAllocate-4)<<"($sp)"<<std::endl; //the location of the old frame pointer is 4 less the top of the stack
+			dst<<"move	$fp,$sp"<<std::endl;			
 			if(args!=NULL){
 				args->compile(dst, bindings, regs,destReg);
 			}

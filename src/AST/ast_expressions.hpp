@@ -29,7 +29,7 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst << " )";
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {		
-			std::cerr<<"Not implemented"<<std::endl;		 
+			std::cerr<<"Assignment Expression not implemented"<<std::endl;		 
 
 			/*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
@@ -60,7 +60,7 @@ class FunctionCall : public Expression{
 			dst<<" )";
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Function Call not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			
@@ -88,7 +88,7 @@ class VarList : public Node{
 			dst<<current;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Varlist not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){
