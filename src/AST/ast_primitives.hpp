@@ -23,7 +23,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 		}
 
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Here is error"<<std::endl;
+			//std::cerr<<"Here is error"<<std::endl;
 			dst<<"lw "<<destReg<<", "<<bindings.getOffset(id)<<"($fp)"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -50,7 +50,7 @@ class IntLiteral : public Expression {
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"IntLiteral"<<std::endl;
-			dst<<"li "<<destReg<<", "<<value;
+			dst<<"li "<<destReg<<", "<<value<<std::endl;;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
 			
 		}
