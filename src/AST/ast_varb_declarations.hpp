@@ -72,6 +72,7 @@ class DeclLocal : public Declaration{
 				dst<<"sw "<<destReg<<","<<bindings.getOffset(var_id)<<"($fp)"<<std::endl;
 				std::cerr<<"Test 1"<<std::endl;
 				destReg = "NULL";
+				regs.ReleaseRegister(tmp);
 			}
 			else{
 
