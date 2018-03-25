@@ -20,7 +20,7 @@
   const Expression *expression;
   const Statement *statement;
   const Declaration *declaration;
-  double number;
+  int number;
   std::string *string;
 }
 
