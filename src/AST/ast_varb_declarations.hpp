@@ -262,13 +262,15 @@ class CompoundStatement : public Node{
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			// here be interesting things
-			dref->explore(declarations,bindings);
+			if(dref!=NULL){
+				dref->explore(declarations,bindings);
+			}
 			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
 			bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);
-			
-			sref->explore(declarations,bindings);
-			
+			if(sref!=NULL){
+				sref->explore(declarations,bindings);
+			}
 			/*bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);
