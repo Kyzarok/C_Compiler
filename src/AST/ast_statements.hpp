@@ -139,7 +139,7 @@ protected:
 	ExpressionPtr condition; // the execute condition
 	NodePtr body; // actually a statement list, the body of the if
 public:
-	IfStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {}
+	IfStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {std::cerr<<"If statement constructor"<<std::endl;}
 	virtual void print(std::ostream &dst) const override {//if case exists
 				
 		dst << "if ( ";		//this won't work until bindings map is made
@@ -201,7 +201,7 @@ protected:
 	ExpressionPtr condition;
 	NodePtr body; // actually a statement list, the body of the while
 public:
-	WhileStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {}
+	WhileStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {std::cerr<<"While statement constructor"<<std::endl;}
 	virtual void print(std::ostream &dst) const override {//if case exists
 		dst << "while (";
 		condition->print(dst);

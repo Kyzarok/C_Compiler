@@ -212,8 +212,7 @@ class CompoundStatement : public Node{
 			std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;
 			dref->explore(noDecls,varb_bindings);
 			sref->explore(noDecls,varb_bindings);
-			std::cerr<<"Testing, dump bindings"<<std::endl;
-			varb_bindings.dumpTable();
+			
 		}	
 			
 		virtual void print(std::ostream &dst) const override {
@@ -260,7 +259,7 @@ class CompoundStatement : public Node{
 			// here be interesting things
 			
 			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
-			bindings = varb_bindings; // pretty sure this will break scopes. I hate this all
+			
 		}
 };
 
