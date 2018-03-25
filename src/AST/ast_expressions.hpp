@@ -28,7 +28,7 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			value->translate(dst,indent);
 			dst << " )";
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"Not implemented"<<std::endl; /*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
@@ -57,7 +57,7 @@ class FunctionCall : public Expression{
 			}
 			dst<<" )";
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -85,7 +85,7 @@ class VarList : public Node{
 			}
 			dst<<current;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -134,12 +134,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		/*dst<<"addiu $";
 		dst<<reg.EmptyRegister()<<",$";
-		left->compile(dst, bindings, regs);
+		left->compile(dst, bindings, regs,destReg);
 		dst<<",";
-		right->compile(dst, bindings, regs);
+		right->compile(dst, bindings, regs,destReg);
 		dst<<std::endl;*/
 		std::cerr<<"Not implemented"<<std::endl;
 	}
@@ -173,13 +173,13 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 		/*dst<<"addiu $";
 		dst<<reg.EmptyRegister()<<",$";
-		left->compile(dst, bindings, regs);
+		left->compile(dst, bindings, regs,destReg);
 		dst<<",-";
-		right->compile(dst, bindings, regs);
+		right->compile(dst, bindings, regs,destReg);
 		dst<<std::endl;*/
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -212,7 +212,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -244,7 +244,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -284,7 +284,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -321,7 +321,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -358,7 +358,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -395,7 +395,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -432,7 +432,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -469,7 +469,7 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -506,7 +506,7 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -543,7 +543,7 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -580,7 +580,7 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -614,7 +614,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -646,7 +646,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -678,7 +678,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -710,7 +710,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}	
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -742,7 +742,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -773,7 +773,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{

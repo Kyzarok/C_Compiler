@@ -57,7 +57,7 @@ class DeclLocal : public Declaration{
 			}
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
@@ -104,7 +104,7 @@ class DeclList : public Declaration{
 			current->translate(dst,indent);
 			std::cerr<<"_____declLIST3_____"<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -167,12 +167,12 @@ class DeclGlobal : public Node{
 			}
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			//choose an empty register
 			//use empty register to assign value
 			//will use $28 for now as "global pointer"
 			/*dst<<"li $28,";
-			value->compile(dst, bindings, regs);
+			value->compile(dst, bindings, regs,destReg);
 			dst<<std::endl;*/
 			std::cerr<<"Not implemented"<<std::endl;
 		}
@@ -248,16 +248,16 @@ class CompoundStatement : public Node{
 			}
 		}
 		//each compile construction will require a context for itself
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			
 			std::cerr<<"Testing, dump bindings"<<std::endl;
 			varb_bindings->dumpTable();
 			
 			if(dref!=NULL){
-				dref->compile(dst, bindings, regs);
+				dref->compile(dst, bindings, regs,destReg);
 			}
 			if(sref!=NULL){
-				sref->compile(dst, bindings, regs);
+				sref->compile(dst, bindings, regs,destReg);
 			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{

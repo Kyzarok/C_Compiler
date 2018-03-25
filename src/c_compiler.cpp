@@ -69,7 +69,8 @@ int main(int argc, char *argv[]){
 		
 		Registers regs;
 		Context fake;
-		ast->compile(fileDest,fake,regs); // needs work
+		std::string foo = "NULL";
+		ast->compile(fileDest,fake,regs,foo); // needs work
 	}
 	
 	else{
