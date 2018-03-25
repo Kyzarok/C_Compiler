@@ -19,7 +19,8 @@ extern "C" int fileno(FILE *stream);
 
 T_Char 			[a-zA-Z]
 T_Digit			[0-9]
-
+COM_START		"/*"
+COM_END			"*/"
 %%
 
  /*keywords*/
@@ -83,7 +84,7 @@ T_Digit			[0-9]
 "#" 	{return(P_INCLUDE);} // not sure this is correct handling?
 "'" 	{return(P_CHAR_CONST);} //not sure this is right either?
 
-"/*"[.]*"*/" {} // strip comments
+{COM_START}.*{COM_END} {} // strip comments
 "//"[^\n]* {} //strip comments
 
 \n { fprintf(stderr, "Consume Unwanted characters, newline\n"); }

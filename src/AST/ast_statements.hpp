@@ -39,7 +39,7 @@ class ExpressionStatement : public Statement {
 			std::cerr<<"Not implemented"<<std::endl;
 			//expr->compile(dst);
 		}		
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"An expression statement can't contain a declaration, stopping"<<std::endl;
 		}
 };
@@ -73,7 +73,7 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			std::cerr<<"Not implemented"<<std::endl;
 			//ret->compile(dst);
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"A return statement can't contain a declaration, stopping"<<std::endl;
 		}
 };
@@ -122,11 +122,11 @@ class StatementList : public Statement
 		current->compile(dst);
 	}
 	
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		if(next!=NULL){
-			next->explore(declarations);
+			next->explore(declarations,bindings);
 		}
-		current->explore(declarations);
+		current->explore(declarations,bindings);
 	}
 };
 
@@ -163,8 +163,8 @@ public:
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	
-	virtual void explore(int & declarations) const override{
-		body->explore(declarations);
+	virtual void explore(int & declarations, Context & bindings) const override{
+		body->explore(declarations,bindings);
 	}
 };
 
@@ -191,8 +191,8 @@ public:
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	
-	virtual void explore(int & declarations) const override{
-		body->explore(declarations);
+	virtual void explore(int & declarations, Context & bindings) const override{
+		body->explore(declarations,bindings);
 	}
 };
 
@@ -224,8 +224,8 @@ public:
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	
-	virtual void explore(int & declarations) const override{
-		body->explore(declarations);
+	virtual void explore(int & declarations, Context & bindings) const override{
+		body->explore(declarations,bindings);
 	}
 };
 

@@ -33,9 +33,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			//target name irrelevant, will be assigned under a name and offset value
-			value->explore(declarations);
+			value->explore(declarations,bindings);
 		}
 };
 
@@ -60,9 +60,9 @@ class FunctionCall : public Expression{
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			
-			vlist->explore(declarations);
+			vlist->explore(declarations,bindings);
 			std::cerr<<"An function call can't contain a declaration, stopping"<<std::endl;
 		}
 };
@@ -88,9 +88,9 @@ class VarList : public Node{
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){
-				next->explore(declarations);
+				next->explore(declarations,bindings);
 			}
 			else{std::cerr<<"Have reached the end of a VarList, stopping"<<std::endl;}
 		}
@@ -143,7 +143,7 @@ public:
 		dst<<std::endl;*/
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		//unsure if overwriting something counts, but this will need one
 		std::cerr<<"In add, I can terminate here happily. Could have ages ago tbh"<<std::endl;
 	}
@@ -182,9 +182,9 @@ public:
 		right->compile(dst);
 		dst<<std::endl;*/
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"In sub, I can terminate here happily. Could have ages ago tbh"<<std::endl;
-		left->explore(declarations);
+		left->explore(declarations,bindings);
 	}
 };
 
@@ -215,7 +215,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -247,7 +247,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -287,7 +287,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -324,7 +324,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -361,7 +361,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -398,7 +398,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -435,7 +435,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -472,7 +472,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -509,7 +509,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -546,7 +546,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -583,7 +583,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -617,7 +617,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -649,7 +649,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -681,7 +681,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -713,7 +713,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -745,7 +745,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };
@@ -776,7 +776,7 @@ public:
 	virtual void compile(std::ostream &dst) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
-	virtual void explore(int & declarations) const override{
+	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 };

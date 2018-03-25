@@ -25,7 +25,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"End of branch"<<std::endl;
 		}
 };
@@ -51,7 +51,7 @@ class IntLiteral : public Expression {
 			std::cerr<<"Not implemented"<<std::endl;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"End of branch"<<std::endl;
 		}
 };

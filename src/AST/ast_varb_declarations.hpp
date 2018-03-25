@@ -65,7 +65,7 @@ class DeclLocal : public Declaration{
 			//dst<<some value that we calculate that is useful<<"($fp)"<<std::endl;
 			std::cerr<<"Not implemented"<<std::endl;		
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			declarations++;
 		}
 };
@@ -106,11 +106,11 @@ class DeclList : public Declaration{
 		virtual void compile(std::ostream &dst) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){
-				next->explore(declarations);
+				next->explore(declarations,bindings);
 			}
-			current->explore(declarations);
+			current->explore(declarations,bindings);
 		}
 };
 
@@ -175,7 +175,7 @@ class DeclGlobal : public Node{
 			dst<<std::endl;*/
 			std::cerr<<"Not implemented"<<std::endl;
 		}
-		virtual void explore(int & declarations) const override{
+		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"Do I make it here?"<<std::endl;
 			declarations++;
 			
@@ -186,13 +186,28 @@ class CompoundStatement : public Node{
 	protected:
 		StatementPtr sref;
 		DeclPtr dref;
-		Context varb_bindings;
-		
+		Context varb_bindings; // as it currently stands, Compound Statements are our only change of scope. So each compount statement must have a Context.
+		int	noDecls; // count how many declarations exist below you
 		
 	public:
-		CompoundStatement(StatementPtr _sref) : sref(_sref){std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;}		
-		CompoundStatement(DeclPtr _dref) : dref(_dref){std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;}
-		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref){std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;}	
+		CompoundStatement(StatementPtr _sref) : sref(_sref), noDecls(0), varb_bindings()
+		{
+			std::cerr<<"In constructor for CompoundStatement with no decl list"<<std::endl;
+			sref->explore(noDecls,varb_bindings);
+		}	
+			
+		CompoundStatement(DeclPtr _dref) : dref(_dref), noDecls(0), varb_bindings()
+		{
+			std::cerr<<"In constructor for CompoundStatement with no statement list"<<std::endl;
+			dref->explore(noDecls,varb_bindings);
+		}
+		
+		CompoundStatement(StatementPtr _sref,DeclPtr _dref) : sref(_sref),dref(_dref), noDecls(0), varb_bindings()
+		{
+			std::cerr<<"In constructor for CompoundStatement with both lists"<<std::endl;
+			dref->explore(noDecls,varb_bindings);
+			sref->explore(noDecls,varb_bindings);
+		}	
 			
 		virtual void print(std::ostream &dst) const override {
 			if(dref!=NULL){
@@ -234,13 +249,11 @@ class CompoundStatement : public Node{
 				sref->compile(dst);
 			}
 		}
-		virtual void explore(int & declarations) const override{
-			if(dref!=NULL){
-				dref->explore(declarations);
-			}
-			if(sref!=NULL){
-				sref->explore(declarations);
-			}
+		virtual void explore(int & declarations, Context & bindings) const override{
+			// here be interesting things
+			
+			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
+			bindings = varb_bindings; // pretty sure this will break scopes. I hate this all
 		}
 };
 

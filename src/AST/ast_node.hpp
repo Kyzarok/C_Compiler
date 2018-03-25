@@ -49,7 +49,7 @@ public:
 	
 	virtual void compile(std::ostream &dst) const =0; // will also need to take arguments by reference of type registers and context, its just the context will be empty until it finds an existing context.
 
-	virtual void explore(int & declarations)  const=0; // will also need to take argument by reference of type context, so that context can propegate through
+	virtual void explore(int & declarations, Context & bindings)const=0; // will also need to take argument by reference of type context, so that context can propegate through
 
 };    
 
