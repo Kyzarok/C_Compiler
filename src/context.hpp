@@ -75,12 +75,29 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 					
 				
 			}
+			for(std::map<std::string,int>::iterator pos = conOffset.begin(); pos!= conOffset.end(); ++pos){
+				std::cerr<< pos->first<<" "<<pos->second<<std::endl;
+					
+				
+			}
 		
 		}
 		
 		void mergeMaps(Context add){
 			conReg.insert(add.conReg.begin(),add.conReg.end());
-			
+			conOffset.insert(add.conOffset.begin(),add.conOffset.end());
+		}
+		
+		int returnOffset(){
+			return nextOffset;
+		}
+		
+		void changeOffset(int x){
+			for(std::map<std::string,int>::iterator pos = conOffset.begin(); pos!= conOffset.end(); ++pos){
+				pos->second+=x-4;
+				
+			}
+			nextOffset+=x-8;
 		}
 };
 
