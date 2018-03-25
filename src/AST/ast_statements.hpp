@@ -32,12 +32,12 @@ class ExpressionStatement : public Statement {
 			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
 		}
-		/*virtual void compile(std::ostream &dst) const override{
-			expr->compile(dst);
+		/*virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override{
+			expr->compile(dst, bindings, regs);
 		}*/
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			std::cerr<<"Not implemented"<<std::endl;
-			//expr->compile(dst);
+			//expr->compile(dst, bindings, regs);
 		}		
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"An expression statement can't contain a declaration, stopping"<<std::endl;
@@ -69,9 +69,9 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			std::cerr<<"_____stateRETURN2_____"<<std::endl;
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst) const override{
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override{
 			std::cerr<<"Not implemented"<<std::endl;
-			//ret->compile(dst);
+			//ret->compile(dst, bindings, regs);
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"A return statement can't contain a declaration, stopping"<<std::endl;
@@ -115,11 +115,11 @@ class StatementList : public Statement
 		current->translate(dst,indent);
 		std::cerr<<"_____stateLIST3_____"<<std::endl;
 	}
-	virtual void compile(std::ostream &dst) const override{
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override{
 		if(next!=NULL){
-			next->compile(dst);
+			next->compile(dst, bindings, regs);
 		}
-		current->compile(dst);
+		current->compile(dst, bindings, regs);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -159,9 +159,9 @@ public:
 		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 		std::cerr<<"Not implemented"<<std::endl;
-		body->compile(dst);
+		body->compile(dst, bindings, regs);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -188,7 +188,7 @@ public:
 		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	
@@ -221,9 +221,9 @@ public:
 		body->translate(dst, indent + 4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 		std::cerr<<"Not implemented"<<std::endl;
-		body->compile(dst);
+		body->compile(dst, bindings, regs);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{

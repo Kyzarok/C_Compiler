@@ -68,8 +68,8 @@ int main(int argc, char *argv[]){
 		int declarations=0;
 		
 		Registers regs;
-		
-		ast->compile(fileDest); // needs work
+		Context fake;
+		ast->compile(fileDest,fake,regs); // needs work
 	}
 	
 	else{

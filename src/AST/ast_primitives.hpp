@@ -22,7 +22,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 			std::cerr<<"_____primID2_____"<<std::endl;
 		}
 
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -47,7 +47,7 @@ class IntLiteral : public Expression {
 			dst<<value;
 			std::cerr<<"_____primINT2_____"<<std::endl;
 		}
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
 		}

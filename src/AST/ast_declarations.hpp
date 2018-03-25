@@ -91,7 +91,7 @@ class FunctionDecl : public Node {
 			std::cerr<<"_____dec4_____"<<std::endl;
 			
 		}
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			dst<<"	.globl	"<<fnc_ID<<std::endl;
 			dst<<"	.ent	"<<fnc_ID<<std::endl;
 			dst<<fnc_ID<<":"<<std::endl;
@@ -107,9 +107,9 @@ class FunctionDecl : public Node {
 			dst<<"addiu $sp,$sp,-"<<stackAllocate <<std::endl; //allocate stack
 			dst<<"sw $fp,"<<(stackAllocate-4)<<"($sp)"<<std::endl; //the location of the old frame pointer is 4 less the top of the stack
 			if(args!=NULL){
-				args->compile(dst);
+				args->compile(dst, bindings, regs);
 			}
-			body->compile(dst);
+			body->compile(dst, bindings, regs);
 			dst<<"move $sp,$fp" << std::endl; // boiler plate
 			dst<<"lw $fp,"<<(stackAllocate-4)<<"($sp)"<<std::endl; //the location of the old frame pointer is 4 less the top of the stack
 			dst<<"addiu $sp,$sp,"<<stackAllocate <<std::endl; // restore stack pointer
@@ -143,7 +143,7 @@ class Param : public Node{
 			dst<<id;
 				
 		}
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -175,7 +175,7 @@ class ParamList : public Node{ // list of function paramaters
 			std::cerr<<"_____paramLIST3_____"<<std::endl;
 				
 		}
-		virtual void compile(std::ostream &dst) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs) const override {
 			std::cerr<<"Not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
