@@ -28,8 +28,10 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			value->translate(dst,indent);
 			dst << " )";
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl; /*		
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {		
+			std::cerr<<"Not implemented"<<std::endl;		 
+
+			/*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/
 		}

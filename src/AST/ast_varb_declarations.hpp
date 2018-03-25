@@ -61,11 +61,16 @@ class DeclLocal : public Declaration{
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
-			if(){		//value case
+			if(value != NULL){		//value case
 				int tmp = regs.EmptyRegister();
-				reg.ReserveRegister(tmp);
-				dst<<"li $"<<tmp<<",";
-				
+				regs.ReserveRegister(tmp);
+				destReg = "$"+tmp;				
+				dst<<"li "<<destReg<<",";
+				value->compile(dst, bindings, regs, destReg);
+				dst<<std::endl;
+				std::cerr<<bindings.getOffset(var_id)<<std::endl;
+				dst<<"sw "<<destReg<<","<<bindings.getOffset(var_id)<<"($fp)"<<std::endl;
+				std::cerr<<"Test 1"<<std::endl;
 			}
 			else{
 
@@ -111,7 +116,12 @@ class DeclList : public Declaration{
 			std::cerr<<"_____declLIST3_____"<<std::endl;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			if(next!=NULL){
+
+			next->compile(dst,bindings,regs,destReg);
+
+			}
+			current->compile(dst,bindings,regs,destReg);
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){
@@ -258,7 +268,7 @@ class CompoundStatement : public Node{
 			
 			std::cerr<<"Testing, dump bindings"<<std::endl;
 			varb_bindings->dumpTable();
-			
+			bindings = *varb_bindings;
 			if(dref!=NULL){
 				dref->compile(dst, bindings, regs,destReg);
 			}

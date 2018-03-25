@@ -51,6 +51,7 @@ class IntLiteral : public Expression {
 			std::cerr<<"IntLiteral"<<std::endl;
 			dst<<value;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
+			
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"End of branch"<<std::endl;

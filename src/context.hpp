@@ -59,7 +59,7 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			return tmp;
 		}
 		int getOffset(std::string var_id){ // returns SP offset for a given key
-			int offset = conOffset.at(var_id);
+			int offset = conOffset[var_id];
 			return offset;
 		}
 		void updateConReg(std::string var_id, std::string newReg){ // update reg stored in
