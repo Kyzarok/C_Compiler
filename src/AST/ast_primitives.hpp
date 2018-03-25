@@ -50,7 +50,7 @@ class IntLiteral : public Expression {
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 			std::cerr<<"IntLiteral"<<std::endl;
-			dst<<"li "<<destReg<<", "<<value;
+			dst<<"li "<<destReg<<", "<<value<<std::endl;
 			//dst<<"li $"<<re.EmptyRegister()<<","<<value<<std::endl;
 			
 		}
