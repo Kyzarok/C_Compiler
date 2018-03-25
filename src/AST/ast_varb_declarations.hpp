@@ -265,6 +265,7 @@ class CompoundStatement : public Node{
 			
 			declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
 			varb_bindings->mergeMaps(bindings);
+			sref->explore(declarations,bindings);
 		}
 };
 
