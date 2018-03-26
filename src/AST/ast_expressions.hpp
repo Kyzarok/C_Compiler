@@ -522,7 +522,10 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		right->compile(dst,bindings,regs,destReg);
+		dst<<"slt "<<destReg<<", "<<"$0, "<<destReg<<std::endl;
+		dst<<"xori "<<destReg<<", "<<destReg<<", 1"<<std::endl;
+		
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;

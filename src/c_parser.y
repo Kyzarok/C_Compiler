@@ -120,6 +120,7 @@ EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
 	| LOG_EXPR {$$=$1;}
 	| BIT_EXPR {$$=$1;}
+	| L_NOT EXPRESSION {$$ = new NotOperator($2, $2);}
 	
 
 MATH_EXPR: TERM {$$=$1;}
@@ -144,7 +145,6 @@ LOG_EXPR :	LOG_EXPR L_IS_EQUAL MATH_EXPR {$$ = new EqualToOperator($1, $3);}
 	| LOG_EXPR L_IS_NOT_EQUAL MATH_EXPR {$$ = new NotEqualOperator($1, $3);}
 	| LOG_EXPR L_AND MATH_EXPR {$$ = new LAndOperator($1, $3);}
 	| LOG_EXPR L_OR MATH_EXPR {$$ = new LOrOperator($1, $3);}
-	| L_NOT LOG_EXPR {$$ = new NotOperator($2, $2);}
 	| LOG_EXPR L_GTHAN MATH_EXPR {$$ = new GThanOperator($1, $3);}
 	| LOG_EXPR L_LTHAN MATH_EXPR {$$ = new LThanOperator($1, $3);}
 	| LOG_EXPR L_GETHAN MATH_EXPR {$$ = new GEThanOperator($1, $3);}
