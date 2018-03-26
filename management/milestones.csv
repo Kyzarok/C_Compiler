@@ -16,6 +16,6 @@ PythonConverter,"WriteCompleteAST, WriteCompleteParser,MinimalPythonConverter",2
 CompilationPrep,None,2,Ed,a2dd17fbd51f476a31f4596c51ffefd84114482e,"Get ground work for compilation, eg context, register stuff, etc"
 MinimalCompilation,"WriteCompleteAST, WriteCompleteParser",8,Ed,6beed8537244383e53c98aa4b9daa2870948d11e,"Get basic structure for compilation working, be able to compile int x(){return 3;} - this doesn’t need new backend "
 BasicCompilation,MinimalCompilation,6,Ed,88dac627280780e9c95b155b8bc137945b60e4c6,Add support to variable declarations and basic maths
-AllOperatorCompilation,BasicCompilation,2,Kai,a037e13722c0821c6bcb7ea0f44b5293565d2adc,Add support for all operators in our AST
+AllOperatorCompilation,BasicCompilation,2,Kai,,Add support for all operators in our AST
 FlowCompilation,AllOperatorCompilation,3,Ed,,"Add support for flow control (if, else, etc)"
 FullCompilation,FlowCompilation,3,Ed,,"Add support for remaining things in AST. If we have time, add more to AST then suppor that too"
