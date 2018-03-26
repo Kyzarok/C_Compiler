@@ -39,7 +39,7 @@
 %type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST DECL_GLOB
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT K_VOID //K_CHAR K_FLOAT
-%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT LOG_EXPR FNC_CALL 
+%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT LOG_EXPR FNC_CALL LEVEL_1 LEVEL_2 LEVEL_3 LEVEL_4 LEVEL_5 LEVEL_6 LEVEL_7 LEVEL_8 LEVEL_9 LEVEL_10 LEVEL_11 LEVEL_12 LEVEL_13
 %type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT IF_ELSE_STATEMENT
 %type <declaration>  DECL_LIST DECL_LOCAL
 /*
@@ -115,6 +115,61 @@ RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatemen
 EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 //Somewhere in here we're going to need to differentiate between special cases and baics
 //Everything so far is basic, assignments, 
+
+
+//everything below needs testing
+LEVEL_13 : ASSIGNMENT_EXPR {$$=$1;}
+	| LEVEL_12 {$$=$1;}
+
+LEVEL_12 : LEVEL_12 L_OR LEVEL_11 {$$ = new LOrOperator($1, $3);}
+	| LEVEL_11 {$$=$1;}
+
+LEVEL_11 : LEVEL_11 L_AND LEVEL_10 {$$ = new LAndOperator($1, $3);}
+	| LEVEL_10 {$$=$1;}
+
+LEVEL_10 :  LEVEL_10 B_OR LEVEL_9 {$$ = new BOrOperator($1, $3);}
+	| LEVEL_9 {$$=$1;}
+
+LEVEL_9 : LEVEL_9 B_XOR LEVEL_8 {$$ = new XorOperator($1, $3);}
+	| LEVEL_8 {$$=$1;}
+
+LEVEL_8 : LEVEL_8 B_AND LEVEL_7 {$$ = new BAndOperator($1, $3);}
+	| LEVEL_7 {$$=$1;}
+
+LEVEL_7 : LEVEL_7 L_IS_EQUAL LEVEL_6 {$$ = new EqualToOperator($1, $3);}
+	| LEVEL_7 L_IS_NOT_EQUAL LEVEL_6 {$$ = new NotEqualOperator($1, $3);}
+	| LEVEL_6 {$$=$1;}
+
+LEVEL_6 : LEVEL_6 L_GTHAN LEVEL_5 {$$ = new GThanOperator($1, $3);}
+	| LEVEL_6 L_LTHAN LEVEL_5 {$$ = new LThanOperator($1, $3);}
+	| LEVEL_6 L_GETHAN LEVEL_5 {$$ = new GEThanOperator($1, $3);}
+	| LEVEL_6 L_LETHAN LEVEL_5 {$$ = new LEThanOperator($1, $3);}
+	| LEVEL_5 {$$=$1;}
+
+LEVEL_5 : LEVEL_5 B_LSHIFT LEVEL_4 {$$ = new LShiftOperator($1, $3);}
+	| LEVEL_5 B_RSHIFT LEVEL_4 {$$ = new RShiftOperator($1, $3);}
+	| LEVEL_4 {$$=$1;}
+
+LEVEL_4 : LEVEL_4 O_PLUS LEVEL_3 {$$ = new AddOperator($1, $3);}
+	| LEVEL_4 O_MINUS LEVEL_3 {$$ = new SubOperator($1, $3);}
+	| LEVEL_4 LEVEL_3 {$$= new AddOperator($1, $2);}
+	| LEVEL_3 {$$=$1;}
+
+LEVEL_3 : LEVEL_3 O_ASTR LEVEL_2 {$$ = new MulOperator($1, $3);}
+	| LEVEL_3 O_DIV LEVEL_2 {$$ = new DivOperator($1, $3);}
+	| LEVEL_2 {$$=$1;}
+
+LEVEL_2 : L_NOT LEVEL_1 {$$ = new NotOperator($2, $2);}
+	| B_NOT LEVEL_1 {$$ = new BNotOperator($2,$2);}
+	| LEVEL_1 {$$=$1;}
+
+LEVEL_1 : CONSTANT {$$=$1;}
+	| T_IDENTIFIER {$$ = new Identifier(*$1);}
+	| P_LBRACKET LEVEL_1 P_RBRACKET {$$ = $2;}
+	| FNC_CALL {$$=$1;}
+//everything above needs testing
+
+
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
