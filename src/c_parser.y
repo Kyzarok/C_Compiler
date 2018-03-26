@@ -112,7 +112,7 @@ WHILE_STATEMENT : K_WHILE P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC COMPOUND_
 
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatement($2); }
 
-EXPR_STATEMENT : LEVEL_13 P_STATEMENT_END {$$ = new ExpressionStatement($1);}
+EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 //Somewhere in here we're going to need to differentiate between special cases and baics
 //Everything so far is basic, assignments, 
 
@@ -172,48 +172,9 @@ LEVEL_1 : CONSTANT {$$=$1;}
 
 
 EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
-	| MATH_EXPR {$$=$1;}
-	| LOG_EXPR {$$=$1;}
-	| BIT_EXPR {$$=$1;}
-	//needs fixing, temp hack
-	| L_NOT EXPRESSION {$$ = new NotOperator($2, $2);}
-	| B_NOT EXPRESSION {$$ = new BNotOperator($2,$2);}
 
-MATH_EXPR: TERM {$$=$1;}
-	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
-	| EXPRESSION O_MINUS TERM {$$ = new SubOperator($1, $3);}
-	| EXPRESSION TERM {$$= new AddOperator($1, $2);}
+	| LEVEL_12 {$$=$1;}
 	
-TERM : FACTOR {$$=$1;}
-	| TERM O_ASTR FACTOR {$$ = new MulOperator($1, $3);}
-	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
-
-FACTOR : CONSTANT {$$=$1;}
-	| T_IDENTIFIER {$$ = new Identifier(*$1);}
-	| P_LBRACKET MATH_EXPR P_RBRACKET {$$ = $2;}
-	| P_LBRACKET LOG_EXPR P_RBRACKET {$$ = $2;}
-	| P_LBRACKET BIT_EXPR P_RBRACKET {$$ = $2;}
-	| FNC_CALL {$$=$1;}
-
-//going to need the same BIDMAS architecture used in lab 2
-
-LOG_EXPR :	LOG_EXPR L_IS_EQUAL MATH_EXPR {$$ = new EqualToOperator($1, $3);}
-	| LOG_EXPR L_IS_NOT_EQUAL MATH_EXPR {$$ = new NotEqualOperator($1, $3);}
-	| LOG_EXPR L_AND MATH_EXPR {$$ = new LAndOperator($1, $3);}
-	| LOG_EXPR L_OR MATH_EXPR {$$ = new LOrOperator($1, $3);}
-	| LOG_EXPR L_GTHAN MATH_EXPR {$$ = new GThanOperator($1, $3);}
-	| LOG_EXPR L_LTHAN MATH_EXPR {$$ = new LThanOperator($1, $3);}
-	| LOG_EXPR L_GETHAN MATH_EXPR {$$ = new GEThanOperator($1, $3);}
-	| LOG_EXPR L_LETHAN MATH_EXPR {$$ = new LEThanOperator($1, $3);}
-	| MATH_EXPR {$$ = $1;}
-
-BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
-	| BIT_EXPR B_OR MATH_EXPR {$$ = new BOrOperator($1, $3);}
-	
-	| BIT_EXPR B_XOR MATH_EXPR {$$ = new XorOperator($1, $3);}
-	| BIT_EXPR B_LSHIFT MATH_EXPR {$$ = new LShiftOperator($1, $3);}
-	| BIT_EXPR B_RSHIFT MATH_EXPR {$$ = new RShiftOperator($1, $3);}
-	| MATH_EXPR {$$ = $1;}
 
 ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpression(*$1,$3);}
 
