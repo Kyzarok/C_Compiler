@@ -112,7 +112,7 @@ WHILE_STATEMENT : K_WHILE P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC COMPOUND_
 
 RETURN_STATEMENT : K_RETURN EXPRESSION P_STATEMENT_END { $$ = new ReturnStatement($2); }
 
-EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
+EXPR_STATEMENT : LEVEL_13 P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 //Somewhere in here we're going to need to differentiate between special cases and baics
 //Everything so far is basic, assignments, 
 
