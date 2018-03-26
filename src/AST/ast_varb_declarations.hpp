@@ -283,16 +283,13 @@ class CompoundStatement : public Node{
 			if(dref!=NULL){
 				dref->explore(declarations,bindings);
 			}
-			//declarations = noDecls; // noDecls should have the number of declarations below me, so just set declarations to this
+
 			bindings.changeOffset(varb_bindings->returnOffset());
 			varb_bindings->mergeMaps(bindings);
 			if(sref!=NULL){
 				sref->explore(declarations,bindings);
 			}
-			/*bindings.changeOffset(varb_bindings->returnOffset());
-			varb_bindings->changeOffset(varb_bindings->returnOffset());
-			varb_bindings->mergeMaps(bindings);
-			sref->explore(declarations,bindings);*/
+
 		}
 };
 

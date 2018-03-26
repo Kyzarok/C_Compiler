@@ -13,6 +13,8 @@ static int myGlobVarbCounter = 0;
 
 static std::vector<std::string> myGlobVarbContainer; // another global variable, allowing for translation from c to python, hopefully
 
+static int unique_name =0; // a global boolean for making unique names for labels. Increment after use
+
 class Node; //template function, contains only virtual functions to overwrite.
 class Expression;
 class Statement;
