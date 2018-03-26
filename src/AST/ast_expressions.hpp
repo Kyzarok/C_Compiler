@@ -183,13 +183,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
-		/*dst<<"addiu $";
-		dst<<reg.EmptyRegister()<<",$";
-		left->compile(dst, bindings, regs,destReg);
-		dst<<",-";
-		right->compile(dst, bindings, regs,destReg);
-		dst<<std::endl;*/
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"sub "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"In sub, I can terminate here happily. Could have ages ago tbh"<<std::endl;

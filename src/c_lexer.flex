@@ -91,7 +91,7 @@ COM_END			"*/"
 \t { fprintf(stderr, "Consume Unwanted characters, tabs\n"); }
  /*types*/
 
-{T_Digit}+ { yylval.number=strtod(yytext, 0); return T_INT; }
+[-]?{T_Digit}+ { yylval.number=strtod(yytext, 0); return T_INT; }
 {T_Char}({T_Char}|{T_Digit})* { yylval.string=new std::string(yytext); return T_IDENTIFIER; } //variable
 
 %%
