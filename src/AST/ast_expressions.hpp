@@ -425,8 +425,8 @@ public:
 		left->compile(dst,bindings,regs,destReg);
 		right->compile(dst,bindings,regs,Reg1);
 		
-		dst<<"sltiu	"<<Reg2<<",$0,"<<destReg<<std::endl;
-		dst<<"sltiu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
+		dst<<"sltu	"<<Reg2<<",$0,"<<destReg<<std::endl;
+		dst<<"sltu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
 		
 		dst<<"and "<<destReg<<","<<Reg1<<","<<Reg2<<std::endl;
 		regs.ReleaseRegister(tmp2);
@@ -478,8 +478,8 @@ public:
 		left->compile(dst,bindings,regs,destReg);
 		right->compile(dst,bindings,regs,Reg1);
 		
-		dst<<"sltiu	"<<Reg2<<",$0,"<<destReg<<std::endl;
-		dst<<"sltiu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
+		dst<<"sltu	"<<Reg2<<",$0,"<<destReg<<std::endl;
+		dst<<"sltu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
 		
 		dst<<"or "<<destReg<<","<<Reg1<<","<<Reg2<<std::endl;
 		regs.ReleaseRegister(tmp2);
@@ -493,6 +493,7 @@ public:
 class NotOperator : public Operator {	// a not operator only requires RHS of !
 protected:
 	virtual const char *getOpcode() const override { return "!"; }
+	
 public:
 	NotOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override{

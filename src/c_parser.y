@@ -126,6 +126,7 @@ MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
 	| EXPRESSION O_MINUS TERM {$$ = new SubOperator($1, $3);}
 	| EXPRESSION TERM {$$= new AddOperator($1, $2);}
+	
 TERM : FACTOR {$$=$1;}
 	| TERM O_ASTR FACTOR {$$ = new MulOperator($1, $3);}
 	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
@@ -143,7 +144,7 @@ LOG_EXPR :	LOG_EXPR L_IS_EQUAL MATH_EXPR {$$ = new EqualToOperator($1, $3);}
 	| LOG_EXPR L_IS_NOT_EQUAL MATH_EXPR {$$ = new NotEqualOperator($1, $3);}
 	| LOG_EXPR L_AND MATH_EXPR {$$ = new LAndOperator($1, $3);}
 	| LOG_EXPR L_OR MATH_EXPR {$$ = new LOrOperator($1, $3);}
-	| LOG_EXPR L_NOT MATH_EXPR {$$ = new NotOperator($1, $3);}
+	| L_NOT LOG_EXPR {$$ = new NotOperator($2, $2);}
 	| LOG_EXPR L_GTHAN MATH_EXPR {$$ = new GThanOperator($1, $3);}
 	| LOG_EXPR L_LTHAN MATH_EXPR {$$ = new LThanOperator($1, $3);}
 	| LOG_EXPR L_GETHAN MATH_EXPR {$$ = new GEThanOperator($1, $3);}

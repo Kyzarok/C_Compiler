@@ -57,6 +57,8 @@ COM_END			"*/"
 "<"		{return(L_LTHAN);}
 ">="	{return(L_GETHAN);}
 "<="	{return(L_LETHAN);}
+"=>"	{return(L_GETHAN);}
+"=<"	{return(L_LETHAN);}
 
  /*Bitwise operator*/
 
