@@ -317,7 +317,24 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+		int tmp2 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp2);
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		std::string Reg2 = "$" + std::to_string(tmp2);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		dst<<"slt	"<<Reg2<<", "<<destReg<<", "<<Reg1<<std::endl;
+		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
+		
+		dst<<"nor "<<destReg<<", "<<Reg1<<", "<<Reg2<<std::endl;
+		regs.ReleaseRegister(tmp2);
+		regs.ReleaseRegister(tmp1);
+
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -354,7 +371,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"sub "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -502,7 +525,19 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
+		
+		dst<<"move "<<destReg<<", "<<Reg1<<std::endl;
+
+		regs.ReleaseRegister(tmp1);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -539,7 +574,17 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		dst<<"slt	"<<Reg1<<", "<<destReg<<", "<<Reg1<<std::endl;
+		
+		dst<<"move "<<destReg<<", "<<Reg1<<std::endl;
+		regs.ReleaseRegister(tmp1);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -576,7 +621,19 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		dst<<"slt	"<<Reg1<<", "<<destReg<<", "<<Reg1<<std::endl;
+	
+		
+		dst<<"nor "<<destReg<<", "<<Reg1<<", "<<Reg1<<std::endl;
+		regs.ReleaseRegister(tmp1);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -589,9 +646,9 @@ protected:
 public:
 	LEThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
-		//double vl = left->evaluate(bindings);
+		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		if (!vr) {
+		if (vl<=vr) {
 			return 1;
 		}
 		else {
@@ -613,7 +670,21 @@ public:
 		dst << " )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+
+		std::string Reg1 = "$" + std::to_string(tmp1);
+
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
+		
+		dst<<"nor "<<destReg<<", "<<Reg1<<", "<<Reg1<<std::endl;
+
+		regs.ReleaseRegister(tmp1);
+		
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -647,7 +718,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"and "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -679,7 +756,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"or "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -704,14 +787,13 @@ public:
 		dst<<" )";
 	}
 	virtual void translate(std::ostream &dst, int indent) const override {
-		dst<<"( ";
-		left->translate(dst,indent);
-		dst<<" ~ ";
+		dst<<"(~ ";
 		right->translate(dst,indent);
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		right->compile(dst,bindings,regs,destReg);
+		dst<<"nor "<<destReg<<","<<destReg<<","<<destReg<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -743,7 +825,13 @@ public:
 		dst<<" )";
 	}	
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"xor "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -775,7 +863,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"sll "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -806,7 +900,13 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"sra "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
