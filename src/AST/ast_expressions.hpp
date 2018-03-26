@@ -331,7 +331,8 @@ public:
 		dst<<"slt	"<<Reg2<<", "<<destReg<<", "<<Reg1<<std::endl;
 		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
 		
-		dst<<"nor "<<destReg<<", "<<Reg1<<", "<<Reg2<<std::endl;
+		dst<<"xor "<<destReg<<", "<<Reg1<<", "<<Reg2<<std::endl;
+		dst<<"xori "<<destReg<<", "<<destReg<<", 1"<<std::endl;
 		regs.ReleaseRegister(tmp2);
 		regs.ReleaseRegister(tmp1);
 
