@@ -630,9 +630,9 @@ protected:
 public:
 	GEThanOperator(NodePtr _left, NodePtr _right) : Operator(_left, _right) {}
 	virtual double evaluate(const std::map<std::string, double> &bindings) const override {
-		//double vl = left->evaluate(bindings);
+		double vl = left->evaluate(bindings);
 		double vr = right->evaluate(bindings);
-		if (!vr) {
+		if (vl>=vr) {
 			return 1;
 		}
 		else {
@@ -656,15 +656,10 @@ public:
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
-
-		
 		std::string Reg1 = "$" + std::to_string(tmp1);
-		
 		left->compile(dst,bindings,regs,destReg);
 		right->compile(dst,bindings,regs,Reg1);
 		dst<<"slt	"<<Reg1<<", "<<destReg<<", "<<Reg1<<std::endl;
-	
-		
 		dst<<"nor "<<destReg<<", "<<Reg1<<", "<<Reg1<<std::endl;
 		regs.ReleaseRegister(tmp1);
 	}
