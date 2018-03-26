@@ -193,7 +193,7 @@ public:
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"In sub, I can terminate here happily. Could have ages ago tbh"<<std::endl;
-		left->explore(declarations,bindings);
+
 	}
 };
 
@@ -222,7 +222,19 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		// we only support 32 bit integers. We can safely discard the upper half registers
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"MULT	"<<destReg<<", "<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
+		dst<<"NOP"<<std::endl; //multiplication takes multiple clock cycles?
+		dst<<"MFLO	"<<destReg<<std::endl; // the lower half of the result ends up in reg lo
+		dst<<"NOP"<<std::endl;
+		dst<<"NOP"<<std::endl; // these two also prevent undefined behaviour
+		
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -254,7 +266,18 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		// we only support integers
+		left->compile(dst,bindings,regs,destReg);
+		int tmp = regs.EmptyRegister();
+		regs.ReserveRegister(tmp);
+		std::string rightReg = "$" + std::to_string(tmp);
+		right->compile(dst,bindings,regs,rightReg);
+		dst<<"DIV	"<<destReg<<", "<<rightReg<<std::endl;
+		regs.ReleaseRegister(tmp);
+		dst<<"NOP"<<std::endl; //division takes multiple clock cycles?
+		dst<<"MFLO	"<<destReg<<std::endl; // the lower half of the result ends up in reg lo
+		dst<<"NOP"<<std::endl;
+		dst<<"NOP"<<std::endl; // these two also prevent undefined behaviour
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
