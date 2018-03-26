@@ -125,7 +125,7 @@ EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
 	| EXPRESSION O_MINUS TERM {$$ = new SubOperator($1, $3);}
-
+	| EXPRESSION TERM {$$= new AddOperator($1, $2);}
 TERM : FACTOR {$$=$1;}
 	| TERM O_ASTR FACTOR {$$ = new MulOperator($1, $3);}
 	| TERM O_DIV FACTOR {$$ = new DivOperator($1, $3);}
