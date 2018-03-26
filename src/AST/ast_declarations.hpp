@@ -4,6 +4,7 @@
 
 #include <string>
 
+extern int unique_name;
 
 class FunctionDecl : public Node {
 	protected:

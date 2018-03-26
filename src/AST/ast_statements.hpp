@@ -7,6 +7,8 @@
 #include <string>
 
 
+extern int unique_name;
+
 class Statement : public Node {
 	//Once we go over how to separate Expression Statement and ReturnStatement it should be good
 };

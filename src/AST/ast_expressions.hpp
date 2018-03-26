@@ -1,7 +1,7 @@
 #ifndef ast_expressions_hpp
 #define ast_expressions_hpp
 
-
+extern int unique_name;
 
 class Expression : public Node {
 

@@ -2,6 +2,8 @@
 #define ast_program_hpp
 
 
+extern int unique_name;
+
 class Program : public Node{ // class that points to one GLB_VAR or FNC_DEC, then another program
 
 	protected:

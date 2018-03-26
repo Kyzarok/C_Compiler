@@ -1,7 +1,7 @@
 #ifndef ast_primitives_hpp
 #define ast_primitives_hpp
 
-
+extern int unique_name;
 
 class Identifier : public Expression {	//If we can figure out how Variable works then we can tie it in with EqualsOperator so that we know what to return for it
 	protected:

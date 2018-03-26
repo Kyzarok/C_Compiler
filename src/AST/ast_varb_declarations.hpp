@@ -11,6 +11,8 @@ extern int myGlobVarbCounter;
 
 extern std::vector<std::string> myGlobVarbContainer;
 
+extern int unique_name;
+
 class Declaration : public Node{
 	
 };
