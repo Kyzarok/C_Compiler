@@ -414,7 +414,28 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+		int tmp2 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp2);
+		int tmp3 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp3);
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		std::string Reg2 = "$" + std::to_string(tmp2);
+		std::string Reg3 = "$" + std::to_string(tmp3);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		
+		dst<<"li "<<Reg3<<",0"<<std::endl;
+		dst<<"sltiu	"<<Reg2<<","<<Reg3<<","<<destReg<<std::endl;
+		dst<<"sltiu	"<<Reg1<<","<<Reg3<<","<<Reg1<<std::endl;
+		
+		dst<<"and "<<destReg<<","<<Reg1<<","<<Reg2<<std::endl;
+		regs.ReleaseRegister(tmp3);
+		regs.ReleaseRegister(tmp2);
+		regs.ReleaseRegister(tmp1);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
@@ -451,7 +472,28 @@ public:
 		dst<<" )";
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		int tmp1 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp1);
+		int tmp2 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp2);
+		int tmp3 = regs.EmptyRegister();
+		regs.ReserveRegister(tmp3);
+		
+		std::string Reg1 = "$" + std::to_string(tmp1);
+		std::string Reg2 = "$" + std::to_string(tmp2);
+		std::string Reg3 = "$" + std::to_string(tmp3);
+		
+		left->compile(dst,bindings,regs,destReg);
+		right->compile(dst,bindings,regs,Reg1);
+		
+		dst<<"li "<<Reg3<<",0"<<std::endl;
+		dst<<"sltiu	"<<Reg2<<","<<Reg3<<","<<destReg<<std::endl;
+		dst<<"sltiu	"<<Reg1<<","<<Reg3<<","<<Reg1<<std::endl;
+		
+		dst<<"or "<<destReg<<","<<Reg1<<","<<Reg2<<std::endl;
+		regs.ReleaseRegister(tmp3);
+		regs.ReleaseRegister(tmp2);
+		regs.ReleaseRegister(tmp1);
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
 		std::cerr<<"Not implemented"<<std::endl;
