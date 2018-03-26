@@ -120,8 +120,9 @@ EXPRESSION : ASSIGNMENT_EXPR {$$=$1;}
 	| MATH_EXPR {$$=$1;}
 	| LOG_EXPR {$$=$1;}
 	| BIT_EXPR {$$=$1;}
+	//needs fixing, temp hack
 	| L_NOT EXPRESSION {$$ = new NotOperator($2, $2);}
-	
+	| B_NOT EXPRESSION {$$ = new BNotOperator($2,$2);}
 
 MATH_EXPR: TERM {$$=$1;}
 	| EXPRESSION O_PLUS TERM {$$ = new AddOperator($1, $3);}
@@ -153,7 +154,7 @@ LOG_EXPR :	LOG_EXPR L_IS_EQUAL MATH_EXPR {$$ = new EqualToOperator($1, $3);}
 
 BIT_EXPR : BIT_EXPR B_AND MATH_EXPR {$$ = new BAndOperator($1, $3);}
 	| BIT_EXPR B_OR MATH_EXPR {$$ = new BOrOperator($1, $3);}
-	| B_NOT BIT_EXPR {$$ = new BNotOperator($2,$2);}
+	
 	| BIT_EXPR B_XOR MATH_EXPR {$$ = new XorOperator($1, $3);}
 	| BIT_EXPR B_LSHIFT MATH_EXPR {$$ = new LShiftOperator($1, $3);}
 	| BIT_EXPR B_RSHIFT MATH_EXPR {$$ = new RShiftOperator($1, $3);}
