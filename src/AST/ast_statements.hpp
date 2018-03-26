@@ -146,7 +146,7 @@ class IfStatement : public Statement {
 
 protected:
 	ExpressionPtr condition; // the execute condition
-	NodePtr body; // actually a statement list, the body of the if
+	NodePtr body; // actually a compound statement, the body of the if
 public:
 	IfStatement(ExpressionPtr _condition, NodePtr _body) : condition(_condition), body(_body) {std::cerr<<"If statement constructor"<<std::endl;}
 	virtual void print(std::ostream &dst) const override {//if case exists
@@ -170,7 +170,26 @@ public:
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
 		std::cerr<<"If Statement not fully implemented"<<std::endl;
-		body->compile(dst, bindings, regs,destReg);
+		int x = unique_name;
+		unique_name++;
+		std::string if_s = "$if_s"+std::to_string(x); // start of body
+		std::string if_f = "$if_f"+std::to_string(x); // end of body
+		int y = regs.EmptyRegister(); // number of first free register
+		regs.ReserveRegister(y); // mark register as used
+		std::string condReg = "$"+std::to_string(y);
+		condition->compile(dst,bindings,regs,condReg); // compile the condition, get the result into condReg
+		dst<<"BNE	$0, "<<condReg<<", "<<if_s<<std::endl; //If cond not zero, branch to body
+		regs.ReleaseRegister(y);
+		dst<<"NOP"<<std::endl;
+		dst<<"b	"<<if_f<<std::endl;
+		dst<<"NOP"<<std::endl;
+		dst<<std::endl;
+		dst<<if_s<<":"<<std::endl;
+		body->compile(dst,bindings,regs,destReg);
+		dst<<"b	"<<if_f<<std::endl;
+		dst<<"NOP"<<std::endl;
+		dst<<std::endl;
+		dst<<if_f<<":"<<std::endl;
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
