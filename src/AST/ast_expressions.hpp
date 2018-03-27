@@ -98,7 +98,7 @@ class FunctionCall : public Expression{
 			dst<<" )";
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Function Call not fully implemented"<<std::endl;
+			
 			
 			//store the necassary registers. I need to save 19. 19*4=76
 			dst<<"addiu $fp, $fp, -88"<<std::endl;
@@ -156,7 +156,7 @@ class VarList : public Node{
 			dst<<current;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Varlist not implemented"<<std::endl;
+			std::cerr<<"Varlist compilation not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){

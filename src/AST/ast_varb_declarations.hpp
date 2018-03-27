@@ -191,7 +191,7 @@ class DeclGlobal : public Node{
 			dst<<std::endl;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Globals partially implemented"<<std::endl;
+			
 			dst<<".globl "<<var_id<<std::endl;
 			dst<<".data "<<std::endl;
 			dst<<".align 2"<<std::endl;

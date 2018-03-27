@@ -207,7 +207,7 @@ class IfElseStatement : public Statement{
 		NodePtr body_f;
 	public:
 		IfElseStatement(ExpressionPtr _condition, NodePtr _t, NodePtr _f) :condition(_condition), body_t(_t), body_f(_f){}
-		virtual void print(std::ostream &dst) const override{std::cerr<<"IFELSE not implemented"<<std::endl;}
+		virtual void print(std::ostream &dst) const override{std::cerr<<"IFELSE not print implemented"<<std::endl;}
 		virtual void translate(std::ostream &dst, int indent) const override {
 			for(int i=0; i<indent;i++){ //Shold make a function / member function, quick hack for now
 				dst<<" ";
@@ -285,7 +285,6 @@ class WhileStatement : public Statement {
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		
-			std::cerr<<"While not fully implemented/tested"<<std::endl;
 			int x = unique_name;
 			unique_name++;
 			std::string cond = "$cond"+std::to_string(x); // if true

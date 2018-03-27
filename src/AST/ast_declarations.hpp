@@ -165,10 +165,10 @@ class Param : public Node{
 				
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Parameter Compilation not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Parameter Exploration unimplemented"<<std::endl;
 		}
 };
 
@@ -197,10 +197,10 @@ class ParamList : public Node{ // list of function paramaters
 				
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Parameter List Compilation unimplemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Parameter List Exploration unimplemented"<<std::endl;
 		}
 };
 
