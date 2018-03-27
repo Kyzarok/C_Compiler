@@ -6,11 +6,6 @@
 #include<sstream> // makes printing boiler plate somewhat quicker
 #include<cstdlib> //Required for exit
 #include<fstream> 
-#include<vector>
-
-
-
-
 
 std::string make_boilerplate(){
 	std::stringstream ss; // make a function
@@ -39,43 +34,35 @@ int main(int argc, char *argv[]){
 	}
 	
 	// get mode
-	std::string mode_select(argv[1]);
+	std::string mode_select(argv[1]); // should be either "-S" or "--translate"
 	
 	
 	// Build AST
-	const Node *ast=parseAST(argv[2]); //TODO make this read from source file, not stdin
+	const Node *ast=parseAST(argv[2]); //Parse sorce file
 	
 	
 	//functionality
 	if(mode_select =="--translate"){ //ie translator mode
-	//if(true){ // temp hard code to translate
-	
 			
-		std::cerr<<"We translating"<<std::endl;
-		//translate
-		
 		ast->translate(fileDest,0);
-		//fileDest<<std::cout<<std::endl; //TODO make this write to dest file, not stdout. Can put stdout into file stream?
-		
-		
-		
-		std::cerr<<"Boilerplate"<<std::endl;
+
 		//now for boilerplate
 		fileDest<<std::endl;
 		fileDest<<make_boilerplate()<<std::endl;
 	}
 	else if(mode_select =="-S"){ //ie compile
-		int declarations=0;
+		
 		
 		Registers regs;
 		Context fake;
 		std::string foo = "NULL"; // destReg and returnLoc both invalid right now
-		ast->compile(fileDest,fake,regs,foo,foo); // needs work
+		//compile takes args of form (ostream,context,registers,string destReg, string returnLoc)
+		ast->compile(fileDest,fake,regs,foo,foo); // compiles into output file
 	}
 	
 	else{
 		std::cerr<<"ERROR: Invalid command"<<std::endl;
-		std::exit(1);
+		std::exit(1); // no error code was ever specified, so I just chose this
 	}
 	
 	return 0;

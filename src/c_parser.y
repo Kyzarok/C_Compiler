@@ -51,10 +51,6 @@
 
 ROOT : PROGRAM { g_root = $1; }
 
- /*	Most of the AST is not implemented. However, by recognizing in advance what
-	nodes of the tree we will encounter, it prevents the issue of advancing too
-	far and having an unstable foundation
- */
  
 PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of abstraction	
 	|DECL_GLOB PROGRAM {$$ = new Program($2,$1);}
@@ -63,33 +59,34 @@ PROGRAM	: PROGRAM FNC_DEC {$$ = new Program($2,$1);} // oh god, another layer of
 	
 DECL_GLOB : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclGlobal(*$1,*$2);}
 		| K_INT T_IDENTIFIER O_EQUALS EXPRESSION P_STATEMENT_END {$$ = new DeclGlobal(*$1,*$2,$4);}
-	
-FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);std::cerr<<"Just made a new FNC_DECL with not params";} //hard coded to only handle ints
-		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);std::cerr<<"Just made a new FNC_DECL with params";}
-	| K_VOID T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);}
-	| K_VOID T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);}
 
-PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($3,$1); std::cerr<<"New paramlist, yay"<<std::endl;}
-	| PARAMETER {$$=$1;std::cerr<<"Bottom of left recursion on param list?"<<std::endl;}
+//If I was feeling clever, would alter this. Originally we only supported integers, void was added afterwards. There should be another layer of abstraction	
+FNC_DEC : K_INT T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);} 
+		| K_INT T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);}
+		| K_VOID T_IDENTIFIER P_LBRACKET P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $6);}
+		| K_VOID T_IDENTIFIER P_LBRACKET PARAMETER_LIST P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new FunctionDecl(*$1, *$2, $7, $4);}
+
+PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($3,$1);}
+	| PARAMETER {$$=$1;}
 					
 PARAMETER	: K_INT T_IDENTIFIER {$$ = new Param(*$1,*$2);}
 
 
 CONSTANT : T_INT {$$ = new IntLiteral($1);} 
 
-COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1); std::cerr<<"making a new comp statement only stat list"<<std::endl;} 
-		| DECL_LIST {$$ = new CompoundStatement($1);std::cerr<<"making a new comp statement only decl list"<<std::endl;}
-		| DECL_LIST STATEMENT_LIST {$$ = new CompoundStatement($2,$1); std::cerr<<"making a new comp statement both list"<<std::endl;}
+COMPOUND_STATEMENT : STATEMENT_LIST {$$ = new CompoundStatement($1);} 
+		| DECL_LIST {$$ = new CompoundStatement($1);}
+		| DECL_LIST STATEMENT_LIST {$$ = new CompoundStatement($2,$1);}
 		
-DECL_LIST : DECL_LIST DECL_LOCAL {$$ = new DeclList($2,$1);std::cerr<<"New decllist, yay"<<std::endl;}
-		| DECL_LOCAL {$$=$1;std::cerr<<"Bottom of left recursion on decl list?"<<std::endl;}
+DECL_LIST : DECL_LIST DECL_LOCAL {$$ = new DeclList($2,$1);}
+		| DECL_LOCAL {$$=$1;}
 		
-DECL_LOCAL : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2);std::cerr<<"New local decl with no initial value"<<std::endl;}
-		| K_INT T_IDENTIFIER O_EQUALS EXPRESSION P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2,$4);std::cerr<<"New local decl with  initial value"<<std::endl;}
+DECL_LOCAL : K_INT T_IDENTIFIER P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2);}
+		| K_INT T_IDENTIFIER O_EQUALS EXPRESSION P_STATEMENT_END {$$ = new DeclLocal(*$1,*$2,$4);}
 	
 //A statement list has a pointer to the current statement, and a pointer to another statement list / node, yay
-STATEMENT_LIST : STATEMENT_LIST STATEMENT {$$ = new StatementList($2,$1);std::cerr<<"New statmentlist, yay"<<std::endl;}// code to the effect of $$.vector.push_back($1)
-			|   STATEMENT {$$=$1;std::cerr<<"Bottom of left recursion on Statement list?"<<std::endl;}
+STATEMENT_LIST : STATEMENT_LIST STATEMENT {$$ = new StatementList($2,$1);}
+			|   STATEMENT {$$=$1;}
 
 STATEMENT : RETURN_STATEMENT {$$=$1;}
 	| EXPR_STATEMENT {$$=$1;}
@@ -176,6 +173,7 @@ VAR_LIST : VAR_LIST P_LIST_SEPARATOR T_IDENTIFIER {$$ = new VarList(*$3,$1);}
 	| VAR_LIST P_LIST_SEPARATOR T_INT {$$ = new VarList(std::to_string($3),$1);} // if we supported other types this wouldn't be T_INT
 											//maybe condense back into something else, T_INT
 											//and T_VAR both as some other layer
+											//or just leave it in and forget about it
 	| T_IDENTIFIER {$$=new VarList(*$1);}
 	| T_INT {$$=new VarList(std::to_string($1));}
 	

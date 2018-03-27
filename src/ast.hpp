@@ -13,13 +13,6 @@
 
 
 
-/*  I regret so many choices found in the entire AST. 
-In fact I regret them enough to write them down. Expressions and Node should have been written
-to only reference Node - ie move compound statement. By moving compound statement to another file,
-Statement doesn't need to reference varb_declarations. This means that varb_declarations can be merged with declarations without running into circular issues with stuff referenceing undefined stuff. More things should be of type Node, maybe? */
-
-//It turns out that doing the above was a) needed, and b) not too bad.
-
 extern const Node *parseAST(const char* location);
 
 #endif
