@@ -191,6 +191,7 @@ class IfStatement : public Statement {
 			dst<<"nop"<<std::endl;
 			dst<<std::endl;
 			dst<<if_f<<":"<<std::endl;
+			std::cerr<<"For testing, I left if here"<<std::endl;
 		}
 	
 		virtual void explore(int & declarations, Context & bindings) const override{

@@ -35,6 +35,9 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			destReg = "$" + std::to_string(tmp);
 			value->compile(dst, bindings, regs, destReg,returnLoc);
 			dst<<"sw "<<destReg<<","<<bindings.getOffset(target)<<"($fp)"<<std::endl;
+			
+			std::cerr<<"By the way, I think that varb "<<target<<" lives at "<<bindings.getOffset(target)<<std::endl;
+			
 			destReg = "NULL";
 			regs.ReleaseRegister(tmp);
 			/*		

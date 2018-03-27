@@ -72,6 +72,9 @@ class DeclLocal : public Declaration{
 				dst<<std::endl;
 				std::cerr<<bindings.getOffset(var_id)<<std::endl;
 				dst<<"sw "<<destReg<<","<<bindings.getOffset(var_id)<<"($fp)"<<std::endl;
+				
+				std::cerr<<"By the way, I think that varb "<<var_id<<" lives at "<<bindings.getOffset(var_id)<<std::endl;
+				
 				std::cerr<<"Test 1"<<std::endl;
 				destReg = "NULL";
 				regs.ReleaseRegister(tmp);
@@ -272,24 +275,24 @@ class CompoundStatement : public Node{
 			
 			std::cerr<<"Testing, dump bindings"<<std::endl;
 			varb_bindings->dumpTable();
-			bindings = *varb_bindings;
+			//bindings = *varb_bindings;
 			if(dref!=NULL){
-				dref->compile(dst,bindings,regs,destReg,returnLoc);
+				dref->compile(dst,*varb_bindings,regs,destReg,returnLoc);
 			}
 			if(sref!=NULL){
-				sref->compile(dst,bindings,regs,destReg,returnLoc);
+				sref->compile(dst,*varb_bindings,regs,destReg,returnLoc);
 			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			// here be interesting things
+			varb_bindings->changeOffset(bindings.returnOffset());
+			varb_bindings->mergeMaps(bindings);
 			if(dref!=NULL){
-				dref->explore(declarations,bindings);
+				dref->explore(declarations,*varb_bindings);
 			}
 
-			bindings.changeOffset(varb_bindings->returnOffset());
-			varb_bindings->mergeMaps(bindings);
 			if(sref!=NULL){
-				sref->explore(declarations,bindings);
+				sref->explore(declarations,*varb_bindings);
 			}
 
 		}

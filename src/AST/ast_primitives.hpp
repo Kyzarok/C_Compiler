@@ -24,6 +24,8 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			//std::cerr<<"Here is error"<<std::endl;
+			
+			std::cerr<<"By the way, I think that varb "<<id<<" lives at "<<bindings.getOffset(id)<<std::endl;
 			dst<<"lw "<<destReg<<", "<<bindings.getOffset(id)<<"($fp)"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
