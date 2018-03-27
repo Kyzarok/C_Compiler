@@ -26,7 +26,20 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 			//std::cerr<<"Here is error"<<std::endl;
 			
 			std::cerr<<"By the way, I think that varb "<<id<<" lives at "<<bindings.getOffset(id)<<std::endl;
-			dst<<"lw "<<destReg<<", "<<bindings.getOffset(id)<<"($fp)"<<std::endl;
+			if(bindings.isGlob(id)){
+				std::cerr<<"I think that the varb was actually a global"<<std::endl;
+				/*
+				dst<<"lui "<<destReg<<", \%hi("<<id<<")"<<std::endl;
+				dst<<"addiu "<<destReg<<". \%lo("<<id<<")"<<std::endl;
+				*/
+				
+				dst<<"lui "<<destReg<<", \%hi("<<id<<")"<<std::endl;
+				dst<<"lw "<<destReg<<", \%lo("<<id<<")("<<destReg<<")"<<std::endl;
+			}
+			else{
+				std::cerr<<"I think that the varb was local"<<std::endl;
+				dst<<"lw "<<destReg<<", "<<bindings.getOffset(id)<<"($fp)"<<std::endl;
+			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"End of branch"<<std::endl;

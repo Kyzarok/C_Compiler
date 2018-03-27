@@ -4,6 +4,10 @@
 
 #include <string>
 
+extern int myGlobVarbCounter;
+
+extern std::vector<std::string> myGlobVarbContainer;
+
 extern int unique_name;
 
 class FunctionDecl : public Node {
@@ -59,6 +63,9 @@ class FunctionDecl : public Node {
 				isMain=false;
 			}
 			int explore_v=0;
+			
+			
+			
 			Context explore_m; // currently empty
 			body->explore(explore_v,explore_m);
 			myDecls=explore_v;
@@ -94,6 +101,19 @@ class FunctionDecl : public Node {
 			
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		
+		
+			if(myGlobVarbCounter!=0){
+				std::cerr<<"There are some global variables to consider."<<std::endl;
+				for(int i=1; i<myGlobVarbContainer.size();i=i+2){
+					std::cerr<<"Found a global called "<<myGlobVarbContainer[i]<<std::endl;
+					bindings.growGlobals(myGlobVarbContainer[i]);			
+							
+				}
+			
+			}
+			bindings.dumpTable();
+		
 			dst<<"	.globl	"<<fnc_ID<<std::endl;
 			dst<<"	.ent	"<<fnc_ID<<std::endl;
 			dst<<fnc_ID<<":"<<std::endl;

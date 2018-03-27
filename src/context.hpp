@@ -23,7 +23,7 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 		//in retrospect, structs
 		std::map<std::string, std::string>  conReg;
 		std::map<std::string, int> conOffset;
-		
+		std::map<std::string,bool> conGlob;
 		int nextOffset;
 
 	public:
@@ -48,6 +48,26 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 			conReg[var_id] = "NULL"; // need to use square brackets operator for assignment
 			conOffset[var_id] = nextOffset; // as using at would throw an error
 			nextOffset=nextOffset+4;
+			conGlob[var_id]=false;
+		}
+		void growGlobals(std::string var_id){
+			conReg[var_id]="NULL";
+			conGlob[var_id]=true;
+		
+		}
+		
+		bool isGlob(std::string var_id){
+			
+			return conGlob[var_id];
+		}
+		
+		int yesGlobals(){
+			return conGlob.size();
+		}
+		
+		void insertGlobals(Context add){
+			conReg.insert(add.conReg.begin(),add.conReg.end());
+			conGlob.insert(add.conGlob.begin(),add.conGlob.end());
 		}
 		//really annoying but there's a bug that says you can't just assign a NULL space to a string allocated mem space, so I'm changing it to LITERAL NULL, a STRING LITERAL,
 
@@ -78,6 +98,11 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 				
 			}
 			for(std::map<std::string,int>::iterator pos = conOffset.begin(); pos!= conOffset.end(); ++pos){
+				std::cerr<< pos->first<<" "<<pos->second<<std::endl;
+					
+				
+			}
+			for(std::map<std::string,bool>::iterator pos = conGlob.begin(); pos!= conGlob.end(); ++pos){
 				std::cerr<< pos->first<<" "<<pos->second<<std::endl;
 					
 				

@@ -30,16 +30,45 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {	 
 			
-			int tmp = regs.EmptyRegister();
+			/*int tmp = regs.EmptyRegister();
 			regs.ReserveRegister(tmp);
 			destReg = "$" + std::to_string(tmp);
-			value->compile(dst, bindings, regs, destReg,returnLoc);
-			dst<<"sw "<<destReg<<","<<bindings.getOffset(target)<<"($fp)"<<std::endl;
+			value->compile(dst, bindings, regs, destReg,returnLoc);*/
 			
-			std::cerr<<"By the way, I think that varb "<<target<<" lives at "<<bindings.getOffset(target)<<std::endl;
+			if(bindings.isGlob(target)){
 			
+				int x =regs.EmptyRegister();
+				regs.ReserveRegister(x);
+				int y =regs.EmptyRegister();
+				regs.ReserveRegister(y);
+				
+				destReg = "$" + std::to_string(x);
+				std::string globReg = "$" + std::to_string(y);
+				
+				std::cerr<<"storing a global"<<std::endl;
+				
+				dst<<"lui "<<globReg<<",\%hi("<<target<<")"<<std::endl;
+				dst<<"addiu "<<globReg<<", \%lo("<<target<<")"<<std::endl;
+				
+				value->compile(dst,bindings,regs,destReg,returnLoc);			
+				
+				dst<<"sw	"<<destReg<<", ("<<globReg<<")"<<std::endl;
+				regs.ReleaseRegister(x);
+				regs.ReleaseRegister(y);
+			}
+			
+			else{
+				int tmp = regs.EmptyRegister();
+				regs.ReserveRegister(tmp);
+				destReg = "$" + std::to_string(tmp);
+				value->compile(dst, bindings, regs, destReg,returnLoc);
+				dst<<"sw "<<destReg<<","<<bindings.getOffset(target)<<"($fp)"<<std::endl;
+			
+				std::cerr<<"By the way, I think that varb "<<target<<" lives at "<<bindings.getOffset(target)<<"and it was stored like a local"<<std::endl;
+				regs.ReleaseRegister(tmp);
+			}
 			destReg = "NULL";
-			regs.ReleaseRegister(tmp);
+			
 			/*		
 			dst<<"li $"<<reg.EmptyRegister()<<","<<value<<std::endl;
 			*/

@@ -191,13 +191,18 @@ class DeclGlobal : public Node{
 			dst<<std::endl;
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			//choose an empty register
-			//use empty register to assign value
-			//will use $28 for now as "global pointer"
-			/*dst<<"li $28,";
-			value->compile(dst,bindings,regs,destReg,returnLoc);
-			dst<<std::endl;*/
-			std::cerr<<"Not implemented"<<std::endl;
+			std::cerr<<"Globals partially implemented"<<std::endl;
+			dst<<".globl "<<var_id<<std::endl;
+			dst<<".data "<<std::endl;
+			dst<<".align 2"<<std::endl;
+			if(value!=NULL){
+				dst<<var_id<<":"<<std::endl;
+				dst<<".word ";
+				value->translate(dst,0);
+				dst<<std::endl;
+				dst<<".text"<<std::endl;
+				dst<<".align 2"<<std::endl;
+			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"Do I make it here?"<<std::endl;
@@ -272,6 +277,11 @@ class CompoundStatement : public Node{
 		}
 		//each compile construction will require a context for itself
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+			
+			if(bindings.yesGlobals() > 0){
+				varb_bindings->insertGlobals(bindings);
+				std::cerr<<"I recognized some globals and added them"<<std::endl;
+			}
 			
 			std::cerr<<"Testing, dump bindings"<<std::endl;
 			varb_bindings->dumpTable();
