@@ -36,11 +36,11 @@
 %token T_INT T_IDENTIFIER //Types. Minimal ones for parser / lexer
 
 
-%type <node> PROGRAM FNC_DEC TYPE_SPEC COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST DECL_GLOB
+%type <node> PROGRAM FNC_DEC  COMPOUND_STATEMENT  PARAMETER_LIST PARAMETER VAR_LIST DECL_GLOB
 %type <number> T_INT
 %type <string> T_IDENTIFIER K_INT K_VOID //K_CHAR K_FLOAT
-%type <expression> EXPRESSION TERM FACTOR MATH_EXPR BIT_EXPR ASSIGNMENT_EXPR CONSTANT LOG_EXPR FNC_CALL LEVEL_1 LEVEL_2 LEVEL_3 LEVEL_4 LEVEL_5 LEVEL_6 LEVEL_7 LEVEL_8 LEVEL_9 LEVEL_10 LEVEL_11 LEVEL_12
-%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT IF_ELSE_STATEMENT
+%type <expression> EXPRESSION  ASSIGNMENT_EXPR CONSTANT  FNC_CALL LEVEL_1 LEVEL_2 LEVEL_3 LEVEL_4 LEVEL_5 LEVEL_6 LEVEL_7 LEVEL_8 LEVEL_9 LEVEL_10 LEVEL_11 LEVEL_12
+%type <statement> STATEMENT RETURN_STATEMENT EXPR_STATEMENT STATEMENT_LIST IF_STATEMENT  WHILE_STATEMENT IF_ELSE_STATEMENT
 %type <declaration>  DECL_LIST DECL_LOCAL
 /*
 */
@@ -74,9 +74,6 @@ PARAMETER_LIST : PARAMETER_LIST P_LIST_SEPARATOR PARAMETER {$$ = new ParamList($
 					
 PARAMETER	: K_INT T_IDENTIFIER {$$ = new Param(*$1,*$2);}
 
-/*TYPE_SPEC : K_INT	
-	//| K_CHAR
-	//| K_FLOAT */
 
 CONSTANT : T_INT {$$ = new IntLiteral($1);} 
 
@@ -98,13 +95,10 @@ STATEMENT : RETURN_STATEMENT {$$=$1;}
 	| EXPR_STATEMENT {$$=$1;}
 	| IF_STATEMENT {$$=$1;}
 	| IF_ELSE_STATEMENT {$$=$1;}
-	//| ELSE_STATEMENT {$$=$1;}
 	| WHILE_STATEMENT {$$=$1;}
 			
 IF_STATEMENT : K_IF P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new IfStatement($3,$6);}
-	//| K_IF P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC ELSE_STATEMENT {$$ = new IfStatement($3,$6);}
-
-//ELSE_STATEMENT : K_ELSE P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$ = new ElseStatement($3);}
+	
 
 IF_ELSE_STATEMENT: K_IF P_LBRACKET EXPRESSION P_RBRACKET P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC K_ELSE P_LCURLBRAC COMPOUND_STATEMENT P_RCURLBRAC {$$= new IfElseStatement($3,$6,$10);}
 
@@ -117,7 +111,7 @@ EXPR_STATEMENT : EXPRESSION P_STATEMENT_END {$$ = new ExpressionStatement($1);}
 //Everything so far is basic, assignments, 
 
 
-//everything below needs testing
+//where we're going, we don't need comments
 
 LEVEL_12 : LEVEL_12 L_OR LEVEL_11 {$$ = new LOrOperator($1, $3);}
 	| LEVEL_11 {$$=$1;}
@@ -165,7 +159,6 @@ LEVEL_1 : CONSTANT {$$=$1;}
 	| T_IDENTIFIER {$$ = new Identifier(*$1);}
 	| P_LBRACKET EXPRESSION P_RBRACKET {$$ = $2;}
 	| FNC_CALL {$$=$1;}
-//everything above needs testing
 
 
 
@@ -179,7 +172,7 @@ ASSIGNMENT_EXPR : T_IDENTIFIER O_EQUALS EXPRESSION {$$ = new AssignmentExpressio
 FNC_CALL : T_IDENTIFIER P_LBRACKET P_RBRACKET {$$ = new FunctionCall(*$1);}
 	|  T_IDENTIFIER P_LBRACKET VAR_LIST P_RBRACKET {$$ = new FunctionCall(*$1, $3);}
 
-VAR_LIST : VAR_LIST P_LIST_SEPARATOR T_IDENTIFIER {$$ = new VarList(*$3,$1);}	//can't be Expression
+VAR_LIST : VAR_LIST P_LIST_SEPARATOR T_IDENTIFIER {$$ = new VarList(*$3,$1);}	
 	| VAR_LIST P_LIST_SEPARATOR T_INT {$$ = new VarList(std::to_string($3),$1);} // if we supported other types this wouldn't be T_INT
 											//maybe condense back into something else, T_INT
 											//and T_VAR both as some other layer
@@ -201,4 +194,3 @@ const Node *parseAST(const char* location) //This function returns the tree
 	return g_root;
 }
 
-/*need to create more abstraction to separate operators, identifiers, keywords etc....*/

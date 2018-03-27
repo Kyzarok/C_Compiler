@@ -256,34 +256,8 @@ class IfElseStatement : public Statement{
 			
 		}
 };
-//figure out where else this class is used and remove
-class ElseStatement : public Statement {
-protected:
-	NodePtr body; // actually a statement list, the body of the if
-public:
-	ElseStatement(NodePtr _body) : body(_body) {}
-	virtual void print(std::ostream &dst) const override {//if case exists
-		dst << "else {" << std::endl;
-		body->print(dst);
-		dst << "}";
-		dst << std::endl;
-	}
-	virtual void translate(std::ostream &dst, int indent) const override {
-		for(int i=0; i<indent;i++){ //Shold make a function / member function, quick hack for now
-			dst<<" ";
-		}
-		dst << "else :" << std::endl;
-		body->translate(dst, indent+4);
-		dst << std::endl;
-	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-		std::cerr<<"Not implemented"<<std::endl;
-	}
-	
-	virtual void explore(int & declarations, Context & bindings) const override{
-		body->explore(declarations,bindings);
-	}
-};
+
+
 
 class WhileStatement : public Statement {
 	protected:
