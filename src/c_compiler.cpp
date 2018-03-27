@@ -69,8 +69,8 @@ int main(int argc, char *argv[]){
 		
 		Registers regs;
 		Context fake;
-		std::string foo = "NULL";
-		ast->compile(fileDest,fake,regs,foo); // needs work
+		std::string foo = "NULL"; // destReg and returnLoc both invalid right now
+		ast->compile(fileDest,fake,regs,foo,foo); // needs work
 	}
 	
 	else{

@@ -22,7 +22,7 @@ class Identifier : public Expression {	//If we can figure out how Variable works
 			std::cerr<<"_____primID2_____"<<std::endl;
 		}
 
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			//std::cerr<<"Here is error"<<std::endl;
 			dst<<"lw "<<destReg<<", "<<bindings.getOffset(id)<<"($fp)"<<std::endl;
 		}
@@ -48,7 +48,7 @@ class IntLiteral : public Expression {
 			dst<<value;
 			std::cerr<<"_____primINT2_____"<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			std::cerr<<"IntLiteral"<<std::endl;
 
 			dst<<"li "<<destReg<<", "<<value<<std::endl;;

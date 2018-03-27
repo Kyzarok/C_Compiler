@@ -60,7 +60,7 @@ class DeclLocal : public Declaration{
 			}
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			//need to specify an open register for the new variable
 			//need to use addi or addiu
 			//reserve reg
@@ -68,7 +68,7 @@ class DeclLocal : public Declaration{
 				int tmp = regs.EmptyRegister();
 				regs.ReserveRegister(tmp);
 				destReg = "$"+std::to_string(tmp);
-				value->compile(dst, bindings, regs, destReg);
+				value->compile(dst, bindings, regs, destReg,returnLoc);
 				dst<<std::endl;
 				std::cerr<<bindings.getOffset(var_id)<<std::endl;
 				dst<<"sw "<<destReg<<","<<bindings.getOffset(var_id)<<"($fp)"<<std::endl;
@@ -119,13 +119,13 @@ class DeclList : public Declaration{
 			current->translate(dst,indent);
 			std::cerr<<"_____declLIST3_____"<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			if(next!=NULL){
 
-			next->compile(dst,bindings,regs,destReg);
+			next->compile(dst,bindings,regs,destReg,returnLoc);
 
 			}
-			current->compile(dst,bindings,regs,destReg);
+			current->compile(dst,bindings,regs,destReg,returnLoc);
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			if(next!=NULL){
@@ -187,12 +187,12 @@ class DeclGlobal : public Node{
 			}
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			//choose an empty register
 			//use empty register to assign value
 			//will use $28 for now as "global pointer"
 			/*dst<<"li $28,";
-			value->compile(dst, bindings, regs,destReg);
+			value->compile(dst,bindings,regs,destReg,returnLoc);
 			dst<<std::endl;*/
 			std::cerr<<"Not implemented"<<std::endl;
 		}
@@ -268,16 +268,16 @@ class CompoundStatement : public Node{
 			}
 		}
 		//each compile construction will require a context for itself
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			
 			std::cerr<<"Testing, dump bindings"<<std::endl;
 			varb_bindings->dumpTable();
 			bindings = *varb_bindings;
 			if(dref!=NULL){
-				dref->compile(dst, bindings, regs,destReg);
+				dref->compile(dst,bindings,regs,destReg,returnLoc);
 			}
 			if(sref!=NULL){
-				sref->compile(dst, bindings, regs,destReg);
+				sref->compile(dst,bindings,regs,destReg,returnLoc);
 			}
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{

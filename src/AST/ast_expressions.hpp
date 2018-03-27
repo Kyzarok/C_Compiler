@@ -28,12 +28,12 @@ class AssignmentExpression : public Expression{ // ie for EXPRESSION = EXPRESSIO
 			value->translate(dst,indent);
 			dst << " )";
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {	 
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {	 
 			
 			int tmp = regs.EmptyRegister();
 			regs.ReserveRegister(tmp);
 			destReg = "$" + std::to_string(tmp);
-			value->compile(dst, bindings, regs, destReg);
+			value->compile(dst, bindings, regs, destReg,returnLoc);
 			dst<<"sw "<<destReg<<","<<bindings.getOffset(target)<<"($fp)"<<std::endl;
 			destReg = "NULL";
 			regs.ReleaseRegister(tmp);
@@ -65,7 +65,7 @@ class FunctionCall : public Expression{
 			}
 			dst<<" )";
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			std::cerr<<"Function Call not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -93,7 +93,7 @@ class VarList : public Node{
 			}
 			dst<<current;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			std::cerr<<"Varlist not implemented"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
@@ -142,13 +142,13 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 	
-		left->compile(dst,bindings,regs,destReg);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"addu "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -182,12 +182,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"sub "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -221,13 +221,13 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		// we only support 32 bit integers. We can safely discard the upper half registers
-		left->compile(dst,bindings,regs,destReg);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"MULT	"<<destReg<<", "<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 		dst<<"NOP"<<std::endl; //multiplication takes multiple clock cycles?
@@ -265,13 +265,13 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		// we only support integers
-		left->compile(dst,bindings,regs,destReg);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"DIV	"<<destReg<<", "<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 		dst<<"NOP"<<std::endl; //division takes multiple clock cycles?
@@ -316,7 +316,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
@@ -326,8 +326,8 @@ public:
 		std::string Reg1 = "$" + std::to_string(tmp1);
 		std::string Reg2 = "$" + std::to_string(tmp2);
 		
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		dst<<"slt	"<<Reg2<<", "<<destReg<<", "<<Reg1<<std::endl;
 		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
 		
@@ -371,12 +371,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"sub "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -414,7 +414,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 		int tmp2 = regs.EmptyRegister();
@@ -423,8 +423,8 @@ public:
 		std::string Reg1 = "$" + std::to_string(tmp1);
 		std::string Reg2 = "$" + std::to_string(tmp2);
 		
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		
 		dst<<"sltu	"<<Reg2<<",$0,"<<destReg<<std::endl;
 		dst<<"sltu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
@@ -467,7 +467,7 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 		int tmp2 = regs.EmptyRegister();
@@ -476,8 +476,8 @@ public:
 		std::string Reg1 = "$" + std::to_string(tmp1);
 		std::string Reg2 = "$" + std::to_string(tmp2);
 		
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		
 		dst<<"sltu	"<<Reg2<<",$0,"<<destReg<<std::endl;
 		dst<<"sltu	"<<Reg1<<",$0,"<<Reg1<<std::endl;
@@ -521,8 +521,8 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		right->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		right->compile(dst,bindings,regs,destReg,returnLoc);
 		dst<<"slt "<<destReg<<", "<<"$0, "<<destReg<<std::endl;
 		dst<<"xori "<<destReg<<", "<<destReg<<", 1"<<std::endl;
 		
@@ -561,15 +561,15 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 
 		
 		std::string Reg1 = "$" + std::to_string(tmp1);
 		
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
 		
 		dst<<"move "<<destReg<<", "<<Reg1<<std::endl;
@@ -610,14 +610,14 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 		
 		std::string Reg1 = "$" + std::to_string(tmp1);
 		
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		dst<<"slt	"<<Reg1<<", "<<destReg<<", "<<Reg1<<std::endl;
 		
 		dst<<"move "<<destReg<<", "<<Reg1<<std::endl;
@@ -657,12 +657,12 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 		std::string Reg1 = "$" + std::to_string(tmp1);
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		dst<<"slt	"<<Reg1<<", "<<destReg<<", "<<Reg1<<std::endl;
 		dst<<"xori "<<Reg1<<", "<<Reg1<<", 0x1"<<std::endl;
 		dst<<"andi "<<destReg<<", "<<Reg1<<", 0xff"<<std::endl;
@@ -702,12 +702,12 @@ public:
 		right->translate(dst,indent);
 		dst << " )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		int tmp1 = regs.EmptyRegister();
 		regs.ReserveRegister(tmp1);
 		std::string Reg1 = "$" + std::to_string(tmp1);
-		left->compile(dst,bindings,regs,destReg);
-		right->compile(dst,bindings,regs,Reg1);
+		left->compile(dst,bindings,regs,destReg,returnLoc);
+		right->compile(dst,bindings,regs,Reg1,returnLoc);
 		dst<<"slt	"<<Reg1<<", "<<Reg1<<", "<<destReg<<std::endl;
 		dst<<"xori "<<Reg1<<", "<<Reg1<<", 0x1"<<std::endl;
 		dst<<"andi "<<destReg<<", "<<Reg1<<", 0xff"<<std::endl;
@@ -744,12 +744,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"and "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -782,12 +782,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"or "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -818,8 +818,8 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		right->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		right->compile(dst,bindings,regs,destReg,returnLoc);
 		dst<<"nor "<<destReg<<","<<destReg<<","<<destReg<<std::endl;
 	}
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -851,12 +851,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}	
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"xor "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -889,12 +889,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"sll "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}
@@ -926,12 +926,12 @@ public:
 		right->translate(dst,indent);
 		dst<<" )";
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
-		left->compile(dst,bindings,regs,destReg);
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		left->compile(dst,bindings,regs,destReg,returnLoc);
 		int tmp = regs.EmptyRegister();
 		regs.ReserveRegister(tmp);
 		std::string rightReg = "$" + std::to_string(tmp);
-		right->compile(dst,bindings,regs,rightReg);
+		right->compile(dst,bindings,regs,rightReg, returnLoc);
 		dst<<"sra "<<destReg<<","<<destReg<<","<<rightReg<<std::endl;
 		regs.ReleaseRegister(tmp);
 	}

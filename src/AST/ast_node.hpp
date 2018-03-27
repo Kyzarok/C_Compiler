@@ -49,7 +49,13 @@ public:
 
 	virtual void translate(std::ostream &dst, int indent) const =0;
 	
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const =0; // will also need to take arguments by reference of type registers and context, its just the context will be empty until it finds an existing context.
+	
+	//return loc is a string of where to jump to if return called.
+	//dst is the output stream
+	//bindings starts empty, contains the bindings that you are aware of
+	//regs is the register status
+	//destReg starts "NULL" - its where to put the output
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const =0; // will also need to take arguments by reference of type registers and context, its just the context will be empty until it finds an existing context.
 
 	virtual void explore(int & declarations, Context & bindings)const=0; // will also need to take argument by reference of type context, so that context can propegate through
 

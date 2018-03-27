@@ -34,12 +34,12 @@ class ExpressionStatement : public Statement {
 			std::cerr<<"_____stateEXPR2_____"<<std::endl;
 			dst<<std::endl;
 		}
-		/*virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override{
-			expr->compile(dst, bindings, regs,destReg);
+		/*virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override{
+			expr->compile(dst,bindings,regs,destReg,returnLoc);
 		}*/
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			
-			expr->compile(dst, bindings, regs,destReg);
+			expr->compile(dst,bindings,regs,destReg,returnLoc);
 		}		
 		virtual void explore(int & declarations, Context & bindings) const override{
 			std::cerr<<"An expression statement can't contain a declaration, stopping"<<std::endl;
@@ -71,11 +71,13 @@ class ReturnStatement : public Statement { // added 28/02/18. I think this is th
 			std::cerr<<"_____stateRETURN2_____"<<std::endl;
 			dst<<std::endl;
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override{
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override{
 			std::cerr<<"Returning in compile"<<std::endl;
 			destReg="$2";
 			regs.ReserveRegister(2);
-			ret->compile(dst, bindings, regs, destReg);
+			ret->compile(dst, bindings, regs, destReg,returnLoc);
+			dst<<"j "<<returnLoc<<std::endl;
+			dst<<"nop"<<std::endl;
 			std::cerr<<"YO"<<std::endl;
 			regs.ReleaseRegister(2);
 			destReg="NULL";
@@ -124,11 +126,11 @@ class StatementList : public Statement
 		current->translate(dst,indent);
 		std::cerr<<"_____stateLIST3_____"<<std::endl;
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override{
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override{
 		if(next!=NULL){
-			next->compile(dst, bindings, regs,destReg);
+			next->compile(dst,bindings,regs,destReg,returnLoc);
 		}
-		current->compile(dst, bindings, regs,destReg);
+		current->compile(dst,bindings,regs,destReg,returnLoc);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
@@ -168,7 +170,7 @@ public:
 		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		std::cerr<<"If Statement not fully implemented"<<std::endl;
 		int x = unique_name;
 		unique_name++;
@@ -177,7 +179,7 @@ public:
 		int y = regs.EmptyRegister(); // number of first free register
 		regs.ReserveRegister(y); // mark register as used
 		std::string condReg = "$"+std::to_string(y);
-		condition->compile(dst,bindings,regs,condReg); // compile the condition, get the result into condReg
+		condition->compile(dst,bindings,regs,condReg,returnLoc); // compile the condition, get the result into condReg
 		dst<<"BNE	$0, "<<condReg<<", "<<if_s<<std::endl; //If cond not zero, branch to body
 		regs.ReleaseRegister(y);
 		dst<<"NOP"<<std::endl;
@@ -185,7 +187,7 @@ public:
 		dst<<"NOP"<<std::endl;
 		dst<<std::endl;
 		dst<<if_s<<":"<<std::endl;
-		body->compile(dst,bindings,regs,destReg);
+		body->compile(dst,bindings,regs,destReg,returnLoc);
 		dst<<"b	"<<if_f<<std::endl;
 		dst<<"NOP"<<std::endl;
 		dst<<std::endl;
@@ -226,10 +228,10 @@ class IfElseStatement : public Statement{
 			body_t->explore(declarations,bindings);
 			body_f->explore(declarations,bindings);
 		}
-		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 			std::cerr<<"IFELSE not fully implemented"<<std::endl;
-			body_t->compile(dst, bindings, regs,destReg);
-			body_f->compile(dst, bindings, regs,destReg);
+			body_t->compile(dst,bindings,regs,destReg,returnLoc);
+			body_f->compile(dst,bindings,regs,destReg,returnLoc);
 		}
 };
 
@@ -252,7 +254,7 @@ public:
 		body->translate(dst, indent+4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		std::cerr<<"Not implemented"<<std::endl;
 	}
 	
@@ -285,9 +287,9 @@ public:
 		body->translate(dst, indent + 4);
 		dst << std::endl;
 	}
-	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg) const override {
+	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
 		std::cerr<<"Not implemented"<<std::endl;
-		body->compile(dst, bindings, regs,destReg);
+		body->compile(dst,bindings,regs,destReg,returnLoc);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
