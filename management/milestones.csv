@@ -17,5 +17,6 @@ CompilationPrep,None,2,Ed,a2dd17fbd51f476a31f4596c51ffefd84114482e,"Get ground w
 MinimalCompilation,"WriteCompleteAST, WriteCompleteParser",8,Ed,6beed8537244383e53c98aa4b9daa2870948d11e,"Get basic structure for compilation working, be able to compile int x(){return 3;} - this doesn’t need new backend "
 BasicCompilation,MinimalCompilation,6,Ed,88dac627280780e9c95b155b8bc137945b60e4c6,Add support to variable declarations and basic maths
 AllOperatorCompilation,BasicCompilation,2,Kai,f52d85023ef73d15f07bf38ea9578ce5f9b78346,Add support for all operators in our AST
-FlowCompilation,AllOperatorCompilation,3,Ed,,"Add support for flow control (if, else, etc)"
-FullCompilation,FlowCompilation,3,Ed,,"Add support for remaining things in AST. If we have time, add more to AST then suppor that too"
+FlowCompilation,AllOperatorCompilation,3,Ed,7efa43b16bd01b92088e6a668426335dbf444851,"Add support for flow control (if, else, etc)"
+GlobsAndCallsFunction,FlowCompilation,3,Ed,76fbe4733534c9cc70814d2946694de5fae1689f,Add support for function calls and global variables
+FullCompilation,GlobsAndCallsFunction,3,Ed,,"Add support for remaining things in AST. If we have time, add more to AST then suppor that too"

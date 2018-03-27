@@ -7,4 +7,4 @@ Week,    DateRange,          PlannedEffort,ActualEffort,  OtherDeadlines
 9,  5th Mar - 11th Mar,"WriteASTForBasicProgram,WriteParserFileForBasicPrograms, MinimalPython Compiler, DebugBasicParser/AST/Lexer","WriteASTForBasicProgram,WriteParserFileForBasicPrograms,DebugBasicParser/AST/Lexer",
 10, 12th Mar - 18th Mar,"MinimalPythonCompiler, WriteCompleteAST, WriteCompleteParser, Python Converter","MinimalPythonCompiler, WriteCompleteAST, WriteCompleteParser, Python Converter",
 11, 19th Mar - 25th Mar,"CompilationPrep,MinimalCompilation,BasicCompilation","CompilationPrep,MinimalCompilation,BasicCompilation",Maths Coursework
-12, 26th Mar - 30th Mar,"AllOperatorCompilation,FlowCompilation,FullCompilation",AllOperatorCompilation,Due 30th
+12, 26th Mar - 30th Mar,"AllOperatorCompilation,FlowCompilation,GlobsAndCallsFunction,FullCompilation","AllOperatorCompilation,FlowCompilation,GlobsAndCallsFunction",Due 30th
