@@ -171,25 +171,24 @@ public:
 		dst << std::endl;
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-		std::cerr<<"If Statement not fully implemented"<<std::endl;
 		int x = unique_name;
 		unique_name++;
-		std::string if_s = "$if_s"+std::to_string(x); // start of body
+		std::string if_t = "$if_s"+std::to_string(x); // start of body
 		std::string if_f = "$if_f"+std::to_string(x); // end of body
 		int y = regs.EmptyRegister(); // number of first free register
 		regs.ReserveRegister(y); // mark register as used
 		std::string condReg = "$"+std::to_string(y);
 		condition->compile(dst,bindings,regs,condReg,returnLoc); // compile the condition, get the result into condReg
-		dst<<"BNE	$0, "<<condReg<<", "<<if_s<<std::endl; //If cond not zero, branch to body
+		dst<<"bne	$0, "<<condReg<<", "<<if_t<<std::endl; //If cond not zero, branch to body
 		regs.ReleaseRegister(y);
-		dst<<"NOP"<<std::endl;
+		dst<<"nop"<<std::endl;
 		dst<<"b	"<<if_f<<std::endl;
-		dst<<"NOP"<<std::endl;
+		dst<<"nop"<<std::endl;
 		dst<<std::endl;
-		dst<<if_s<<":"<<std::endl;
+		dst<<if_t<<":"<<std::endl;
 		body->compile(dst,bindings,regs,destReg,returnLoc);
 		dst<<"b	"<<if_f<<std::endl;
-		dst<<"NOP"<<std::endl;
+		dst<<"nop"<<std::endl;
 		dst<<std::endl;
 		dst<<if_f<<":"<<std::endl;
 	}
@@ -229,9 +228,30 @@ class IfElseStatement : public Statement{
 			body_f->explore(declarations,bindings);
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"IFELSE not fully implemented"<<std::endl;
+			
+			int x = unique_name;
+			unique_name++;
+			std::string if_t = "$if_t"+std::to_string(x); // if true
+			std::string if_e = "$else"+std::to_string(x); // else
+			std::string if_f = "$if_fin"+std::to_string(x); // finish	
+			int y = regs.EmptyRegister(); // number of first free register
+			regs.ReserveRegister(y); // mark register as used
+			std::string condReg = "$"+std::to_string(y);
+			condition->compile(dst,bindings,regs,condReg,returnLoc); // compile the condition, get the result into condReg
+			dst<<"bne	$0, "<<condReg<<", "<<if_t<<std::endl; //If cond not zero, branch to body
+			regs.ReleaseRegister(y);
+			dst<<"nop"<<std::endl;
+			dst<<"b	"<<if_e<<std::endl;
+			dst<<"nop"<<std::endl;
+			dst<<if_t<<":"<<std::endl;
 			body_t->compile(dst,bindings,regs,destReg,returnLoc);
+			dst<<"b	"<<if_f<<std::endl;
+			dst<<"nop"<<std::endl;
+			dst<<if_e<<":"<<std::endl;
 			body_f->compile(dst,bindings,regs,destReg,returnLoc);
+			dst<<"b	"<<if_f<<std::endl;
+			dst<<"nop"<<std::endl;
+			dst<<if_f<<":"<<std::endl;
 		}
 };
 
