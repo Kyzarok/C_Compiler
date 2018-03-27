@@ -170,7 +170,7 @@ class Registers{ // contains useful info about registers
 		}
 		int EmptyRegister(){
 		//return an unused register in valid range(figure that out). If none available, return -1 I guess
-			for(int i= 2;i<=25;i++){
+			for(int i= 8;i<=25;i++){
 				if(!register_used[i]){
 					return i;
 				}

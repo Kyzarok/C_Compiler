@@ -98,7 +98,37 @@ class FunctionCall : public Expression{
 			dst<<" )";
 		}
 		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-			std::cerr<<"Function Call not implemented"<<std::endl;
+			std::cerr<<"Function Call not fully implemented"<<std::endl;
+			
+			//store the necassary registers. I need to save 19. 19*4=76
+			dst<<"addiu $fp, $fp, -88"<<std::endl;
+			int offset =8;
+			for(int i = 8;i<=25;i++){
+				dst<<"sw $"<<i<<", "<<offset<<"($fp)"<<std::endl;
+				offset=offset+4;
+			}
+			dst<<"sw $31, 4($fp)"<<std::endl;
+			//call function
+			
+			dst<<"jal "<<id<<std::endl;
+			dst<<"nop"<<std::endl;
+			
+			
+			//recover stuff
+			
+			dst<<"lw $31, 4($fp)"<<std::endl;
+			offset =8;
+			for(int i = 8;i<=25;i++){
+				
+				dst<<"lw $"<<i<<", "<<offset<<"($fp)"<<std::endl;
+				offset=offset+4;
+			}
+			
+			//put function output (reg2) into destReg
+			
+			dst<<"move "<<destReg<<",$2"<<std::endl;
+			//restore fp
+			dst<<"addiu $fp, $fp, 88"<<std::endl;
 		}
 		virtual void explore(int & declarations, Context & bindings) const override{
 			
