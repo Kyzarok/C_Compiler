@@ -252,9 +252,10 @@ class IfElseStatement : public Statement{
 			dst<<"b	"<<if_f<<std::endl;
 			dst<<"nop"<<std::endl;
 			dst<<if_f<<":"<<std::endl;
+			
 		}
 };
-
+//figure out where else this class is used and remove
 class ElseStatement : public Statement {
 protected:
 	NodePtr body; // actually a statement list, the body of the if
@@ -275,7 +276,15 @@ public:
 		dst << std::endl;
 	}
 	virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
-		std::cerr<<"Not implemented"<<std::endl;
+		std::cerr<<"While not fully implemented/tested"<<std::endl;
+		int x = unique_name;
+		unique_name++;
+		std::string if_t = "$if_t"+std::to_string(x); // if true
+		std::string if_e = "$else"+std::to_string(x); // else
+		std::string if_f = "$if_fin"+std::to_string(x); // finish	
+		int y = regs.EmptyRegister(); // number of first free register
+		regs.ReserveRegister(y); // mark register as used
+		std::string condReg = "$"+std::to_string(y);
 	}
 	
 	virtual void explore(int & declarations, Context & bindings) const override{
