@@ -20,8 +20,10 @@ class Context{ // contains a map, key is string, stored is string. Maps variable
 	*/
 	
 	protected:
+		//in retrospect, structs
 		std::map<std::string, std::string>  conReg;
 		std::map<std::string, int> conOffset;
+		
 		int nextOffset;
 
 	public:
