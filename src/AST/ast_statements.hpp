@@ -141,7 +141,27 @@ class StatementList : public Statement
 	}
 };
 
+class ScopeStatement : public Statement{
 
+	protected:
+		NodePtr body; 	/* a scope statement is just a pointer to a compound statement really. comp statement is a node, so can't directly slot into StatementList without more work
+							and I don't want to to run the risk of breaking things at this stage.
+							*/
+	public:
+		ScopeStatement(NodePtr _body) :body(_body){}
+		virtual void print(std::ostream &dst) const override {std::cerr<<"Not implemented for ScopeStatement"<<std::endl;}
+		virtual void translate(std::ostream &dst, int indent) const override {std::cerr<<"By the spec, Python doesn't need to deal with nested scopes"<<std::endl;}
+		virtual void compile(std::ostream &dst, Context & bindings, Registers & regs, std::string destReg, std::string returnLoc) const override {
+		
+			body->compile(dst,bindings,regs,destReg,returnLoc); // nothing fancy, just compile the compound statement I point to
+			
+		}
+		virtual void explore(int & declarations, Context & bindings) const override{
+		
+			body->explore(declarations,bindings); // just explore the compount statement
+		
+		}
+};
 
 
 class IfStatement : public Statement {
