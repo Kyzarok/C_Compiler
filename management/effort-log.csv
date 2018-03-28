@@ -25,3 +25,4 @@ Date,Effort,Developers,Milestones
 25/03/2018,6,"Ed, Kai","CompilationPrep,MinimalCompilation,BasicCompilation"
 26/03/2018,7,"Ed, Kai","AllOperatorCompilation,FlowCompilation"
 27/03/2018,6.5,"Ed, Kai","FlowCompilation,GlobsAndCallsFunction"
+'28/03/2018,2,Ed,FinalTweaks

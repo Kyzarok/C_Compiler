@@ -19,4 +19,5 @@ BasicCompilation,MinimalCompilation,6,Ed,88dac627280780e9c95b155b8bc137945b60e4c
 AllOperatorCompilation,BasicCompilation,2,Kai,f52d85023ef73d15f07bf38ea9578ce5f9b78346,Add support for all operators in our AST
 FlowCompilation,AllOperatorCompilation,3,Ed,7efa43b16bd01b92088e6a668426335dbf444851,"Add support for flow control (if, else, etc)"
 GlobsAndCallsFunction,FlowCompilation,3,Ed,76fbe4733534c9cc70814d2946694de5fae1689f,Add support for function calls and global variables
-FullCompilation,GlobsAndCallsFunction,3,Ed,,"Add support for remaining things in AST. If we have time, add more to AST then suppor that too"
+FullCompilation,GlobsAndCallsFunction,3,Ed,,"Add support for remaining things in AST. If we have time, add more to AST then support that too. NB- Full AST does not compile, notably functions with parameters are unsupported"
+FinalTweaks,None,2,Ed,,"Final tweaks and debugging. Check that management is correct, run sanity.sh on this commit, do manual debugging on important examples"
